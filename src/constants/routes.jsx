@@ -30,39 +30,57 @@ const client_token = sessionStorage.getItem("doctors-token");
 export const ADMIN = [
   {
     path: "/admin",
+    title: "AdminDashboard",
     element: admin_token ? <AdminDashboard /> : <Login />,
+    icon: <span className="fa-solid fa-house" />,
   },
   {
     path: "/admin/news",
+    title: "News",
     element: admin_token ? <AdminNews /> : <Login />,
+    icon: <span className="fa-solid fa-newspaper" />,
   },
   {
     path: "/admin/events",
+    title: "AdminEvents",
     element: admin_token ? <AdminEvents /> : <Login />,
+    icon: <span className="fa-solid fa-calendar-days" />,
   },
   {
     path: "/admin/users",
+    title: "AdminUsers",
     element: admin_token ? <AdminUsers /> : <Login />,
+    icon: <span className="fa-solid fa-user" />,
   },
   {
     path: "/admin/video-materials",
+    title: "Video-materials",
     element: admin_token ? <AdminVideos /> : <Login />,
+    icon: <span className="fa-solid fa-video" />,
   },
   {
     path: "/admin/articles",
+    title: "AdminArticles",
     element: admin_token ? <AdminArticles /> : <Login />,
+    icon: <span className="fa-solid fa-paperclip" />,
   },
   {
     path: "/admin/library",
+    title: "AdminLibrary",
     element: admin_token ? <AdminLibrary /> : <Login />,
+    icon: <span className="fa-solid fa-book" />,
   },
   {
     path: "/admin/speakers",
+    title: "AdminSpeakers",
     element: admin_token ? <AdminSpeakers /> : <Login />,
+    icon: <span className="fa-solid fa-bullhorn" />,
   },
   {
     path: "/admin/partners",
+    title: "Partners",
     element: admin_token ? <AdminPartners /> : <Login />,
+    icon: <span className="fa-solid fa-handshake" />,
   },
 ];
 
