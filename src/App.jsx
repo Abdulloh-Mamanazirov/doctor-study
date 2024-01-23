@@ -4,21 +4,19 @@ import { Admin, Client } from "./router";
 
 function App() {
   const { pathname } = useLocation();
-  const [routes, setRoutes] = useState();
   const admin_token = sessionStorage.getItem("doctors-admin-token");
+  const [routes, setRoutes] = useState();
 
   useEffect(() => {
     if (pathname.startsWith("/admin") && admin_token) {
-      setRoutes(Admin);
+      setRoutes(<Admin />);
     } else if (pathname.startsWith("/admin") && !admin_token) {
       sessionStorage.clear();
       window.location.replace("/login");
+    } else {
+      setRoutes(<Client />);
     }
-
-    if (!pathname.startsWith("/admin")) {
-      setRoutes(Client);
-    }
-  }, [pathname]);
+  }, [pathname, admin_token]);
 
   return <>{routes}</>;
 }
