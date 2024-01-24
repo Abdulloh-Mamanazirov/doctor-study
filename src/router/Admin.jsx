@@ -1,5 +1,6 @@
+import { Burger, Button } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
 import React, { useState } from "react";
-import { Button, Burger, VisuallyHidden } from "@mantine/core";
 import {
   NavLink,
   Route,
@@ -9,7 +10,6 @@ import {
 } from "react-router-dom";
 import { Logo_text } from "../assets/images";
 import { ADMIN } from "../constants";
-import { useDisclosure } from "@mantine/hooks";
 
 const Admin = () => {
   const location = useLocation();
