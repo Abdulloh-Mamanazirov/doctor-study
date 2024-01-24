@@ -13,12 +13,11 @@ import { useDisclosure } from "@mantine/hooks";
 
 const Admin = () => {
   const location = useLocation();
-  const [opened, { toggle }] = useDisclosure();
+  const [opened, { toggle }, close] = useDisclosure();
   const [burgerMenuOpen, setBurgerMenuOpen] = useState(false);
 
   const isMenuItemActive = (path) => {
     const isActive = location.pathname === path;
-    console.log(`Path: ${path}, isActive: ${isActive}`);
     return isActive;
   };
 
@@ -32,6 +31,9 @@ const Admin = () => {
     }
   };
 
+  function handleCancel() {
+    setBurgerMenuOpen(false);
+  }
   return (
     <div className="flex">
       <div className={`w-72 border-r h-screen pt-8 md:block hidden`}>
@@ -43,17 +45,31 @@ const Admin = () => {
             <NavLink
               to={Menu.path}
               key={index}
-              className={`flex rounded-md p-2 cursor-pointer items-center ${
-                isMenuItemActive(Menu.path) ? "activeButton" : "default"
-              }`}
+              className={`flex rounded-md p-2 cursor-pointer items-center`}
             >
               <Button
                 fullWidth
                 variant="default"
-                // className={}
+                style={{
+                  backgroundColor: isMenuItemActive(Menu.path)
+                    ? "tomato"
+                    : "whitesmoke",
+                }}
               >
-                <span className="text-xl">{Menu.icon}</span>
-                <p className="text-xl font-semibold pl-4">{Menu.title}</p>
+                <span
+                  className={`text-xl ${
+                    isMenuItemActive(Menu.path) ? "text-white" : "text-black"
+                  }`}
+                >
+                  {Menu.icon}
+                </span>
+                <p
+                  className={`text-xl font-semibold pl-4 ${
+                    isMenuItemActive(Menu.path) ? "text-white" : "text-black"
+                  }`}
+                >
+                  {Menu.title}
+                </p>
               </Button>
             </NavLink>
           ))}
@@ -95,16 +111,40 @@ const Admin = () => {
                 <NavLink
                   to={Menu.path}
                   key={index}
-                  className={`flex rounded-md p-2 cursor-pointer items-center ${
-                    isMenuItemActive(Menu.path) ? "activeButton" : ""
-                  }`}
+                  className={`flex rounded-md p-2 cursor-pointer items-center`}
+                  onClick={handleCancel} // Add onClick handler here
                 >
-                  <Button fullWidth variant="default">
-                    <span className="text-xl">{Menu.icon}</span>
-                    <p className="text-xl font-semibold pl-4">{Menu.title}</p>
+                  <Button
+                    fullWidth
+                    variant="default"
+                    style={{
+                      backgroundColor: isMenuItemActive(Menu.path)
+                        ? "tomato"
+                        : "whitesmoke",
+                    }}
+                  >
+                    <span
+                      className={`text-xl ${
+                        isMenuItemActive(Menu.path)
+                          ? "text-white"
+                          : "text-black"
+                      }`}
+                    >
+                      {Menu.icon}
+                    </span>
+                    <p
+                      className={`text-xl font-semibold pl-4 ${
+                        isMenuItemActive(Menu.path)
+                          ? "text-white"
+                          : "text-black"
+                      }`}
+                    >
+                      {Menu.title}
+                    </p>
                   </Button>
                 </NavLink>
               ))}
+
               <Button
                 fullWidth
                 color="red"
