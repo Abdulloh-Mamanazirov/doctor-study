@@ -47,17 +47,18 @@ export default function index() {
             <Button color={"red"} fullWidth mt="xl" size="md" type="submit">
               Login
             </Button>
-
-            <Text ta="center" mt="md">
-              Don&apos;t have an account?{" "}
-              <Link
-                to={"/register"}
-                fw={700}
-                className="text-blue-500 font-semibold hover:underline"
-              >
-                Register
-              </Link>
-            </Text>
+            <div className="relative">
+              <Text ta="center" mt="md">
+                Don&apos;t have an account?{" "}
+                <Link
+                  to={"/register"}
+                  fw={700}
+                  className="text-primary-desc font-semibold hover:underline"
+                >
+                  Register
+                </Link>
+              </Text>
+            </div>
           </form>
         </div>
       </div>
