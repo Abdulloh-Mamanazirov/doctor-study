@@ -12,7 +12,7 @@ import {
 
 const index = () => {
   return (
-    <div className="mx-auto  flex min-h-[840px] min-w-full max-w-screen-lg flex-col gap-8 rounded-lg bg-white shadow-2xl md:container ">
+    <div className=" ">
       <div className="grid grid-cols-1 md-lg:grid-cols-1 lg:grid-cols-2 gap-2 mt-5">
         {new Array(8).fill("").map((item, index) => {
           return (

@@ -94,7 +94,7 @@ const Admin = () => {
       </div>
 
       <Burger
-        opened={toggle}
+        opened={burgerMenuOpen}
         className="md:hidden"
         onClick={() => setBurgerMenuOpen(!burgerMenuOpen)}
         aria-label="Toggle navigation"
