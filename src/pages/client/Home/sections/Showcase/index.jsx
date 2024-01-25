@@ -26,7 +26,7 @@ const Card = () => {
 
 const index = () => {
   return (
-    <div className="h-screen w-full bg-gradient-to-b from-red-800/50">
+    <div className="w-full bg-gradient-to-b from-red-800/50">
       <div className="pt-16">
         <h1 className="text-center text-5xl text-white font-bold leading-tight">
           Medical educational portal <br /> "DOCTOR-STUDY"
