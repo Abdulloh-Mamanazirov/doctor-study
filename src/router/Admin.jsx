@@ -34,6 +34,7 @@ const Admin = () => {
   function handleCancel() {
     setBurgerMenuOpen(false);
   }
+
   return (
     <div className="flex">
       <div className={`w-72 border-r h-screen pt-8 md:block hidden`}>
@@ -45,14 +46,14 @@ const Admin = () => {
             <NavLink
               to={Menu.path}
               key={index}
-              className={`flex rounded-md p-2 cursor-pointer items-center`}
+              className={`flex rounded-md p-2 cursor-pointer`}
             >
               <Button
                 fullWidth
                 variant="default"
                 style={{
                   backgroundColor: isMenuItemActive(Menu.path)
-                    ? "tomato"
+                    ? "red"
                     : "whitesmoke",
                 }}
               >
@@ -112,14 +113,14 @@ const Admin = () => {
                   to={Menu.path}
                   key={index}
                   className={`flex rounded-md p-2 cursor-pointer items-center`}
-                  onClick={handleCancel} // Add onClick handler here
+                  onClick={handleCancel}
                 >
                   <Button
                     fullWidth
                     variant="default"
                     style={{
                       backgroundColor: isMenuItemActive(Menu.path)
-                        ? "tomato"
+                        ? "red"
                         : "whitesmoke",
                     }}
                   >
