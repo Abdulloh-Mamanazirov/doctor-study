@@ -1,18 +1,17 @@
-import React from "react";
 import {
   Box,
   Button,
   FileInput,
   Modal,
-  NumberInput,
-  PillsInputField,
   TextInput,
-  Textarea,
+  Textarea
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
+import React from "react";
 
 const PostNews = () => {
   const [opened, { open, close }] = useDisclosure(false);
+  
   return (
     <div>
       <Modal
