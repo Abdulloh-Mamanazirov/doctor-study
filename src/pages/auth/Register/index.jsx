@@ -1,24 +1,41 @@
+import { Button, Text, TextInput, Title } from "@mantine/core";
+import axios from "axios";
 import React from "react";
-import {
-  Text,
-  Title,
-  Button,
-  Checkbox,
-  TextInput,
-  PasswordInput,
-} from "@mantine/core";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import RegisterInput from "./RegisterInput";
 
 const index = () => {
   async function handleSubmit(e) {
     e.preventDefault();
-    const { email, password } = e.target;
+    const { first_name, last_name, work_location, job, email, password } =
+      e.target.value;
+
     const data = {
+      first_name: first_name.value,
+      last_name: last_name.value,
+      work_location: work_location.value,
+      job: job.value,
       email: email.value,
       password: password.value,
     };
+
+    try {
+      const response = await axios.post(
+        "http://82.97.242.32:8081/api/v1/auth/register",
+        data
+      );
+
+      if (response.status === 200) {
+        toast.log("Registration successful");
+      } else {
+        toast.error("Registration failed");
+      }
+    } catch (error) {
+      toast.error("Error during registration:", error);
+    }
   }
+
   return (
     <div className="back relative min-h-screen">
       <div className="absolute inset-0 bg-black/30" />
