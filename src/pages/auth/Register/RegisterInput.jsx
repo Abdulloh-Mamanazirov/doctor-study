@@ -5,10 +5,15 @@ import {
   Group,
   Text,
   Center,
+  Button,
 } from "@mantine/core";
 import { useInputState } from "@mantine/hooks";
+import { useDispatch, useSelector } from "react-redux";
+import register, { setPassword } from "../../../redux/register";
 
 function PasswordRequirement({ label, meets }) {
+  const { register } = useSelector((state) => state);
+  console.log(register);
   return (
     <Text component="div" c={meets ? "teal" : "red"} mt={5} size="sm">
       <Center inline>
@@ -48,6 +53,7 @@ function getStrength(password) {
 
 export default function RegisterInput() {
   const [value, setValue] = useInputState("");
+  const dispatch = useDispatch();
   const strength = getStrength(value);
 
   const checks = requirements.map((requirement, index) => (
@@ -78,8 +84,8 @@ export default function RegisterInput() {
   return (
     <div>
       <PasswordInput
-        value={value}
-        onChange={setValue}
+        value={(value, register.password)}
+        onChange={(setValue, (e) => dispatch(setPassword(e.target.value)))}
         placeholder="Your password"
         label="Password"
         required

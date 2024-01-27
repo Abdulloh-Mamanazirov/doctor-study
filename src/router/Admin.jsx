@@ -22,12 +22,11 @@ const Admin = () => {
   };
 
   const LogoutComponent = () => {
-    const token = sessionStorage.clear("doctors-admin-token");
+    const token = sessionStorage.clear();
     const navigate = useNavigate();
 
     if (!token) {
-      navigate("/login");
-      window.location.reload();
+      window.location.replace("/login");
     }
   };
 

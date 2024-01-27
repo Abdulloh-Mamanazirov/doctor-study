@@ -1,8 +1,10 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import { Provider } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { Admin, Client } from "./router";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import {store} from "./redux/store";
+import { Admin, Client } from "./router";
 
 function App() {
   const { pathname } = useLocation();
@@ -19,10 +21,9 @@ function App() {
       setRoutes(<Client />);
     }
   }, [pathname, admin_token]);
-
   return (
     <>
-      {routes}
+      <Provider store={store}>{routes}</Provider>
       <ToastContainer />
     </>
   );

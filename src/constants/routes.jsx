@@ -30,7 +30,7 @@ const client_token = sessionStorage.getItem("doctors-token");
 export const ADMIN = [
   {
     path: "/admin",
-    title: "AdminDashboard",
+    title: "Dashboard",
     element: admin_token ? <AdminDashboard /> : <Login />,
     icon: <span className="fa-solid fa-house" />,
   },
@@ -42,13 +42,13 @@ export const ADMIN = [
   },
   {
     path: "/admin/events",
-    title: "AdminEvents",
+    title: "Events",
     element: admin_token ? <AdminEvents /> : <Login />,
     icon: <span className="fa-solid fa-calendar-days" />,
   },
   {
     path: "/admin/users",
-    title: "AdminUsers",
+    title: "Users",
     element: admin_token ? <AdminUsers /> : <Login />,
     icon: <span className="fa-solid fa-user" />,
   },
@@ -60,19 +60,19 @@ export const ADMIN = [
   },
   {
     path: "/admin/articles",
-    title: "AdminArticles",
+    title: "Articles",
     element: admin_token ? <AdminArticles /> : <Login />,
     icon: <span className="fa-solid fa-paperclip" />,
   },
   {
     path: "/admin/library",
-    title: "AdminLibrary",
+    title: "Library",
     element: admin_token ? <AdminLibrary /> : <Login />,
     icon: <span className="fa-solid fa-book" />,
   },
   {
     path: "/admin/speakers",
-    title: "AdminSpeakers",
+    title: "Speakers",
     element: admin_token ? <AdminSpeakers /> : <Login />,
     icon: <span className="fa-solid fa-bullhorn" />,
   },
