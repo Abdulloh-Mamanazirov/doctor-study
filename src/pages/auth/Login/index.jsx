@@ -1,51 +1,54 @@
-import React from "react";
-import axios from "axios";
 import {
-  Text,
-  Title,
   Button,
   Checkbox,
-  TextInput,
   PasswordInput,
-  LoadingOverlay,
+  Text,
+  TextInput,
+  Title,
 } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
+import axios from "axios";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-const global_url = "http://82.97.242.32:8081/api/auth/authenticate";
 
 export default function Index() {
-  const [visible, { toggle }] = useDisclosure(false);
+  const [loading, setLoading] = useState(false);
+  const [token, setToken] = useState("");
 
   async function handleSubmit(e) {
     e.preventDefault();
-    toggle(true);
+    setLoading(true);
     try {
       const { email, password } = e.target;
-      const response = await axios.post(global_url, {
-        username: email.value,
-        password: password.value,
-      });
-
-      if (response.data.success) {
+      const response = await axios
+        .post("http://82.97.242.32:8081/api/auth/authenticate", {
+          email: email.value,
+          password: password.value,
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+      if (response.data.access_token) {
+        setToken(response.data.access_token);
         toast.success("Authentication successful");
+        sessionStorage.setItem(
+          "doctors-admin-token",
+          response.data.access_token
+        );
       } else {
         toast.error("Authentication failed");
       }
     } catch (error) {
       toast.error("Error during authentication:", error);
-    } finally {
-      toggle(true);
     }
+  }
+
+  if (sessionStorage.getItem("doctors-admin-token")) {
+    return window.location.replace("/admin");
   }
 
   return (
     <div className="login-bg pt-20 md:pt-28">
-      <LoadingOverlay
-        visible={visible}
-        zIndex={1000}
-        overlayProps={{ radius: "sm", blur: 2 }}
-      />
       <div className="absolute inset-0 bg-black/30" />
       <div className="w-11/12 md:w-1/3 mx-auto z-20">
         <div>
