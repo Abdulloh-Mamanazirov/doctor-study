@@ -13,7 +13,8 @@ import register, { setPassword } from "../../../redux/register";
 
 function PasswordRequirement({ label, meets }) {
   const { register } = useSelector((state) => state);
-  console.log(register);
+  // const { createRegisterSlice } = useSelector((state) => console.log(state));
+  console.log(register.password);
   return (
     <Text component="div" c={meets ? "teal" : "red"} mt={5} size="sm">
       <Center inline>
@@ -85,7 +86,9 @@ export default function RegisterInput() {
     <div>
       <PasswordInput
         value={(value, register.password)}
-        onChange={(setValue, (e) => dispatch(setPassword(e.target.value)))}
+        onChange={(e) => {
+          dispatch(setPassword(e.target.value)), setValue(e.target.value);
+        }}
         placeholder="Your password"
         label="Password"
         required

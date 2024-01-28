@@ -1,9 +1,8 @@
+import React, { useState } from "react";
 import { Button, Text, TextInput, Title } from "@mantine/core";
 import axios from "axios";
-import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import RegisterInput from "./RegisterInput";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setEmail,
@@ -12,13 +11,18 @@ import {
   setLastName,
   setWorkLocation,
 } from "../../../redux/register";
+import RegisterInput from "./RegisterInput";
 
 const Index = () => {
   const dispatch = useDispatch();
   const { register } = useSelector((state) => state);
+  const navigate = useNavigate();
+  const [hiddenMessage, setHiddenMessage] = useState("salom");
+
   async function handleSubmit(e) {
     e.preventDefault();
-    const { first_name, last_name, work_location, job, email } = register;
+    const { first_name, last_name, work_location, job, password, email } =
+      register;
     const data = {
       first_name: first_name,
       last_name: last_name,
@@ -34,17 +38,19 @@ const Index = () => {
       );
 
       if (response.status === 200) {
-        toast.log("Registration successful");
-      } else {
-        toast.error("Registration failed");
+        toast.success("Registration successful yo can see email");
+        if (response.data.success) {
+          setHiddenMessage("See your email");
+        }
+        navigate("/login");
       }
     } catch (error) {
-      toast.error("Error during registration:", error);
+      toast.error("Error during see your email registration:", error);
     }
   }
 
   return (
-    <div className="back relative min-h-screen ">
+    <div className="back relative min-h-screen">
       <div className="absolute inset-0 bg-black/30" />
       <div className="bg-white/50  backdrop-blur-md   rounded-md w-11/12 md:w-1/4 mx-auto z-20 relative md:top-10">
         <form onSubmit={handleSubmit} radius={0} className="m-3">
@@ -109,6 +115,11 @@ const Index = () => {
           <Button color={"red"} fullWidth mt="xl" size="md" type="submit">
             Register
           </Button>
+          {hiddenMessage && (
+            <Text ta="center" mt="md" color={"blue"}>
+              {hiddenMessage}
+            </Text>
+          )}
           <div className="relative">
             <Text ta="center" mt="md">
               Already have an account?{" "}
