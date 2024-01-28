@@ -13,8 +13,7 @@ import register, { setPassword } from "../../../redux/register";
 
 function PasswordRequirement({ label, meets }) {
   const { register } = useSelector((state) => state);
-  // const { createRegisterSlice } = useSelector((state) => console.log(state));
-  console.log(register.password);
+
   return (
     <Text component="div" c={meets ? "teal" : "red"} mt={5} size="sm">
       <Center inline>
