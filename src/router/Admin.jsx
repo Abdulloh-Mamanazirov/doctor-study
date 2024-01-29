@@ -5,8 +5,7 @@ import {
   NavLink,
   Route,
   Routes,
-  useLocation,
-  useNavigate,
+  useLocation
 } from "react-router-dom";
 import { Logo_text } from "../assets/images";
 import { ADMIN } from "../constants";

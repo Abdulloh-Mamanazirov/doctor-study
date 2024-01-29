@@ -4,9 +4,12 @@ import PostNews from "./PostNews";
 import SeeAll from "./SeeAll";
 import EditNews from "./EditNews";
 import DeleteNews from "./DeleteNews";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 function Index() {
   const [open, setOpen] = useState(false);
+  const [testimonial, setTestimonial] = useState([]);
 
   const handleBodyClick = () => {
     setOpen(true);
@@ -19,6 +22,22 @@ function Index() {
       document.body.removeEventListener("click", handleBodyClick);
     };
   }, []);
+
+  async function getData() {
+    await axios
+      .get("news")
+      .then((response) => {
+        setTestimonial(response.data);
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
+  }
+  useEffect(() => {
+    getData();
+  }, []);
+
+  console.log(testimonial, "test");
 
   return (
     <div>
