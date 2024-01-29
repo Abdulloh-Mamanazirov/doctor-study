@@ -17,7 +17,7 @@ const Index = () => {
   const dispatch = useDispatch();
   const { register } = useSelector((state) => state);
   const navigate = useNavigate();
-  const [hiddenMessage, setHiddenMessage] = useState("salom");
+  const [hiddenMessage, setHiddenMessage] = useState("");
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -50,9 +50,9 @@ const Index = () => {
   }
 
   return (
-    <div className="back relative min-h-screen">
+    <div className="register-bg pb-16 relative">
       <div className="absolute inset-0 bg-black/30" />
-      <div className="bg-white/50  backdrop-blur-md   rounded-md w-11/12 md:w-1/4 mx-auto z-20 relative md:top-10">
+      <div className="bg-white/50  backdrop-blur-md   rounded-md w-11/12 md:w-1/2 lg:w-1/3 mx-auto z-20 relative md:top-10">
         <form onSubmit={handleSubmit} radius={0} className="m-3">
           <Title order={2} ta="center" mt="md" p={10} mb={20}>
             Registration on the Doctor S portal!

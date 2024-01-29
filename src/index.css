@@ -9,9 +9,9 @@
   background-size: cover;
   background-repeat: no-repeat;
 }
-.back {
+.register-bg {
   margin-top: -16px;
-  background-attachment: scroll;
+  background-attachment: fixed;
   background-image: url(https://thumb.tildacdn.com/tild6432-3336-4166-a634-356139616663/-/format/webp/scott-graham-5fNmWej.jpg);
   background-repeat: no-repeat;
   background-size: cover;

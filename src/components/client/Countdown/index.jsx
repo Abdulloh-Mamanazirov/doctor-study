@@ -30,7 +30,7 @@ const Countdown = ({ startDate, title, timezone }) => {
 
   return (
     Object.keys(timeLeft).length > 0 && (
-      <div className="bg-stone-100 py-16">
+      <div className="py-16">
         <div className="text-center">
           <p className="text-xl text-primary-desc">
             Live broadcast of the event

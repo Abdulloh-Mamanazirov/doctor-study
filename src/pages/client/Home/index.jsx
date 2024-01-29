@@ -16,7 +16,7 @@ const index = () => {
       <div>
         <Partners />
       </div>
-      <div className="mt-16">
+      <div className="bg-stone-100 mt-16">
         <Countdown
           startDate={new Date("2024-12-31T00:00:00")}
           title={
