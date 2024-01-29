@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { Provider } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import {store} from "./redux/store";
+import { store } from "./redux/store";
 import { Admin, Client } from "./router";
 
 function App() {
@@ -21,6 +21,11 @@ function App() {
       setRoutes(<Client />);
     }
   }, [pathname, admin_token]);
+
+  useLayoutEffect(() => {
+    window.scroll({ left: 0, top: 0 });
+  }, [pathname]);
+
   return (
     <>
       <Provider store={store}>{routes}</Provider>
