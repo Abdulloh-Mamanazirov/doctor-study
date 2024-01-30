@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 
 function Index() {
   const [open, setOpen] = useState(false);
-  const [testimonial, setTestimonial] = useState([]);
+  const [data, setData] = useState([]);
 
   const handleBodyClick = () => {
     setOpen(true);
@@ -27,7 +27,7 @@ function Index() {
     await axios
       .get("news")
       .then((response) => {
-        setTestimonial(response.data);
+        setData(response.data);
       })
       .catch((error) => {
         toast.error(error.message);
@@ -37,7 +37,7 @@ function Index() {
     getData();
   }, []);
 
-  console.log(testimonial, "test");
+  console.log(data, "test");
 
   return (
     <div>

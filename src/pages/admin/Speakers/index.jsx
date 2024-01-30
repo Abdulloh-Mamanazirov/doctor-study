@@ -21,20 +21,9 @@ const index = () => {
       ...prevFormData,
       [name]: value,
     }));
+    
   };
-  async function getData() {
-    await axios
-      .get("speakers")
-      .then((response) => {
-        setData(response.data);
-      })
-      .catch((error) => {
-        toast.error(error.message);
-      });
-  }
-  useEffect(() => {
-    getData();
-  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -59,6 +48,19 @@ const index = () => {
       toast.error("error in created");
     }
   };
+  async function getData() {
+    await axios
+      .get("speakers")
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
+  }
+  useEffect(() => {
+    getData();
+  }, []);
 
   return (
     <div className=" md:mt-10">

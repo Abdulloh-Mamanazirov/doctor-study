@@ -1,44 +1,45 @@
-import React, { useState } from "react";
+import { Button, FileInput, Modal, TextInput, Textarea } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import {
-  Modal,
-  Button,
-  Input,
-  TextInput,
-  Textarea,
-  FileInput,
-} from "@mantine/core";
+import axios from "axios";
+import React, { useState } from "react";
 import { toast } from "react-toastify";
 
 const EditSpeakers = ({ getData, item }) => {
   const [opened, { open, close }] = useDisclosure(false);
   const [file, setFile] = useState();
+  const [image, setImage] = useState();
 
   const handleChange = (e) => {
     setFile(URL.createObjectURL(e.target.files[0]));
     setImage(e.target.files[0]);
   };
+
   const handleSubmit = async (values) => {
+    values.preventDefault();
     const formdataForSubmit = new FormData();
-    formdataForSubmit.append("fullName", values.fullName ?? data?.fullName);
+    formdataForSubmit.append("fullName", values.fullName ?? item?.fullName);
     formdataForSubmit.append(
       "description",
-      values.description ?? data?.description
+      values.description ?? item?.description
     );
     if (image) {
       formdataForSubmit.append("image", image);
     }
     try {
       const response = await axios.patch(
-        `speakers/${item?.id}`,
+        `/speakers/${item?.id}`,
         formdataForSubmit
       );
-      close();
-      getData();
+      if (response.status === 204) {
+        toast.dark("Edited SucsesFull!");
+        close();
+        getData();
+      }
     } catch (error) {
       toast.error("Error submitting news patch:", error);
     }
   };
+
   return (
     <div>
       <span
@@ -57,12 +58,13 @@ const EditSpeakers = ({ getData, item }) => {
             name="description"
             defaultValue={item.description}
           />
-          <FileInput
-            label="Edit Image"
+          <input
+            type="file"
             name="image"
+            className="file:cursor-pointer file:rounded-md file:bg-transparent file:px-5"
             onChange={handleChange}
-            placeholder="edit image"
           />
+          <img src={file} className="w-[400px] " />
           <Button color="cyan" type="submit" fullWidth mt={15}>
             Submit
           </Button>
