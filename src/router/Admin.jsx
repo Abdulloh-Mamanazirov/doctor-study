@@ -5,8 +5,7 @@ import {
   NavLink,
   Route,
   Routes,
-  useLocation,
-  useNavigate,
+  useLocation
 } from "react-router-dom";
 import { Logo_text } from "../assets/images";
 import { ADMIN } from "../constants";
@@ -23,7 +22,6 @@ const Admin = () => {
 
   const LogoutComponent = () => {
     const token = sessionStorage.clear();
-    const navigate = useNavigate();
 
     if (!token) {
       window.location.replace("/login");
@@ -40,20 +38,21 @@ const Admin = () => {
         <div className="flex gap-x-4 items-center">
           <img src={Logo_text} className={`cursor-pointer w-fit `} />
         </div>
-        <ul className="pt-6 ">
+        <ul className="pt-6 w-full">
           {ADMIN.map((Menu, index) => (
             <NavLink
               to={Menu.path}
               key={index}
-              className={`flex rounded-md p-2 cursor-pointer`}
+              className={`rounded-md p-2 cursor-pointer w-full block`}
             >
-              <Button
-                fullWidth
-                variant="default"
+              <button
+                className="border shadow-md flex items-center justify-start p-2 rounded-md"
                 style={{
                   backgroundColor: isMenuItemActive(Menu.path)
                     ? "red"
                     : "whitesmoke",
+                  width: "100%",
+                  textAlign: "left",
                 }}
               >
                 <span
@@ -70,7 +69,7 @@ const Admin = () => {
                 >
                   {Menu.title}
                 </p>
-              </Button>
+              </button>
             </NavLink>
           ))}
         </ul>
@@ -80,7 +79,7 @@ const Admin = () => {
           className="hidden items-center  bg-red-500 my-5 text-white xl:flex"
           onClick={LogoutComponent}
         >
-          <i className="fa-solid fa-arrow-left  items-center text-xl text-white" />
+          <span className="fa-solid fa-arrow-left  items-center text-xl text-white" />
           <p className="pl-5 text-xl  font-semibold"> Log out</p>
         </Button>
       </div>
