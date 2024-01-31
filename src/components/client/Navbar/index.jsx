@@ -236,8 +236,24 @@ export default function Navbar() {
           <Divider my="sm" />
 
           <Group justify="center" grow pb="xl" px="md">
-            <Button variant="default">Log in</Button>
-            <Button>Sign up</Button>
+            {client_token ? (
+              <Button color={"red"} onClick={handleLogOut}>
+                Log out
+              </Button>
+            ) : (
+              <div className="grid grid-cols-2 gap-3">
+                <Link to={"/login"} className="w-full focus:outline-none">
+                  <Button variant="default" fullWidth>
+                    Log in
+                  </Button>
+                </Link>
+                <Link to={"/register"} className="w-full focus:outline-none">
+                  <Button color={"red"} fullWidth>
+                    Sign up
+                  </Button>
+                </Link>
+              </div>
+            )}
           </Group>
         </ScrollArea>
       </Drawer>
