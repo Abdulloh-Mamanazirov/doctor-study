@@ -52,6 +52,7 @@ export default function Navbar() {
     useDisclosure(false);
   const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
   const theme = useMantineTheme();
+  const client_token = sessionStorage.getItem("doctors-token");
 
   const links = mockdata.map((item) => (
     <Link key={item.title} to={item.path}>
@@ -76,6 +77,11 @@ export default function Navbar() {
   useEffect(() => {
     closeDrawer();
   }, [pathname]);
+
+  function handleLogOut() {
+    sessionStorage.removeItem("doctors-token");
+    window.location.reload();
+  }
 
   return (
     <Box
@@ -144,12 +150,20 @@ export default function Navbar() {
           </Group>
 
           <Group visibleFrom="sm">
-            <Link to={"/login"} className="focus:outline-none">
-              <Button variant="default">Log in</Button>
-            </Link>
-            <Link to={"/register"} className="focus:outline-none">
-              <Button color={"red"}>Sign up</Button>
-            </Link>
+            {client_token ? (
+              <Button color={"red"} onClick={handleLogOut}>
+                Log out
+              </Button>
+            ) : (
+              <>
+                <Link to={"/login"} className="focus:outline-none">
+                  <Button variant="default">Log in</Button>
+                </Link>
+                <Link to={"/register"} className="focus:outline-none">
+                  <Button color={"red"}>Sign up</Button>
+                </Link>
+              </>
+            )}
           </Group>
 
           <Burger
