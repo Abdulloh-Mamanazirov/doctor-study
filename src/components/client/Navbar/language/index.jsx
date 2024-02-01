@@ -2,26 +2,32 @@ import { useState } from "react";
 import { UnstyledButton, Menu, Image, Group } from "@mantine/core";
 import classes from "./LanguagePicker.module.css";
 import { Ru, Uk, Uz } from "../../../../assets";
+import { useTranslation } from "react-i18next";
 
 const data = [
+  { key: "ru", label: "Русский", image: Ru },
   { key: "en", label: "English  ", image: Uk },
   { key: "uz", label: "O'zbek  ", image: Uz },
-  { key: "ru", label: "Русский", image: Ru },
 ];
 
 export function LanguagePicker() {
   const [opened, setOpened] = useState(false);
   const [selected, setSelected] = useState(data[0]);
+  const { i18n } = useTranslation();
+
   const items = data.map((item) => (
     <Menu.Item
       leftSection={<Image src={item.image} width={10} height={10} />}
-      onClick={() => setSelected(item)}
+      onClick={() => {
+        setSelected(item);
+        i18n.changeLanguage(item.key);
+      }}
       key={item.label}
     >
       {item.label}
     </Menu.Item>
   ));
-  console.log(selected);
+
   return (
     <Menu
       onOpen={() => setOpened(true)}

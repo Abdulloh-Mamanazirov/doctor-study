@@ -4,6 +4,9 @@ import { MantineProvider } from "@mantine/core";
 import App from "./App.jsx";
 import axios from "axios";
 
+// i18n
+import "./i18n";
+
 // css
 import "./index.css";
 import "@mantine/core/styles.css";

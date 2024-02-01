@@ -22,29 +22,7 @@ import { Logo_icon } from "../../../assets";
 import { Link, useLocation } from "react-router-dom";
 import classes from "./HeaderMegaMenu.module.css";
 import { LanguagePicker } from "./language";
-
-const mockdata = [
-  {
-    title: "Video materials",
-    description: "Check out the video content we made for you",
-    path: "/video-materials",
-    icon: <span className="fa-solid fa-film" />,
-  },
-
-  {
-    title: "Articles",
-    description: "Improve your knowladge by reading our articles",
-    path: "/articles",
-    icon: <span className="fa-solid fa-newspaper" />,
-  },
-
-  {
-    title: "Useful resources",
-    description: "Use our useful resources for more information",
-    path: "/library",
-    icon: <span className="fa-solid fa-layer-group" />,
-  },
-];
+import { useTranslation } from "react-i18next";
 
 export default function Navbar() {
   const { pathname } = useLocation();
@@ -52,9 +30,33 @@ export default function Navbar() {
     useDisclosure(false);
   const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
   const theme = useMantineTheme();
+  const { t } = useTranslation();
   const client_token = sessionStorage.getItem("doctors-token");
 
-  const links = mockdata.map((item) => (
+  const navData = [
+    {
+      title: t("video_materials_link"),
+      description: t("video_materials_desc"),
+      path: "/video-materials",
+      icon: <span className="fa-solid fa-film" />,
+    },
+
+    {
+      title: t("article_materials_link"),
+      description: t("article_materials_desc"),
+      path: "/articles",
+      icon: <span className="fa-solid fa-newspaper" />,
+    },
+
+    {
+      title: t("resources_materials_link"),
+      description: t("resources_materials_desc"),
+      path: "/library",
+      icon: <span className="fa-solid fa-layer-group" />,
+    },
+  ];
+
+  const links = navData.map((item) => (
     <UnstyledButton
       component={Link}
       key={item.title}
@@ -101,17 +103,17 @@ export default function Navbar() {
           </Link>
           <Group h="100%" gap={0} visibleFrom="sm">
             <Link to="/" className={classes.link} style={{ fontSize: 16 }}>
-              Home
+              {t("home_link")}
             </Link>
             <Link
               to="/events"
               className={classes.link}
               style={{ fontSize: 16 }}
             >
-              Events
+              {t("events_link")}
             </Link>
             <Link to="/news" className={classes.link} style={{ fontSize: 16 }}>
-              News
+              {t("news_link")}
             </Link>
             <HoverCard
               width={600}
@@ -124,7 +126,7 @@ export default function Navbar() {
                 <button className={classes.link} style={{ fontSize: 16 }}>
                   <Center inline>
                     <Box component="span" mr={5}>
-                      Useful Materials
+                      {t("materials_link")}
                     </Box>
                     <span className="fa-solid fa-chevron-down" />
                   </Center>
@@ -133,7 +135,7 @@ export default function Navbar() {
 
               <HoverCard.Dropdown style={{ overflow: "hidden" }}>
                 <Group justify="space-between" px="md">
-                  <Text fw={500}>Useful Materials</Text>
+                  <Text fw={500}>{t("materials_link")}</Text>
                 </Group>
 
                 <Divider my="sm" />
@@ -148,7 +150,7 @@ export default function Navbar() {
               className={classes.link}
               style={{ fontSize: 16 }}
             >
-              Speakers
+              {t("speakers_link")}
             </Link>
           </Group>
 
@@ -193,21 +195,21 @@ export default function Navbar() {
             className={`${classes.link} mb-2`}
             style={{ fontSize: 18 }}
           >
-            Home
+            {t("home_link")}
           </Link>
           <Link
             to="/events"
             className={`${classes.link} mb-2`}
             style={{ fontSize: 18 }}
           >
-            Events
+            {t("events_link")}
           </Link>
           <Link
             to="/news"
             className={`${classes.link} mb-2`}
             style={{ fontSize: 18 }}
           >
-            News
+            {t("news_link")}
           </Link>
           <div className="ml-4">
             <UnstyledButton
@@ -217,7 +219,7 @@ export default function Navbar() {
             >
               <Center inline>
                 <Box component="span" mr={5}>
-                  Useful Materials
+                  {t("materials_link")}
                 </Box>
                 <span
                   className="fa-solid fa-chevron-down"
@@ -233,7 +235,7 @@ export default function Navbar() {
             className={`${classes.link} mb-2`}
             style={{ fontSize: 18 }}
           >
-            Speakers
+            {t("speakers_link")}
           </Link>
 
           <Divider my="sm" />
