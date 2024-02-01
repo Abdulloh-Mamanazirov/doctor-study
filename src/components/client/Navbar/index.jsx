@@ -1,27 +1,27 @@
 import {
-  HoverCard,
+  rem,
+  Box,
+  Text,
   Group,
   Button,
-  UnstyledButton,
-  Text,
-  SimpleGrid,
-  ThemeIcon,
-  Anchor,
-  Divider,
-  Center,
-  Box,
-  Burger,
   Drawer,
+  Center,
+  Burger,
+  Divider,
   Collapse,
+  ThemeIcon,
+  HoverCard,
   ScrollArea,
-  rem,
+  SimpleGrid,
+  UnstyledButton,
   useMantineTheme,
 } from "@mantine/core";
-import { Logo_icon } from "../../../assets";
-import { useDisclosure } from "@mantine/hooks";
-import classes from "./HeaderMegaMenu.module.css";
-import { Link, useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import { useDisclosure } from "@mantine/hooks";
+import { Logo_icon } from "../../../assets";
+import { Link, useLocation } from "react-router-dom";
+import classes from "./HeaderMegaMenu.module.css";
+import { LanguagePicker } from "./language";
 
 const mockdata = [
   {
@@ -153,6 +153,7 @@ export default function Navbar() {
           </Group>
 
           <Group visibleFrom="sm">
+            <LanguagePicker />
             {client_token ? (
               <Button color={"red"} onClick={handleLogOut}>
                 Log out
@@ -169,11 +170,10 @@ export default function Navbar() {
             )}
           </Group>
 
-          <Burger
-            opened={drawerOpened}
-            onClick={toggleDrawer}
-            hiddenFrom="sm"
-          />
+          <Group hiddenFrom={"sm"} className="sm:hidden">
+            <LanguagePicker />
+            <Burger opened={drawerOpened} onClick={toggleDrawer} />
+          </Group>
         </Group>
       </header>
 
