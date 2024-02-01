@@ -55,23 +55,26 @@ export default function Navbar() {
   const client_token = sessionStorage.getItem("doctors-token");
 
   const links = mockdata.map((item) => (
-    <Link key={item.title} to={item.path}>
-      <UnstyledButton className={classes.subLink}>
-        <Group wrap="nowrap" align="flex-start">
-          <ThemeIcon size={34} variant="default" radius="md">
-            {item?.icon}
-          </ThemeIcon>
-          <div>
-            <Text size="sm" fw={500}>
-              {item.title}
-            </Text>
-            <Text size="xs" c="dimmed">
-              {item.description}
-            </Text>
-          </div>
-        </Group>
-      </UnstyledButton>
-    </Link>
+    <UnstyledButton
+      component={Link}
+      key={item.title}
+      to={item.path}
+      className={classes.subLink}
+    >
+      <Group wrap="nowrap" align="flex-start">
+        <ThemeIcon size={34} variant="default" radius="md">
+          {item?.icon}
+        </ThemeIcon>
+        <div>
+          <Text size="sm" fw={500}>
+            {item.title}
+          </Text>
+          <Text size="xs" c="dimmed">
+            {item.description}
+          </Text>
+        </div>
+      </Group>
+    </UnstyledButton>
   ));
 
   useEffect(() => {
@@ -118,14 +121,14 @@ export default function Navbar() {
               withinPortal
             >
               <HoverCard.Target>
-                <a href="#" className={classes.link} style={{ fontSize: 16 }}>
+                <button className={classes.link} style={{ fontSize: 16 }}>
                   <Center inline>
                     <Box component="span" mr={5}>
                       Useful Materials
                     </Box>
                     <span className="fa-solid fa-chevron-down" />
                   </Center>
-                </a>
+                </button>
               </HoverCard.Target>
 
               <HoverCard.Dropdown style={{ overflow: "hidden" }}>
