@@ -21,7 +21,7 @@ const ArticleCard = (props) => {
           {props?.date}
         </p>
         <div className="w-8 pb-1 mb-4 border-b border-gray-600"></div>
-        <h2 className="mt-2 mb-4 text-xl md:text-2xl font-semibold text-gray-600 ">
+        <h2 className="mt-2 mb-4 text-xl md:text-2xl font-semibold text-gray-600 line-clamp-3 md:line-clamp-2">
           {props?.title}
         </h2>
         <p className="mb-4 text-sm md:text-base text-gray-500 line-clamp-3">

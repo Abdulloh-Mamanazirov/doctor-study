@@ -17,7 +17,7 @@ const VideoCard = (props) => {
         />
       </div>
       <div className="p-1">
-        <h3 className="text-xl font-bold text-primary-tite mt-3">
+        <h3 className="text-xl font-bold text-primary-tite mt-3 line-clamp-2">
           {props?.title}
         </h3>
         <p className="text-sm line-clamp-3">{props?.desc}</p>
