@@ -1,6 +1,6 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
-import { Pdf } from "../../../../assets";
+import { PdfId } from "../../../../assets";
 
 const index = () => {
   const { state } = useLocation();
@@ -10,7 +10,7 @@ const index = () => {
       <div className="flex items-start">
         <div className="w-60">
           <img
-            src={Pdf}
+            src={PdfId}
             alt="doctor study book"
             className="w-full aspect-square"
           />
