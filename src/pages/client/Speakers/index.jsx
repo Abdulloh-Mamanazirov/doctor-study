@@ -2,7 +2,7 @@ import React from "react";
 
 const SpeakerCard = ({ id, image, name, job, desc }) => {
   return (
-    <div className="grid grid-cols-1 mb-6 md:grid-cols-[40%,1fr] gap-2">
+    <div className="grid grid-cols-1 mb-6 md:grid-cols-[40%,1fr] place-items-center gap-2">
       <div>
         <img
           src={
@@ -10,7 +10,7 @@ const SpeakerCard = ({ id, image, name, job, desc }) => {
             "https://hips.hearstapps.com/hmg-prod/images/portrait-of-a-happy-young-doctor-in-his-clinic-royalty-free-image-1661432441.jpg"
           }
           alt="doctor study speaker image"
-          className="object-cover aspect-square rounded-full h-80 max-h-80 md:h-full"
+          className="object-cover aspect-square rounded-full h-64 max-h-64"
         />
       </div>
       <div className="px-4 py-4 lg:px-2 ">
@@ -22,23 +22,6 @@ const SpeakerCard = ({ id, image, name, job, desc }) => {
         <p className="mb-4 text-sm md:text-base text-gray-500 line-clamp-3">
           {desc}
         </p>
-        <div className="grid grid-cols-2">
-          <dl>
-            <dt className="font-bold text-gray-500 underline underline-offset-2">
-              Education:
-            </dt>
-            <dd className="ml-5">Harvard University</dd>
-            <dd className="ml-5">Tokyo Institute of Technology</dd>
-          </dl>
-          <dl>
-            <dt className="font-bold text-gray-500 underline underline-offset-2">
-              Experience:
-            </dt>
-            <dd className="ml-5">Thousand sunny</dd>
-            <dd className="ml-5">Going Mery</dd>
-            <dd className="ml-5">Going Mery</dd>
-          </dl>
-        </div>
       </div>
     </div>
   );
