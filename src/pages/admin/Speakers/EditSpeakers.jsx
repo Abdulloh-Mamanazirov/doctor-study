@@ -15,12 +15,24 @@ const EditSpeakers = ({ getData, item }) => {
   };
 
   const handleSubmit = async (values) => {
+    console.log(values, "valeu");
     values.preventDefault();
     const formdataForSubmit = new FormData();
-    formdataForSubmit.append("fullName", values.fullName ?? item?.fullName);
     formdataForSubmit.append(
-      "description",
-      values.description ?? item?.description
+      "fullName",
+      values.target.fullName.value ?? item?.fullName
+    );
+    formdataForSubmit.append(
+      "description_uz",
+      values.target.description_uz.value ?? item?.description_uz
+    );
+    formdataForSubmit.append(
+      "description_ru",
+      values.target.description_ru.value ?? item?.description_ru
+    );
+    formdataForSubmit.append(
+      "description_en",
+      values.target.description_en.value ?? item?.description_en
     );
     if (image) {
       formdataForSubmit.append("image", image);
@@ -30,8 +42,8 @@ const EditSpeakers = ({ getData, item }) => {
         `/speakers/${item?.id}`,
         formdataForSubmit
       );
-      if (response.status === 204) {
-        toast.dark("Edited SucsesFull!");
+      if (response.status === 200) {
+        toast.success("Edited SucsesFull!");
         close();
         getData();
       }
@@ -54,9 +66,19 @@ const EditSpeakers = ({ getData, item }) => {
             defaultValue={item.fullName}
           />
           <Textarea
-            label="Edit Fulname"
-            name="description"
-            defaultValue={item.description}
+            label="Edit description_uz"
+            name="description_uz"
+            defaultValue={item.description_uz}
+          />
+          <Textarea
+            label="Edit description_ru"
+            name="description_ru"
+            defaultValue={item.description_ru}
+          />
+          <Textarea
+            label="Edit description_en"
+            name="description_en"
+            defaultValue={item.description_en}
           />
           <input
             type="file"

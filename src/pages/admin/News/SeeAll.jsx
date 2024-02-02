@@ -1,15 +1,8 @@
-import {
-  Box,
-  Grid,
-  Image,
-  Modal,
-  Table
-} from "@mantine/core";
+import { Box, Grid, Image, Modal, Table } from "@mantine/core";
 import React, { useState } from "react";
 
-const SeeAll = () => {
+const SeeAll = ({ item }) => {
   const [opened, setOpen] = useState(false);
-
 
   return (
     <div>
@@ -26,7 +19,9 @@ const SeeAll = () => {
           <Box maw={840} mx="auto">
             <Grid justify="space-between">
               <Grid.Col span="auto">
-                <Image src="https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-4.png" />
+                <Image
+                  src={`http://192.168.137.251:8081/api/images/${item.link}`}
+                />
               </Grid.Col>
               <Grid.Col span="auto">
                 <Table
@@ -37,38 +32,38 @@ const SeeAll = () => {
                 >
                   <Table.Thead>
                     <Table.Tr>
-                      <Table.Th>Element position</Table.Th>
-                      <Table.Td>index</Table.Td>
+                      <Table.Th>Description_en</Table.Th>
+                      <Table.Td>{item.description_en}</Table.Td>
                       <Table.Tr />
                     </Table.Tr>
                     <Table.Tr>
-                      <Table.Th>Element position</Table.Th>
-                      <Table.Td>index</Table.Td>
+                      <Table.Th>Description_ru</Table.Th>
+                      <Table.Td>{item.description_ru}</Table.Td>
                       <Table.Tr />
                     </Table.Tr>
                     <Table.Tr>
-                      <Table.Th>Element position</Table.Th>
-                      <Table.Td>index</Table.Td>
+                      <Table.Th>Description_uz</Table.Th>
+                      <Table.Td>{item.description_uz}</Table.Td>
                       <Table.Tr />
                     </Table.Tr>
                     <Table.Tr>
-                      <Table.Th>Element position</Table.Th>
-                      <Table.Td>index</Table.Td>
+                      <Table.Th>Title_en</Table.Th>
+                      <Table.Td>{item.title_en}</Table.Td>
                       <Table.Tr />
                     </Table.Tr>
                     <Table.Tr>
-                      <Table.Th>Element position</Table.Th>
-                      <Table.Td>index</Table.Td>
+                      <Table.Th>Title_ru</Table.Th>
+                      <Table.Td>{item.title_ru}</Table.Td>
                       <Table.Tr />
                     </Table.Tr>
                     <Table.Tr>
-                      <Table.Th>Element position</Table.Th>
-                      <Table.Td>index</Table.Td>
+                      <Table.Th>Title_uz</Table.Th>
+                      <Table.Td>{item.title_uz}</Table.Td>
                       <Table.Tr />
                     </Table.Tr>
                     <Table.Tr>
-                      <Table.Th>Element position</Table.Th>
-                      <Table.Td>index</Table.Td>
+                      <Table.Th>Created At</Table.Th>
+                      <Table.Td>{item.createdDate.slice(0,10)}</Table.Td>
                       <Table.Tr />
                     </Table.Tr>
                   </Table.Thead>
@@ -77,7 +72,7 @@ const SeeAll = () => {
             </Grid>
           </Box>
         </Modal>
-        
+
         <button
           onClick={() => {
             setOpen(true);

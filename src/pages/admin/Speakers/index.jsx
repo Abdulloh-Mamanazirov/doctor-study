@@ -12,7 +12,9 @@ const index = () => {
   const [opened, { open, close }] = useDisclosure(false);
 
   const handleChange = (e) => {
-    setFile(URL.createObjectURL(e.target.files[0]));
+    if (e.target && e.target.files && e.target.files.length > 0) {
+      setFile(URL.createObjectURL(e.target.files[0]));
+    }
   };
 
   const handleInputChange = (e) => {
@@ -21,17 +23,31 @@ const index = () => {
       ...prevFormData,
       [name]: value,
     }));
-    
   };
-
+  async function getData() {
+    await axios
+      .get("speakers")
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
+  }
+  useEffect(() => {
+    getData();
+  }, []);
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const { fullName, description, file } = e.target;
+    const { fullName, description_uz, description_ru, description_en, file } =
+      e.target;
 
     const formdataForSubmit = new FormData();
     formdataForSubmit.append("fullName", fullName.value);
-    formdataForSubmit.append("description", description.value);
+    formdataForSubmit.append("description_uz", description_uz.value);
+    formdataForSubmit.append("description_ru", description_ru.value);
+    formdataForSubmit.append("description_en", description_en.value);
     formdataForSubmit.append("file", file.files[0]);
 
     try {
@@ -48,19 +64,6 @@ const index = () => {
       toast.error("error in created");
     }
   };
-  async function getData() {
-    await axios
-      .get("speakers")
-      .then((response) => {
-        setData(response.data);
-      })
-      .catch((error) => {
-        toast.error(error.message);
-      });
-  }
-  useEffect(() => {
-    getData();
-  }, []);
 
   return (
     <div className=" md:mt-10">
@@ -84,9 +87,31 @@ const index = () => {
           <Textarea
             label="Write full name"
             type="text"
-            name="description"
-            placeholder="write description"
-            value={formData.description}
+            name="description_uz"
+            placeholder="write description_uz"
+            value={formData.description_uz}
+            onChange={handleInputChange}
+            size="md"
+            required
+            mt={10}
+          />
+          <Textarea
+            label="Write full name"
+            type="text"
+            name="description_ru"
+            placeholder="write description_ru"
+            value={formData.description_ru}
+            onChange={handleInputChange}
+            size="md"
+            required
+            mt={10}
+          />
+          <Textarea
+            label="Write full name"
+            type="text"
+            name="description_en"
+            placeholder="write description_en"
+            value={formData.description_en}
             onChange={handleInputChange}
             size="md"
             required

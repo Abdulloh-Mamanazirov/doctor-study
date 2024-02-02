@@ -1,49 +1,89 @@
-// import { Button, FileInput } from "@mantine/core";
-// import axios from "axios";
-// import React, { useState } from "react";
-// import { Form } from "react-router-dom";
-// import { toast } from "react-toastify";
-
-// const index = () => {
-//   const [file, setFile] = useState(null);
-
-//   const handleFileChange = (files) => {
-//     setFile(files[0]);
-//   };
-
-//   const handleSubmit = async () => {
-//     try {
-//       const formData = new FormData();
-//       formData.append("file", file);
-
-//       const response = await axios.post("YOUR_API_ENDPOINT", formData);
-
-//       toast.log("File uploaded successfully", response.data);
-//     } catch (error) {
-//       toast.error("Error uploading file", error);
-//     }
-//   };
-
-//   return (
-//     <Form>
-//       <FileInput
-//         label="Select a book file"
-//         accept=".pdf,.epub,.mobi"
-//         onChange={handleFileChange}
-//       />
-//       <Button onClick={handleSubmit}>Submit</Button>
-//     </Form>
-//   );
-// };
-
-// export default index;
-
-import React from 'react'
+import React, { useState } from "react";
+import axios from "axios";
+import { Button, FileInput, TextInput } from "@mantine/core";
+import { toast } from "react-toastify";
 
 const index = () => {
-  return (
-    <div>index</div>
-  )
-}
+  const [formData, setFormData] = useState({
+    description_en: "",
+    description_ru: "",
+    description_uz: "",
+    file: null,
+  });
 
-export default index
+  const handleChange = (e) => {
+    const { name, value, files } = e.target;
+
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: name === "file" ? files[0] : value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const data = new FormData();
+      data.append("description_en", formData.description_en);
+      data.append("description_ru", formData.description_ru);
+      data.append("description_uz", formData.description_uz);
+      data.append("file", formData.file);
+
+      const response = await axios.post("resources", data);
+
+      if (response.status === 201) {
+        toast.success("speakers post sucsesful");
+        close();
+        getData();
+      }
+    } catch (error) {
+      toast.error("Error:", error);
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <label>
+        Description (English):
+        <TextInput
+          type="text"
+          name="description_en"
+          value={formData.description_en}
+          onChange={handleChange}
+        />
+      </label>
+
+      <label>
+        Description (Russian):
+        <TextInput
+          type="text"
+          name="description_ru"
+          value={formData.description_ru}
+          onChange={handleChange}
+        />
+      </label>
+
+      <label>
+        Description (Uzbek):
+        <TextInput
+          type="text"
+          name="description_uz"
+          value={formData.description_uz}
+          onChange={handleChange}
+        />
+      </label>
+
+      <label>
+        File:
+        <FileInput type="file" name="file" onChange={handleChange} />
+      </label>
+
+      <Button color="cyan" mt={15} fullWidth type="submit">
+        Submit
+      </Button>
+    </form>
+  );
+};
+
+export default index;

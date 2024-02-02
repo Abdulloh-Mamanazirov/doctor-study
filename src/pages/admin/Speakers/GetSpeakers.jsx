@@ -41,7 +41,13 @@ const GetSpeakers = () => {
               <Table.Tr key={item?.id}>
                 <Table.Td>{index + 1}</Table.Td>
                 <Table.Td>{item.fullName}</Table.Td>
-                <Table.Td>{item.description}</Table.Td>
+                <Table.Td className="border p-3">
+                  {item?.description_en}
+                  <hr className="my-2" />
+                  {item?.description_ru}
+                  <hr className="my-2" />
+                  {item?.description_uz}
+                </Table.Td>
                 <Table.Td>
                   <img
                     className="aspect-square w-11 rounded-full"

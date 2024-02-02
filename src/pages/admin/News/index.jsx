@@ -1,4 +1,13 @@
-import { ActionIcon, Card, Group, Image, Menu, Text, rem } from "@mantine/core";
+import {
+  ActionIcon,
+  Card,
+  Group,
+  Image,
+  Menu,
+  Text,
+  Title,
+  rem,
+} from "@mantine/core";
 import { useEffect, useState } from "react";
 import PostNews from "./PostNews";
 import SeeAll from "./SeeAll";
@@ -14,10 +23,8 @@ function Index() {
   const handleBodyClick = () => {
     setOpen(true);
   };
-
   useEffect(() => {
     document.body.addEventListener("click", handleBodyClick);
-
     return () => {
       document.body.removeEventListener("click", handleBodyClick);
     };
@@ -41,73 +48,86 @@ function Index() {
 
   return (
     <div>
-      <PostNews />
+      <PostNews getData={getData} />
       <div className="md:mt-10 grid lg:grid-cols-3 md:grid-cols-2 gap-3">
-        <Card withBorder shadow="sm" radius="md">
-          <Card.Section withBorder inheritPadding py="xs">
-            <Group justify="space-between">
-              <Text fw={500}>News Title</Text>
-              <Menu zIndex={10} opened={open} position="bottom-end" shadow="sm">
-                <Menu.Target>
-                  <ActionIcon
-                    onClick={() => {
-                      setOpen((prevOpen) => !prevOpen);
-                    }}
-                    variant="subtle"
-                    color="gray"
+        {data.map((item) => {
+          return (
+            <Card withBorder shadow="sm" radius="md" key={item.id}>
+              <Card.Section withBorder inheritPadding py="xs">
+                <Group justify="space-between">
+                  <Text fw={500} className="line-clamp-1">
+                    {item.title_en}
+                  </Text>
+                  <Menu
+                    zIndex={10}
+                    opened={open}
+                    position="bottom-end"
+                    shadow="sm"
                   >
-                    <span
-                      className="fa-solid fa-ellipsis-vertical"
-                      style={{ width: rem(16), height: rem(16) }}
-                    />
-                  </ActionIcon>
-                </Menu.Target>
-                <Menu.Dropdown>
-                  <Menu.Item
-                    leftSection={
-                      <span
-                        className="fa-solid fa-eye"
-                        style={{ width: rem(14), height: rem(14) }}
-                      />
-                    }
-                    color="gray"
-                  >
-                    <SeeAll />
-                  </Menu.Item>
+                    <Menu.Target>
+                      <ActionIcon
+                        onClick={() => {
+                          setOpen((prevOpen) => !prevOpen);
+                        }}
+                        variant="subtle"
+                        color="gray"
+                      >
+                        <span
+                          className="fa-solid fa-ellipsis-vertical"
+                          style={{ width: rem(16), height: rem(16) }}
+                        />
+                      </ActionIcon>
+                    </Menu.Target>
+                    <Menu.Dropdown>
+                      <Menu.Item
+                        leftSection={
+                          <span
+                            className="fa-solid fa-eye"
+                            style={{ width: rem(14), height: rem(14) }}
+                          />
+                        }
+                        color="gray"
+                      >
+                        <SeeAll getData={getData} item={item} />
+                      </Menu.Item>
 
-                  <Menu.Item
-                    leftSection={
-                      <span
-                        className="fa-solid fa-edit"
-                        style={{ width: rem(14), height: rem(14) }}
-                      />
-                    }
-                    color="blue"
-                  >
-                    <EditNews />
-                  </Menu.Item>
-                  <Menu.Item
-                    leftSection={
-                      <span
-                        className="fa-solid fa-trash"
-                        style={{ width: rem(14), height: rem(14) }}
-                      />
-                    }
-                    color="red"
-                  >
-                    <DeleteNews />
-                  </Menu.Item>
-                </Menu.Dropdown>
-              </Menu>
-            </Group>
-          </Card.Section>
-          <Text mt="sm" c="dimmed" size="sm">
-            title in desc
-          </Text>
-          <Card.Section mt="sm">
-            <Image src="https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-4.png" />
-          </Card.Section>
-        </Card>
+                      <Menu.Item
+                        leftSection={
+                          <span
+                            className="fa-solid fa-edit"
+                            style={{ width: rem(14), height: rem(14) }}
+                          />
+                        }
+                        color="blue"
+                      >
+                        <EditNews getData={getData} item={item} />
+                      </Menu.Item>
+                      <Menu.Item
+                        leftSection={
+                          <span
+                            className="fa-solid fa-trash"
+                            style={{ width: rem(14), height: rem(14) }}
+                          />
+                        }
+                        color="red"
+                      >
+                        <DeleteNews getData={getData} item={item} />
+                      </Menu.Item>
+                    </Menu.Dropdown>
+                  </Menu>
+                </Group>
+              </Card.Section>
+              <Text mt="sm" c="dimmed" size="sm">
+                {item.description_en}
+              </Text>
+              <Card.Section mt="sm">
+                <Image
+                  src={`http://192.168.137.251:8081/api/images/${item.link}`}
+                />
+              </Card.Section>
+            </Card>
+          );
+        })}
       </div>
     </div>
   );

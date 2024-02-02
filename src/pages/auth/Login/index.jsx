@@ -21,7 +21,7 @@ export default function Index() {
     try {
       const { email, password } = e.target;
       const response = await axios
-        .post("http://82.97.242.32:8081/api/auth/authenticate", {
+        .post("http://192.168.137.251:8081/api/auth/authenticate", {
           email: email.value,
           password: password.value,
         })
