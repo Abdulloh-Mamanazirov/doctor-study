@@ -3,10 +3,10 @@ import axios from "axios";
 import React from "react";
 import { toast } from "react-toastify";
 
-const DeleteNews = ({ getData, item }) => {
+const DeleteArticles = ({ getData, item }) => {
   async function handleDelete() {
     try {
-      const res = await axios.delete(`/news/${item.id}`);
+      const res = await axios.delete(`/webinar/${item.id}`);
       if (res.status === 204) {
         getData();
         toast.info("O'chirildi!");
@@ -42,4 +42,4 @@ const DeleteNews = ({ getData, item }) => {
   );
 };
 
-export default DeleteNews;
+export default DeleteArticles;

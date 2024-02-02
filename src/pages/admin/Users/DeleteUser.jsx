@@ -3,10 +3,10 @@ import axios from "axios";
 import React from "react";
 import { toast } from "react-toastify";
 
-const DeleteUser = () => {
+const DeleteUser = ({ getData, item }) => {
   async function handleDelete() {
     try {
-      const res = await axios.delete(`/user/${id}`);
+      const res = await axios.delete(`/users/${item.id}`);
       if (res.status === 204) {
         getData();
         toast.info("O'chirildi!");

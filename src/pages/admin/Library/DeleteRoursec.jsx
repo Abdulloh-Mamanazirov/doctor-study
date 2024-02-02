@@ -3,10 +3,10 @@ import axios from "axios";
 import React from "react";
 import { toast } from "react-toastify";
 
-const DeleteNews = ({ getData, item }) => {
+const DeleteRoursec = ({ getData, item }) => {
   async function handleDelete() {
     try {
-      const res = await axios.delete(`/news/${item.id}`);
+      const res = await axios.delete(`/resources/${item.id}`);
       if (res.status === 204) {
         getData();
         toast.info("O'chirildi!");
@@ -24,11 +24,11 @@ const DeleteNews = ({ getData, item }) => {
     <div>
       <Popover width={200} position="bottom" withArrow shadow="md">
         <Popover.Target>
-          <p>Delete</p>
+          <span className="fa-solid fa-trash text-xl text-red-500 cursor-pointer" />
         </Popover.Target>
         <Popover.Dropdown className="flex items-center">
           <Box mx="lg">
-            <Text>Do this news</Text>
+            <Text>Do this resources</Text>
             <Button variant="outline" color="red" size="xs" onClick={confirm}>
               yes
             </Button>
@@ -42,4 +42,4 @@ const DeleteNews = ({ getData, item }) => {
   );
 };
 
-export default DeleteNews;
+export default DeleteRoursec;

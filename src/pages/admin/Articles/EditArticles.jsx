@@ -1,17 +1,10 @@
-import React, { useState } from "react";
-import {
-  Box,
-  Modal,
-  Button,
-  Textarea,
-  TextInput,
-  FileInput,
-} from "@mantine/core";
+import { Box, Button, Modal, TextInput, Textarea } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { toast } from "react-toastify";
 import axios from "axios";
+import React, { useState } from "react";
+import { toast } from "react-toastify";
 
-const EditNews = ({ getData, item }) => {
+const EditArticles = ({ getData, item }) => {
   const [opened, { open, close }] = useDisclosure(false);
   const [file, setFile] = useState();
   const [image, setImage] = useState();
@@ -54,7 +47,10 @@ const EditNews = ({ getData, item }) => {
     }
 
     try {
-      const response = await axios.patch(`news/${item.id}`, formdataForSubmit);
+      const response = await axios.patch(
+        `article/${item.id}`,
+        formdataForSubmit
+      );
       if (response.status === 200) {
         toast.success("Edited SucsesFull!");
         close();
@@ -70,37 +66,37 @@ const EditNews = ({ getData, item }) => {
       <Modal
         opened={opened}
         onClose={close}
-        title="Create News"
+        title="Create Article"
         size="calc(70vw - 3rem)"
       >
         <Box maw={840} mx="auto">
           <form onSubmit={handleSubmit}>
             <TextInput
-              label="News title English"
-              placeholder="News title English"
+              label="Article title English"
+              placeholder="Article title English"
               defaultValue={item.title_en}
               name="title_en"
               required
             />
             <TextInput
               mt="sm"
-              label="News title Russian"
-              placeholder="News title Russian"
+              label="Article title Russian"
+              placeholder="Article title Russian"
               defaultValue={item.title_ru}
               required
               name="title_ru"
             />
             <TextInput
               mt="sm"
-              label="News title Uzbek"
-              placeholder="News title Uzbek"
+              label="Article title Uzbek"
+              placeholder="Article title Uzbek"
               defaultValue={item.title_uz}
               required
               name="title_uz"
             />
             <Textarea
               mt="md"
-              label="News Description English"
+              label="Article Description English"
               placeholder="news description English"
               defaultValue={item.description_en}
               required
@@ -108,7 +104,7 @@ const EditNews = ({ getData, item }) => {
             />
             <Textarea
               mt="md"
-              label="News Description Russian"
+              label="Article Description Russian"
               placeholder="news description Russian"
               defaultValue={item.description_ru}
               required
@@ -116,7 +112,7 @@ const EditNews = ({ getData, item }) => {
             />
             <Textarea
               mt="md"
-              label="News Description Uzbek"
+              label="Article Description Uzbek"
               placeholder="news description Uzbek"
               defaultValue={item.description_uz}
               required
@@ -137,10 +133,10 @@ const EditNews = ({ getData, item }) => {
       </Modal>
 
       <div>
-        <button onClick={open}>Edit News</button>
+        <button onClick={open}>Edit Article</button>
       </div>
     </div>
   );
 };
 
-export default EditNews;
+export default EditArticles;
