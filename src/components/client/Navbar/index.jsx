@@ -158,15 +158,15 @@ export default function Navbar() {
             <LanguagePicker />
             {client_token ? (
               <Button color={"red"} onClick={handleLogOut}>
-                Log out
+                {t("logout")}
               </Button>
             ) : (
               <>
                 <Link to={"/login"} className="focus:outline-none">
-                  <Button variant="default">Log in</Button>
+                  <Button variant="default">{t("login")}</Button>
                 </Link>
                 <Link to={"/register"} className="focus:outline-none">
-                  <Button color={"red"}>Sign up</Button>
+                  <Button color={"red"}>{t("signup")}</Button>
                 </Link>
               </>
             )}
@@ -243,18 +243,18 @@ export default function Navbar() {
           <Group justify="center" grow pb="xl" px="md">
             {client_token ? (
               <Button color={"red"} onClick={handleLogOut}>
-                Log out
+                {t("logout")}
               </Button>
             ) : (
               <div className="grid grid-cols-2 gap-3">
                 <Link to={"/login"} className="w-full focus:outline-none">
                   <Button variant="default" fullWidth>
-                    Log in
+                    {t("login")}
                   </Button>
                 </Link>
                 <Link to={"/register"} className="w-full focus:outline-none">
                   <Button color={"red"} fullWidth>
-                    Sign up
+                    {t("signup")}
                   </Button>
                 </Link>
               </div>

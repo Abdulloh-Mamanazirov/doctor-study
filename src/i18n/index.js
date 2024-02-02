@@ -21,6 +21,16 @@ i18n.use(initReactI18next).init({
         resources_materials_desc:
           "Use our useful resources for more information",
         speakers_link: "Speakers",
+
+        // Words
+        login: "Log in",
+        signup: "Sign up",
+        logout: "Log out",
+        pages: "Pages",
+        follow: "Follow us",
+        rights: "All rights are reserved",
+        participate: "Participate",
+        seemore: "See more",
       },
     },
     uz: {
@@ -40,6 +50,16 @@ i18n.use(initReactI18next).init({
         resources_materials_desc:
           "Qo'shimcha ma'lumot olish uchun foydali manbaalarimizdan foydalaning",
         speakers_link: "So'zlovchilar",
+
+        // Words
+        login: "Kirish",
+        signup: "Ro'yxatdan o'tish",
+        logout: "Chiqish",
+        pages: "Sahifalar",
+        follow: "Bizni kuzating",
+        rights: "Barcha huquqlar himoyalangan",
+        participate: "Qatnashish",
+        seemore: "Ko'proq ko'rish",
       },
     },
     ru: {
@@ -59,6 +79,16 @@ i18n.use(initReactI18next).init({
         resources_materials_desc:
           "Используйте наши полезные ресурсы для получения дополнительной информации",
         speakers_link: "Спикеры",
+
+        // Words
+        login: "Войти",
+        signup: "Зарегистрироваться",
+        logout: "Выйти",
+        pages: "Страницы",
+        follow: "Подписывайтесь на нас",
+        rights: "Все права защищены",
+        participate: "Участвовать ",
+        seemore: "Узнать больше",
       },
     },
   },

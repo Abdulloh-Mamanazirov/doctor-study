@@ -1,8 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { Logo } from "../../../assets";
 
 const Footer = () => {
+  const { t } = useTranslation();
+
   return (
     <div className="mt-10">
       <hr className="my-6 max-w-screen-xl border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
@@ -17,12 +20,12 @@ const Footer = () => {
             <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-2 md:gap-32">
               <div>
                 <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase">
-                  {"Pages"}
+                  {t("pages")}
                 </h2>
                 <ul className="font-medium">
                   <li className="mb-4">
                     <Link to={"/"} className="hover:underline focus:underline">
-                      Home
+                      {t("home_link")}
                     </Link>
                   </li>
                   <li className="mb-4">
@@ -30,7 +33,7 @@ const Footer = () => {
                       to={"/events"}
                       className="hover:underline focus:underline"
                     >
-                      Events
+                      {t("events_link")}
                     </Link>
                   </li>
                   <li className="mb-4">
@@ -38,7 +41,7 @@ const Footer = () => {
                       to={"/news"}
                       className="hover:underline focus:underline"
                     >
-                      News
+                      {t("news_link")}
                     </Link>
                   </li>
                   <li className="mb-4">
@@ -46,14 +49,14 @@ const Footer = () => {
                       to={"/speakers"}
                       className="hover:underline focus:underline"
                     >
-                      Speakers
+                      {t("speakers_link")}
                     </Link>
                   </li>
                 </ul>
               </div>
               <div>
                 <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase">
-                  {"Follow us"}
+                  {t("follow")}
                 </h2>
                 <ul className="font-medium">
                   <li className="mb-4">
@@ -85,7 +88,7 @@ const Footer = () => {
               <Link to="/" className="hover:underline">
                 Doctor Study.
               </Link>{" "}
-              {"All rights are reserved"}.
+              {t("rights")}.
             </span>
             <div className="flex gap-5 mt-4 sm:justify-center sm:mt-0">
               <Link

@@ -1,18 +1,11 @@
+import { useState } from "react";
 import { Burger, Button } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
-import React, { useState } from "react";
-import {
-  NavLink,
-  Route,
-  Routes,
-  useLocation
-} from "react-router-dom";
+import { NavLink, Route, Routes, useLocation } from "react-router-dom";
 import { Logo_text } from "../assets/images";
 import { ADMIN } from "../constants";
 
 const Admin = () => {
   const location = useLocation();
-  const [opened, { toggle }, close] = useDisclosure();
   const [burgerMenuOpen, setBurgerMenuOpen] = useState(false);
 
   const isMenuItemActive = (path) => {
