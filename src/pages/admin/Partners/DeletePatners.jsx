@@ -3,13 +3,13 @@ import axios from "axios";
 import React from "react";
 import { toast } from "react-toastify";
 
-const DeleteUser = ({ getData, item }) => {
+const DeletePatners = ({ getData, item }) => {
   async function handleDelete() {
     try {
-      const res = await axios.delete(`/users/${item.id}`);
+      const res = await axios.delete(`/partners/${item?.id}`);
       if (res.status === 204) {
         getData();
-        toast.info("O'chirildi!");
+        toast.success("O'chirildi!");
       }
     } catch (error) {
       toast.error("Nimadadir xatolik ketdi!");
@@ -42,4 +42,4 @@ const DeleteUser = ({ getData, item }) => {
   );
 };
 
-export default DeleteUser;
+export default DeletePatners;

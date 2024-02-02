@@ -33,7 +33,7 @@ const Index = () => {
     };
     try {
       const response = await axios.post(
-        "http://192.168.137.251:8081/api/auth/register",
+        "http://192.168.137.67:8081/api/auth/register",
         data
       );
 

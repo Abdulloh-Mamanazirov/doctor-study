@@ -1,88 +1,72 @@
-import React, { useState } from "react";
+import { Table } from "@mantine/core";
 import axios from "axios";
-import { Button, FileInput, TextInput } from "@mantine/core";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import PostResurces from "./PostResurces";
+import DeleteRoursec from "./DeleteRoursec";
+import EditResources from "./EditResources";
 
 const index = () => {
-  const [formData, setFormData] = useState({
-    description_en: "",
-    description_ru: "",
-    description_uz: "",
-    file: null,
-  });
+  const [data, setData] = useState([]);
 
-  const handleChange = (e) => {
-    const { name, value, files } = e.target;
-
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: name === "file" ? files[0] : value,
-    }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      const data = new FormData();
-      data.append("description_en", formData.description_en);
-      data.append("description_ru", formData.description_ru);
-      data.append("description_uz", formData.description_uz);
-      data.append("file", formData.file);
-
-      const response = await axios.post("resources", data);
-
-      if (response.status === 201) {
-        toast.success("speakers post sucsesful");
-        close();
-        getData();
-      }
-    } catch (error) {
-      toast.error("Error:", error);
-    }
-  };
+  async function getData() {
+    await axios
+      .get("resources")
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
+  }
+  useEffect(() => {
+    getData();
+  }, []);
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Description (English):
-        <TextInput
-          type="text"
-          name="description_en"
-          value={formData.description_en}
-          onChange={handleChange}
-        />
-      </label>
-
-      <label>
-        Description (Russian):
-        <TextInput
-          type="text"
-          name="description_ru"
-          value={formData.description_ru}
-          onChange={handleChange}
-        />
-      </label>
-
-      <label>
-        Description (Uzbek):
-        <TextInput
-          type="text"
-          name="description_uz"
-          value={formData.description_uz}
-          onChange={handleChange}
-        />
-      </label>
-
-      <label>
-        File:
-        <FileInput type="file" name="file" onChange={handleChange} />
-      </label>
-
-      <Button color="cyan" mt={15} fullWidth type="submit">
-        Submit
-      </Button>
-    </form>
+    <div>
+      <PostResurces getData={getData} />
+      <Table striped highlightOnHover withTableBorder withColumnBorders>
+        <Table.Thead>
+          <Table.Tr>
+            <Table.Th>#</Table.Th>
+            <Table.Th>Description_en</Table.Th>
+            <Table.Th>Description_ru</Table.Th>
+            <Table.Th>Description_uz</Table.Th>
+            <Table.Th>File</Table.Th>
+            <Table.Th>Action</Table.Th>
+          </Table.Tr>
+        </Table.Thead>
+        <Table.Tbody>
+          {data?.length > 0 ? (
+            data?.map((item, index) => {
+              return (
+                <Table.Tr key={item?.id}>
+                  <Table.Td>{index + 1}</Table.Td>
+                  <Table.Td>{item.description_ru}</Table.Td>
+                  <Table.Td>{item?.description_en}</Table.Td>
+                  <Table.Td>{item?.description_uz}</Table.Td>
+                  <Table.Td>
+                    <a href="#" />
+                  </Table.Td>
+                  <Table.Td className="flex justify-normal">
+                    <DeleteRoursec getData={getData} item={item} />
+                    <EditResources getData={getData} item={item} />
+                  </Table.Td>
+                </Table.Tr>
+              );
+            })
+          ) : (
+            <Table.Td colSpan={11}>
+              <div className="flex flex-col justify-center items-center gap-3">
+                <img src="/empty.png" alt="no data" width={100} />
+                <p className="text-gray-500">No data available.</p>
+              </div>
+            </Table.Td>
+          )}
+        </Table.Tbody>
+      </Table>
+    </div>
   );
 };
 
