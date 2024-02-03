@@ -4,7 +4,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 
-const PostNews = ({ getData }) => {
+const PostArticles = ({ getData }) => {
   const [opened, { open, close }] = useDisclosure(false);
   const [file, setFile] = useState();
   const [formData, setFormData] = useState({});
@@ -44,7 +44,7 @@ const PostNews = ({ getData }) => {
     formdataForSubmit.append("file  ", file.files[0]);
 
     try {
-      const response = await axios.post("news", formdataForSubmit);
+      const response = await axios.post("article", formdataForSubmit);
       if (response.status === 201) {
         toast.success("news post sucsesful");
         close();
@@ -60,7 +60,7 @@ const PostNews = ({ getData }) => {
       <Modal
         opened={opened}
         onClose={close}
-        title="Create News"
+        title="Create Articles"
         size="calc(70vw - 3rem)"
       >
         <Box maw={840} mx="auto">
@@ -144,4 +144,4 @@ const PostNews = ({ getData }) => {
   );
 };
 
-export default PostNews;
+export default PostArticles;

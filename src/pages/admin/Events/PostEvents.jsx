@@ -4,7 +4,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 
-const PostNews = ({ getData }) => {
+const PostArticles = ({ getData }) => {
   const [opened, { open, close }] = useDisclosure(false);
   const [file, setFile] = useState();
   const [formData, setFormData] = useState({});
@@ -32,6 +32,11 @@ const PostNews = ({ getData }) => {
       description_ru,
       description_uz,
       file,
+      city,
+      online,
+      speakers,
+      time,
+      field,
     } = e.target;
 
     const formdataForSubmit = new FormData();
@@ -42,9 +47,13 @@ const PostNews = ({ getData }) => {
     formdataForSubmit.append("description_ru", description_ru.value);
     formdataForSubmit.append("description_uz", description_uz.value);
     formdataForSubmit.append("file  ", file.files[0]);
+    formdataForSubmit.append("city", city.value);
+    formdataForSubmit.append("speakers", speakers.value);
+    formdataForSubmit.append("time", time.value);
+    formdataForSubmit.append("field", field.value);
 
     try {
-      const response = await axios.post("news", formdataForSubmit);
+      const response = await axios.post("webinar", formdataForSubmit);
       if (response.status === 201) {
         toast.success("news post sucsesful");
         close();
@@ -60,7 +69,7 @@ const PostNews = ({ getData }) => {
       <Modal
         opened={opened}
         onClose={close}
-        title="Create News"
+        title="Create Articles"
         size="calc(70vw - 3rem)"
       >
         <Box maw={840} mx="auto">
@@ -118,6 +127,42 @@ const PostNews = ({ getData }) => {
               required
               name="description_uz"
             />
+            <TextInput
+              mt="md"
+              label="city "
+              placeholder="city"
+              value={formData.city}
+              onChange={handleInputChange}
+              required
+              name="city"
+            />
+            <TextInput
+              mt="md"
+              label="speakers "
+              placeholder="speakers"
+              value={formData.speakers}
+              onChange={handleInputChange}
+              required
+              name="speakers"
+            />
+            <TextInput
+              mt="md"
+              label="time "
+              placeholder="time"
+              value={formData.time}
+              onChange={handleInputChange}
+              required
+              name="time"
+            />
+            <TextInput
+              mt="md"
+              label="field "
+              placeholder="field"
+              value={formData.field}
+              onChange={handleInputChange}
+              required
+              name="field"
+            />
             <label className="">
               Choose Image file
               <br />
@@ -138,10 +183,10 @@ const PostNews = ({ getData }) => {
       </Modal>
 
       <Button type="button" color="cyan" onClick={open}>
-        + Add News
+        + Add Eveents
       </Button>
     </div>
   );
 };
 
-export default PostNews;
+export default PostArticles;

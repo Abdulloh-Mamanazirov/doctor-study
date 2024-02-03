@@ -1,17 +1,10 @@
-import React, { useState } from "react";
-import {
-  Box,
-  Modal,
-  Button,
-  Textarea,
-  TextInput,
-  FileInput,
-} from "@mantine/core";
+import { Box, Button, Modal, TextInput, Textarea } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { toast } from "react-toastify";
 import axios from "axios";
+import React, { useState } from "react";
+import { toast } from "react-toastify";
 
-const EditNews = ({ getData, item }) => {
+const EditEvents = ({ getData, item }) => {
   const [opened, { open, close }] = useDisclosure(false);
   const [file, setFile] = useState();
   const [image, setImage] = useState();
@@ -52,9 +45,19 @@ const EditNews = ({ getData, item }) => {
     if (file) {
       formdataForSubmit.append("file", file);
     }
+    formdataForSubmit.append("city", values.target.city.value ?? item.city);
+    formdataForSubmit.append(
+      "speakers",
+      values.target.speakers.value ?? item.speakers
+    );
+    formdataForSubmit.append("time", values.target.time.value ?? item.time);
+    formdataForSubmit.append("field", values.target.field.value ?? item.field);
 
     try {
-      const response = await axios.patch(`news/${item.id}`, formdataForSubmit);
+      const response = await axios.patch(
+        `webinar/${item.id}`,
+        formdataForSubmit
+      );
       if (response.status === 200) {
         toast.success("Edited SucsesFull!");
         close();
@@ -70,57 +73,79 @@ const EditNews = ({ getData, item }) => {
       <Modal
         opened={opened}
         onClose={close}
-        title="Create News"
+        title="Create Events"
         size="calc(70vw - 3rem)"
       >
         <Box maw={840} mx="auto">
           <form onSubmit={handleSubmit}>
             <TextInput
-              label="News title English"
-              placeholder="News title English"
+              label="Events title English"
+              placeholder="Events title English"
               defaultValue={item.title_en}
               name="title_en"
-              required
             />
             <TextInput
               mt="sm"
-              label="News title Russian"
-              placeholder="News title Russian"
+              label="Events title Russian"
+              placeholder="Events title Russian"
               defaultValue={item.title_ru}
-              required
               name="title_ru"
             />
             <TextInput
               mt="sm"
-              label="News title Uzbek"
-              placeholder="News title Uzbek"
+              label="Events title Uzbek"
+              placeholder="Events title Uzbek"
               defaultValue={item.title_uz}
-              required
               name="title_uz"
             />
             <Textarea
               mt="md"
-              label="News Description English"
-              placeholder="news description English"
+              label="Events Description English"
+              placeholder="Events description English"
               defaultValue={item.description_en}
-              required
               name="description_en"
             />
             <Textarea
               mt="md"
-              label="News Description Russian"
+              label="Events Description Russian"
               placeholder="news description Russian"
               defaultValue={item.description_ru}
-              required
               name="description_ru"
             />
             <Textarea
               mt="md"
-              label="News Description Uzbek"
+              label="Article Description Uzbek"
               placeholder="news description Uzbek"
               defaultValue={item.description_uz}
-              required
               name="description_uz"
+            />
+            <TextInput
+              mt="sm"
+              label="Events title Uzbek"
+              placeholder="Events title Uzbek"
+              defaultValue={item.city}
+              name="city"
+            />
+            <TextInput
+              mt="sm"
+              label="Events title Uzbek"
+              placeholder="Events title Uzbek"
+              defaultValue={item.speakers}
+              name="speakers"
+            />
+            <TextInput
+              mt="sm"
+              label="Events title Uzbek"
+              placeholder="Events title Uzbek"
+              defaultValue={item.time}
+              name="time"
+            />
+            <TextInput
+              mt="sm"
+              label="Events title Uzbek"
+              placeholder="Events title Uzbek"
+              defaultValue={item.field}
+              name="field"
             />
             <input
               type="file"
@@ -137,10 +162,10 @@ const EditNews = ({ getData, item }) => {
       </Modal>
 
       <div>
-        <button onClick={open}>Edit News</button>
+        <button onClick={open}>Edit Events</button>
       </div>
     </div>
   );
 };
 
-export default EditNews;
+export default EditEvents;

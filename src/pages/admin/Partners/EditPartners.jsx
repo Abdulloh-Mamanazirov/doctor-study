@@ -1,17 +1,10 @@
-import React, { useState } from "react";
-import {
-  Box,
-  Modal,
-  Button,
-  Textarea,
-  TextInput,
-  FileInput,
-} from "@mantine/core";
+import { Box, Button, Modal, TextInput, Textarea } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { toast } from "react-toastify";
 import axios from "axios";
+import React, { useState } from "react";
+import { toast } from "react-toastify";
 
-const EditNews = ({ getData, item }) => {
+const EditPartners = ({ getData, item }) => {
   const [opened, { open, close }] = useDisclosure(false);
   const [file, setFile] = useState();
   const [image, setImage] = useState();
@@ -24,18 +17,7 @@ const EditNews = ({ getData, item }) => {
   const handleSubmit = async (values) => {
     values.preventDefault();
     const formdataForSubmit = new FormData();
-    formdataForSubmit.append(
-      "description_en",
-      values.target.description_en.value ?? item?.description_en
-    );
-    formdataForSubmit.append(
-      "description_ru",
-      values.target.description_ru.value ?? item?.description_ru
-    );
-    formdataForSubmit.append(
-      "description_uz",
-      values.target.description_uz.value ?? item?.description_uz
-    );
+
     formdataForSubmit.append(
       "title_en",
       values.target.title_en.value ?? item?.title_en
@@ -48,13 +30,17 @@ const EditNews = ({ getData, item }) => {
       "title_uz",
       values.target.title_uz.value ?? item?.title_uz
     );
+    formdataForSubmit.append("url", values.target.url.value ?? item?.url);
 
     if (file) {
       formdataForSubmit.append("file", file);
     }
 
     try {
-      const response = await axios.patch(`news/${item.id}`, formdataForSubmit);
+      const response = await axios.patch(
+        `webinar/${item.id}`,
+        formdataForSubmit
+      );
       if (response.status === 200) {
         toast.success("Edited SucsesFull!");
         close();
@@ -70,57 +56,37 @@ const EditNews = ({ getData, item }) => {
       <Modal
         opened={opened}
         onClose={close}
-        title="Create News"
+        title="Create Partners"
         size="calc(70vw - 3rem)"
       >
         <Box maw={840} mx="auto">
           <form onSubmit={handleSubmit}>
             <TextInput
-              label="News title English"
-              placeholder="News title English"
+              label="Partners title English"
+              placeholder="Partners title English"
               defaultValue={item.title_en}
               name="title_en"
-              required
             />
             <TextInput
               mt="sm"
-              label="News title Russian"
-              placeholder="News title Russian"
+              label="Partners title Russian"
+              placeholder="Partners title Russian"
               defaultValue={item.title_ru}
-              required
               name="title_ru"
             />
             <TextInput
               mt="sm"
-              label="News title Uzbek"
-              placeholder="News title Uzbek"
+              label="Partners title Uzbek"
+              placeholder="Partners title Uzbek"
               defaultValue={item.title_uz}
-              required
               name="title_uz"
             />
-            <Textarea
-              mt="md"
-              label="News Description English"
-              placeholder="news description English"
-              defaultValue={item.description_en}
-              required
-              name="description_en"
-            />
-            <Textarea
-              mt="md"
-              label="News Description Russian"
-              placeholder="news description Russian"
-              defaultValue={item.description_ru}
-              required
-              name="description_ru"
-            />
-            <Textarea
-              mt="md"
-              label="News Description Uzbek"
-              placeholder="news description Uzbek"
-              defaultValue={item.description_uz}
-              required
-              name="description_uz"
+            <TextInput
+              mt="sm"
+              label="Partners title Uzbek"
+              placeholder="Partners title Uzbek"
+              defaultValue={item.url}
+              name="url"
             />
             <input
               type="file"
@@ -137,10 +103,10 @@ const EditNews = ({ getData, item }) => {
       </Modal>
 
       <div>
-        <button onClick={open}>Edit News</button>
+        <button onClick={open}>Edit Partners</button>
       </div>
     </div>
   );
 };
 
-export default EditNews;
+export default EditPartners;

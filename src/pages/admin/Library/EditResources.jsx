@@ -11,7 +11,7 @@ import { useDisclosure } from "@mantine/hooks";
 import { toast } from "react-toastify";
 import axios from "axios";
 
-const EditNews = ({ getData, item }) => {
+const EditResources = ({ getData, item }) => {
   const [opened, { open, close }] = useDisclosure(false);
   const [file, setFile] = useState();
   const [image, setImage] = useState();
@@ -36,25 +36,16 @@ const EditNews = ({ getData, item }) => {
       "description_uz",
       values.target.description_uz.value ?? item?.description_uz
     );
-    formdataForSubmit.append(
-      "title_en",
-      values.target.title_en.value ?? item?.title_en
-    );
-    formdataForSubmit.append(
-      "title_ru",
-      values.target.title_ru.value ?? item?.title_ru
-    );
-    formdataForSubmit.append(
-      "title_uz",
-      values.target.title_uz.value ?? item?.title_uz
-    );
 
     if (file) {
       formdataForSubmit.append("file", file);
     }
 
     try {
-      const response = await axios.patch(`news/${item.id}`, formdataForSubmit);
+      const response = await axios.patch(
+        `resources/${item.id}`,
+        formdataForSubmit
+      );
       if (response.status === 200) {
         toast.success("Edited SucsesFull!");
         close();
@@ -75,29 +66,6 @@ const EditNews = ({ getData, item }) => {
       >
         <Box maw={840} mx="auto">
           <form onSubmit={handleSubmit}>
-            <TextInput
-              label="News title English"
-              placeholder="News title English"
-              defaultValue={item.title_en}
-              name="title_en"
-              required
-            />
-            <TextInput
-              mt="sm"
-              label="News title Russian"
-              placeholder="News title Russian"
-              defaultValue={item.title_ru}
-              required
-              name="title_ru"
-            />
-            <TextInput
-              mt="sm"
-              label="News title Uzbek"
-              placeholder="News title Uzbek"
-              defaultValue={item.title_uz}
-              required
-              name="title_uz"
-            />
             <Textarea
               mt="md"
               label="News Description English"
@@ -137,10 +105,12 @@ const EditNews = ({ getData, item }) => {
       </Modal>
 
       <div>
-        <button onClick={open}>Edit News</button>
+        <button onClick={open}>
+          <span className="fa-solid fa-edit text-xl text-blue-500 cursor-pointer pl-1" />
+        </button>
       </div>
     </div>
   );
 };
 
-export default EditNews;
+export default EditResources;

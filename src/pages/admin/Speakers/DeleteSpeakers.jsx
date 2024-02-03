@@ -9,7 +9,7 @@ const DeleteSpeakers = ({ getData, item }) => {
       const res = await axios.delete(`/speakers/${item?.id}`);
       if (res.status === 204) {
         getData();
-        toast.dark("O'chirildi!");
+        toast.success("O'chirildi!");
       }
     } catch (error) {
       toast.error("Nimadadir xatolik ketdi!");
