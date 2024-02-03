@@ -18,24 +18,20 @@ const Index = () => {
   const { register } = useSelector((state) => state);
   const navigate = useNavigate();
   const [hiddenMessage, setHiddenMessage] = useState("");
-
   async function handleSubmit(e) {
     e.preventDefault();
     const { first_name, last_name, work_location, job, password, email } =
       register;
     const data = {
-      first_name: first_name,
-      last_name: last_name,
-      work_location: work_location,
-      job: job,
-      email: email,
-      password: password,
+      first_name,
+      last_name,
+      work_location,
+      job,
+      email,
+      password,
     };
     try {
-      const response = await axios.post(
-        "http://192.168.137.67:8081/api/auth/register",
-        data
-      );
+      const response = await axios.post("auth/register", data);
 
       if (response.status === 200) {
         toast.success("Registration successful yo can see email");

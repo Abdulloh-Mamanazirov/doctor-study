@@ -14,6 +14,7 @@ import { toast } from "react-toastify";
 export default function Index() {
   const [loading, setLoading] = useState(false);
   const [token, setToken] = useState("");
+  const [keepLoggedIn, setKeepLoggedIn] = useState(false);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -21,7 +22,7 @@ export default function Index() {
     try {
       const { email, password } = e.target;
       const response = await axios
-        .post("http://192.168.137.67:8081/api/auth/authenticate", {
+        .post("auth/authenticate", {
           email: email.value,
           password: password.value,
         })
@@ -31,6 +32,14 @@ export default function Index() {
       if (response.data.access_token) {
         setToken(response.data.access_token);
         toast.success("Authentication successful");
+
+        if (keepLoggedIn) {
+          localStorage.setItem(
+            "doctors-admin-token",
+            response.data.access_token
+          );
+        }
+
         sessionStorage.setItem(
           "doctors-admin-token",
           response.data.access_token

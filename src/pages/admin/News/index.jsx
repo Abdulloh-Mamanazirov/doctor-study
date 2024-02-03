@@ -15,6 +15,7 @@ import EditNews from "./EditNews";
 import DeleteNews from "./DeleteNews";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { image_url } from "../../../constants";
 
 function Index() {
   const [open, setOpen] = useState(false);
@@ -122,21 +123,17 @@ function Index() {
                   {item.description_en}
                 </Text>
                 <Card.Section mt="sm">
-                  <Image
-                    src={`http://192.168.137.67:8081/api/images/${item.link}`}
-                  />
+                  <Image src={image_url + item.link} />
                 </Card.Section>
               </Card>
             );
           })
         ) : (
-          <div>
-            <>
-              <div className="flex flex-col items-center gap-3">
-                <img src="/empty.png" alt="no data" width={100} />
-                <p className="text-gray-500">No data available.</p>
-              </div>
-            </>
+          <div className="grid place-content-center col-span-3">
+            <div className=" items-center gap-3">
+              <img src="/empty.png" alt="no data" width={100} />
+              <p className="text-gray-500">No data available.</p>
+            </div>
           </div>
         )}
       </div>
