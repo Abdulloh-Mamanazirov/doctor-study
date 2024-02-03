@@ -61,7 +61,7 @@ export default function Index() {
       <div className="absolute inset-0 bg-black/30" />
       <div className="w-11/12 md:w-1/3 mx-auto z-20">
         <div>
-          <form onSubmit={handleSubmit} radius={0} p={30}>
+          <form onSubmit={handleSubmit} radius={0} p={30} className="relative">
             <Title order={2} ta="center" mt="md" mb={50}>
               Welcome back!
             </Title>
@@ -81,16 +81,16 @@ export default function Index() {
               required
               name="password"
             />
-            <Checkbox
-              label="Keep me logged in"
-              mt="xl"
-              size="md"
-              onChange={() => setKeepLoggedIn(!keepLoggedIn)}
-            />
+            <button
+              type="button"
+              className="mt-2 text-primary-desc hover:underline"
+            >
+              Forgot password?
+            </button>
             <Button color={"red"} fullWidth mt="xl" size="md" type="submit">
               Login
             </Button>
-            <div className="relative">
+            <div>
               <Text ta="center" mt="md">
                 Don&apos;t have an account?{" "}
                 <Link

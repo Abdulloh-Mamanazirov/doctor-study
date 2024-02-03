@@ -1,20 +1,23 @@
 import { Container, Title, Text, List, ThemeIcon, rem } from "@mantine/core";
+import { useTranslation } from "react-i18next";
 import classes from "./HeroBullets.module.css";
 
 function About() {
+  const { t, i18n } = useTranslation();
   return (
     <Container size="md">
       <div className={"grid md:grid-cols-2 items-center py-24"}>
         <div className={classes.content}>
           <Title className={classes.title}>
-            Welcome to <span className={classes.highlight}>Doktor-S</span>{" "}
-            Medical
+            {t("home.about.title") + " "}{" "}
+            {i18n.language !== "uz" && (
+              <>
+                <span className={classes.highlight}>Doktor-S</span> Medical
+              </>
+            )}
           </Title>
           <Text c="dimmed" mt="md">
-            We are a leading provider of educational events in modern
-            evidence-based medicine. Our medical webinars, news and materials
-            are designed to keep you up-to-date with the latest developments in
-            the medical world. Join us and stay informed.
+            {t("home.about.desc")}
           </Text>
 
           <List
@@ -32,16 +35,16 @@ function About() {
             }
           >
             <List.Item>
-              <b>Medical Webinars</b>
+              <b>{t("home.about.points.n1")}</b>
             </List.Item>
             <List.Item>
-              <b>Medical News</b>
+              <b>{t("home.about.points.n2")}</b>
             </List.Item>
             <List.Item>
-              <b>Useful Materials</b>
+              <b>{t("home.about.points.n3")}</b>
             </List.Item>
             <List.Item>
-              <b>Conference</b>
+              <b>{t("home.about.points.n4")}</b>
             </List.Item>
           </List>
         </div>
