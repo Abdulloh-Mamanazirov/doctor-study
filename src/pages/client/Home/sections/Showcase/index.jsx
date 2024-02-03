@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { ShowcaseBg } from "../../../../../assets";
 
 const Card = ({ value, title, desc, img }) => {
@@ -17,6 +18,7 @@ const Card = ({ value, title, desc, img }) => {
 };
 
 const index = () => {
+  const { t } = useTranslation();
   return (
     <div
       className={`relative w-full bg-center`}
@@ -25,13 +27,13 @@ const index = () => {
       <div className="absolute inset-0 bg-black/40" />
       <div className="relative pt-7 pb-3">
         <h1 className="text-center text-5xl text-white font-bold leading-tight">
-          Medical educational portal <br />{" "}
+          {t("home.title")} <br />{" "}
           <span className="font-extrabold">"DOCTOR-STUDY"</span>
         </h1>
         <div className="w-11/12 md:w-9/12 mx-auto mt-10 grid md:grid-cols-2 gap-10">
           <Card
             value={"120+"}
-            title={"Video materials available"}
+            title={t("home.videos.title")}
             img={
               "https://thumb.tildacdn.com/tild3935-3431-4532-a363-393365653636/-/resize/300x/-/format/webp/-1-05.png"
             }
@@ -41,7 +43,7 @@ const index = () => {
           />
           <Card
             value={"10+"}
-            title={"Events every month"}
+            title={t("home.events.title")}
             img={
               "https://thumb.tildacdn.com/tild3733-6263-4162-b536-653333653866/-/resize/300x/-/format/webp/-1-06.png"
             }
@@ -51,7 +53,7 @@ const index = () => {
           />
           <Card
             value={"50+"}
-            title={"Online articles available"}
+            title={t("home.articles.title")}
             img={
               "https://thumb.tildacdn.com/tild3734-6136-4534-b835-653030623031/-/resize/300x/-/format/webp/-1-03.png"
             }
@@ -61,7 +63,7 @@ const index = () => {
           />
           <Card
             value={"30+"}
-            title={"Useful resources"}
+            title={t("home.resources.title")}
             img={
               "https://thumb.tildacdn.com/tild3530-6662-4364-b939-306633633936/-/resize/300x/-/format/webp/-1-02.png"
             }
