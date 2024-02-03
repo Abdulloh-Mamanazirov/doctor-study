@@ -9,7 +9,7 @@ function About() {
         <div className="w-full h-full hidden md:block">
           <img
             src={
-              "https://10web-site.ai/24/wp-content/uploads/sites/27/2024/01/danny-g-htYDlrrKfuM-unsplash_VLISPr1P.webp"
+              "https://codeblue.galencentre.org/wp-content/uploads/2023/02/Town-hall-Feb-23_twittimc-min.jpg"
             }
             alt="doctor study"
             className={"w-full h-full rounded-lg object-cover"}
