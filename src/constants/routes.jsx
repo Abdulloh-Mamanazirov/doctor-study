@@ -22,6 +22,7 @@ import {
   AdminLibrary,
   AdminSpeakers,
   AdminPartners,
+  Participate,
 } from "../pages";
 
 const admin_token = sessionStorage.getItem("doctors-admin-token");
@@ -92,6 +93,10 @@ export const CLIENT = [
   {
     path: "/events",
     element: <Events />,
+  },
+  {
+    path: "/events/:id",
+    element: client_token ? <Participate /> : <Login />,
   },
   {
     path: "/speakers",

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 function EventCard() {
   return (
-    <Card shadow="sm" padding="xl" component={Link} to="/">
+    <Card shadow="sm" padding="xl" component={Link} to={crypto.randomUUID()}>
       <Card.Section>
         <Image
           src="https://www.shutterstock.com/image-vector/medical-conference-clinic-group-meeting-260nw-1721618806.jpg"

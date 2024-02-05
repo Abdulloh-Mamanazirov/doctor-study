@@ -11,7 +11,7 @@ import "./i18n";
 import "./index.css";
 import "@mantine/core/styles.css";
 
-let global_url = "http://192.168.137.67:8081/api/";
+let global_url = "http://82.97.242.32:8081/api/";
 axios.defaults.baseURL = global_url;
 
 let token = sessionStorage.getItem("doctors-admin-token");
