@@ -45,7 +45,6 @@ function Index() {
     getData();
   }, []);
 
-  console.log(data, "test");
 
   return (
     <div>

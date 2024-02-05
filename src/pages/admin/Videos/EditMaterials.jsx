@@ -4,7 +4,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 
-const EditPartners = ({ getData, item }) => {
+const EditEvents = ({ getData, item }) => {
   const [opened, { open, close }] = useDisclosure(false);
   const [file, setFile] = useState();
   const [image, setImage] = useState();
@@ -17,7 +17,18 @@ const EditPartners = ({ getData, item }) => {
   const handleSubmit = async (values) => {
     values.preventDefault();
     const formdataForSubmit = new FormData();
-
+    formdataForSubmit.append(
+      "description_en",
+      values.target.description_en.value ?? item?.description_en
+    );
+    formdataForSubmit.append(
+      "description_ru",
+      values.target.description_ru.value ?? item?.description_ru
+    );
+    formdataForSubmit.append(
+      "description_uz",
+      values.target.description_uz.value ?? item?.description_uz
+    );
     formdataForSubmit.append(
       "title_en",
       values.target.title_en.value ?? item?.title_en
@@ -30,7 +41,6 @@ const EditPartners = ({ getData, item }) => {
       "title_uz",
       values.target.title_uz.value ?? item?.title_uz
     );
-    formdataForSubmit.append("url", values.target.url.value ?? item?.url);
 
     if (file) {
       formdataForSubmit.append("file", file);
@@ -38,7 +48,7 @@ const EditPartners = ({ getData, item }) => {
 
     try {
       const response = await axios.patch(
-        `partners/${item.id}`,
+        `materials/${item.id}`,
         formdataForSubmit
       );
       if (response.status === 200) {
@@ -56,38 +66,53 @@ const EditPartners = ({ getData, item }) => {
       <Modal
         opened={opened}
         onClose={close}
-        title="Create Partners"
+        title="Create Events"
         size="calc(70vw - 3rem)"
       >
         <Box maw={840} mx="auto">
           <form onSubmit={handleSubmit}>
             <TextInput
-              label="Partners title English"
-              placeholder="Partners title English"
+              label="Events title English"
+              placeholder="Events title English"
               defaultValue={item.title_en}
               name="title_en"
             />
             <TextInput
               mt="sm"
-              label="Partners title Russian"
-              placeholder="Partners title Russian"
+              label="Events title Russian"
+              placeholder="Events title Russian"
               defaultValue={item.title_ru}
               name="title_ru"
             />
             <TextInput
               mt="sm"
-              label="Partners title Uzbek"
-              placeholder="Partners title Uzbek"
+              label="Events title Uzbek"
+              placeholder="Events title Uzbek"
               defaultValue={item.title_uz}
               name="title_uz"
             />
-            <TextInput
-              mt="sm"
-              label="Partners title Uzbek"
-              placeholder="Partners title Uzbek"
-              defaultValue={item.url}
-              name="url"
+            <Textarea
+              mt="md"
+              label="Events Description English"
+              placeholder="Events description English"
+              defaultValue={item.description_en}
+              name="description_en"
             />
+            <Textarea
+              mt="md"
+              label="Events Description Russian"
+              placeholder="news description Russian"
+              defaultValue={item.description_ru}
+              name="description_ru"
+            />
+            <Textarea
+              mt="md"
+              label="Article Description Uzbek"
+              placeholder="news description Uzbek"
+              defaultValue={item.description_uz}
+              name="description_uz"
+            />
+
             <input
               type="file"
               name="image"
@@ -103,13 +128,10 @@ const EditPartners = ({ getData, item }) => {
       </Modal>
 
       <div>
-        <span
-          onClick={open}
-          className="fa-solid fa-edit text-xl text-blue-500 cursor-pointer"
-        />
+        <button onClick={open}>Edit Events</button>
       </div>
     </div>
   );
 };
 
-export default EditPartners;
+export default EditEvents;
