@@ -1,17 +1,23 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { ShowcaseBg } from "../../../../../assets";
+import {
+  ShowcaseBg,
+  articleIcon,
+  booksIcon,
+  videoIcon,
+  eventsIcon,
+} from "../../../../../assets";
 
 const Card = ({ value, title, desc, img }) => {
   return (
     <div className="grid grid-cols-3">
+      <div className="w-full p-7">
+        <img src={img} alt="doctor s icon" className="w-full" />
+      </div>
       <div className="col-span-2">
         <h4 className="text-4xl font-extrabold text-white">{value}</h4>
         <p className="text-xl font-bold text-white">{title}</p>
         <p className="mt-7 text-white font-semibold">{desc}</p>
-      </div>
-      <div className="w-full">
-        <img src={img} alt="doctor s icon" className="w-full" />
       </div>
     </div>
   );
@@ -34,9 +40,7 @@ const index = () => {
           <Card
             value={"120+"}
             title={t("home.videos.title")}
-            img={
-              "https://thumb.tildacdn.com/tild3935-3431-4532-a363-393365653636/-/resize/300x/-/format/webp/-1-05.png"
-            }
+            img={videoIcon}
             desc={
               "Eveniet consectetur expedita, nulla laborum dicta nesciunt culpa officia magni neque voluptatibus ducimus, et sapiente."
             }
@@ -44,9 +48,7 @@ const index = () => {
           <Card
             value={"10+"}
             title={t("home.events.title")}
-            img={
-              "https://thumb.tildacdn.com/tild3733-6263-4162-b536-653333653866/-/resize/300x/-/format/webp/-1-06.png"
-            }
+            img={eventsIcon}
             desc={
               "Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus aspernatur iure at. Quisquam ex ."
             }
@@ -54,9 +56,7 @@ const index = () => {
           <Card
             value={"50+"}
             title={t("home.articles.title")}
-            img={
-              "https://thumb.tildacdn.com/tild3734-6136-4534-b835-653030623031/-/resize/300x/-/format/webp/-1-03.png"
-            }
+            img={articleIcon}
             desc={
               "Nulla laborum dicta nesciunt culpa officia magni neque  sapiente. Adipisicing elit. Possimus aspernatur iure at. Quisquam ex."
             }
@@ -64,9 +64,7 @@ const index = () => {
           <Card
             value={"30+"}
             title={t("home.resources.title")}
-            img={
-              "https://thumb.tildacdn.com/tild3530-6662-4364-b939-306633633936/-/resize/300x/-/format/webp/-1-02.png"
-            }
+            img={booksIcon}
             desc={
               "Culpa officia magni neque voluptatibus ducimus, et sapiente.consectetur adipisicing elit. Possimus aspernatur iure at. Quisquam ex."
             }
