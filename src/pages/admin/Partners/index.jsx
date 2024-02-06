@@ -56,7 +56,6 @@ const index = () => {
                       alt=""
                     />
                   </Table.Td>
-
                   <Table.Td className="flex justify-normal">
                     <DeletePatners getData={getData} item={item} />
                     <EditPartners getData={getData} item={item} />

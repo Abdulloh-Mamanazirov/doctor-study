@@ -55,7 +55,7 @@ const EditEvents = ({ getData, item }) => {
 
     try {
       const response = await axios.patch(
-        `webinar/${item.id}`,
+        `webinars/${item.id}`,
         formdataForSubmit
       );
       if (response.status === 200) {
@@ -162,7 +162,10 @@ const EditEvents = ({ getData, item }) => {
       </Modal>
 
       <div>
-        <button onClick={open}>Edit Events</button>
+        <span
+          onClick={open}
+          className="fa-solid fa-edit text-xl text-blue-500 cursor-pointer"
+        />
       </div>
     </div>
   );

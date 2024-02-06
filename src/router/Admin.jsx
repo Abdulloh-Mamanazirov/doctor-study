@@ -32,7 +32,7 @@ const Admin = () => {
           <img src={Logo_text} className={`cursor-pointer w-fit `} />
         </div>
         <ul className="pt-6 w-full">
-          {ADMIN.map((Menu, index) => (
+          {ADMIN.filter(item => item.show).map((Menu, index) => (
             <NavLink
               to={Menu.path}
               key={index}
