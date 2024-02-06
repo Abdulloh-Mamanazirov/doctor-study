@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import DeleteSpeakers from "../Speakers/DeleteSpeakers";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { image_url } from "../../../constants/url";
 import EditSpeakers from "./EditSpeakers";
 
 const GetSpeakers = () => {
@@ -52,7 +53,7 @@ const GetSpeakers = () => {
                   <Table.Td>
                     <img
                       className="aspect-square w-11 rounded-full"
-                      src={`http://82.97.242.32:8081/api/${item?.link}`}
+                      src={image_url + item?.link}
                       alt=""
                     />
                   </Table.Td>

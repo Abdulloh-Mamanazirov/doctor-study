@@ -1,13 +1,26 @@
-import { Box, Button, Modal, TextInput, Textarea } from "@mantine/core";
+import {
+  Box,
+  Button,
+  Checkbox,
+  FileInput,
+  Input,
+  Modal,
+  MultiSelect,
+  TextInput,
+  Textarea,
+} from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 const PostArticles = ({ getData }) => {
   const [opened, { open, close }] = useDisclosure(false);
+  const [speakersId, setSpeakersId] = useState("");
   const [file, setFile] = useState();
   const [formData, setFormData] = useState({});
+  const [data, setData] = useState();
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevFormData) => ({
@@ -16,11 +29,25 @@ const PostArticles = ({ getData }) => {
     }));
   };
 
+  async function getData() {
+    try {
+      const response = await axios.get("speakers");
+      setData(response.data);
+    } catch (error) {
+      toast.error(error.message);
+    }
+  }
+
+  useEffect(() => {
+    getData();
+  }, []);
+
   const handleChange = (e) => {
     if (e.target && e.target.files && e.target.files.length > 0) {
       setFile(URL.createObjectURL(e.target.files[0]));
     }
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -37,7 +64,7 @@ const PostArticles = ({ getData }) => {
       speakers,
       time,
       field,
-    } = e.target;
+    } = e.target.elements;
 
     const formdataForSubmit = new FormData();
     formdataForSubmit.append("title_en", title_en.value);
@@ -46,21 +73,22 @@ const PostArticles = ({ getData }) => {
     formdataForSubmit.append("description_en", description_en.value);
     formdataForSubmit.append("description_ru", description_ru.value);
     formdataForSubmit.append("description_uz", description_uz.value);
-    formdataForSubmit.append("file  ", file.files[0]);
+    formdataForSubmit.append("file", file.files[0]);
     formdataForSubmit.append("city", city.value);
-    formdataForSubmit.append("speakers", speakers.value);
+    formdataForSubmit.append("speakers", speakersId);
     formdataForSubmit.append("time", time.value);
     formdataForSubmit.append("field", field.value);
+    formdataForSubmit.append("online", online.checked);
 
     try {
-      const response = await axios.post("webinar", formdataForSubmit);
+      const response = await axios.post("webinars", formdataForSubmit);
       if (response.status === 201) {
-        toast.success("news post sucsesful");
+        toast.success("Webinar post successful");
         close();
         getData();
       }
     } catch (error) {
-      toast.error("Error submitting news post:", error);
+      toast.error("Error submitting Webinar post:", error);
     }
   };
 
@@ -69,60 +97,60 @@ const PostArticles = ({ getData }) => {
       <Modal
         opened={opened}
         onClose={close}
-        title="Create Articles"
+        title="Create Webinar"
         size="calc(70vw - 3rem)"
       >
         <Box maw={840} mx="auto">
           <form onSubmit={handleSubmit}>
             <TextInput
-              label="News title English"
-              placeholder="News title English"
+              label="Webinar title English"
+              placeholder="Webinar title English"
               name="title_en"
               required
-              value={formData.title_en}
+              value={formData?.title_en}
               onChange={handleInputChange}
             />
             <TextInput
               mt="sm"
-              label="News title Russian"
-              placeholder="News title Russian"
+              label="Webinar title Russian"
+              placeholder="Webinar title Russian"
               name="title_ru"
-              value={formData.title_ru}
+              value={formData?.title_ru}
               onChange={handleInputChange}
               required
             />
             <TextInput
               mt="sm"
-              label="News title Uzbek"
-              placeholder="News title Uzbek"
+              label="Webinar title Uzbek"
+              placeholder="Webinar title Uzbek"
               required
               name="title_uz"
-              value={formData.title_uz}
+              value={formData?.title_uz}
               onChange={handleInputChange}
             />
             <Textarea
               mt="md"
-              label="News Description English"
+              label="Webinar Description English"
               placeholder="news description English"
-              value={formData.description_en}
+              value={formData?.description_en}
               name="description_en"
               onChange={handleInputChange}
               required
             />
             <Textarea
               mt="md"
-              label="News Description Russian"
+              label="Webinar Description Russian"
               placeholder="news description Russian"
-              value={formData.description_ru}
+              value={formData?.description_ru}
               onChange={handleInputChange}
               required
               name="description_ru"
             />
             <Textarea
               mt="md"
-              label="News Description Uzbek"
+              label="Webinar Description Uzbek"
               placeholder="news description Uzbek"
-              value={formData.description_uz}
+              value={formData?.description_uz}
               onChange={handleInputChange}
               required
               name="description_uz"
@@ -131,42 +159,53 @@ const PostArticles = ({ getData }) => {
               mt="md"
               label="city "
               placeholder="city"
-              value={formData.city}
+              value={formData?.city}
               onChange={handleInputChange}
               required
               name="city"
             />
-            <TextInput
-              mt="md"
-              label="speakers "
-              placeholder="speakers"
-              value={formData.speakers}
-              onChange={handleInputChange}
-              required
+            <MultiSelect
+              label="Choose your speakers"
+              placeholder="Pick value"
+              data={data?.map?.((item) => ({
+                value: String(item?.id),
+                label: item?.fullName,
+              }))}
+              clearable
               name="speakers"
+              onChange={(selectedOption) => setSpeakersId(selectedOption)}
             />
-            <TextInput
-              mt="md"
-              label="time "
-              placeholder="time"
-              value={formData.time}
-              onChange={handleInputChange}
-              required
-              name="time"
-            />
+            <label htmlFor="" className="my-5">
+              Choose your date
+              <Input
+                type="datetime-local"
+                placeholder="Pick date and time"
+                name="time"
+              />
+            </label>
             <TextInput
               mt="md"
               label="field "
               placeholder="field"
-              value={formData.field}
+              value={formData?.field}
               onChange={handleInputChange}
               required
               name="field"
             />
+            <Checkbox
+              label="your choose your status"
+              className="py-5"
+              onChange={(e) => {
+                setFormData((old) => ({ ...old, online: e.target.checked }));
+              }}
+              name="online"
+            />
+
             <label className="">
               Choose Image file
               <br />
-              <input
+              <FileInput
+                placeholder="choose your file"
                 type="file"
                 name="file"
                 className="file:cursor-pointer file:rounded-md file:bg-transparent file:px-5"
@@ -174,7 +213,6 @@ const PostArticles = ({ getData }) => {
               />
               <img src={file} className="w-[400px] " />
             </label>
-
             <Button type="submit" color="cyan" mt="sm" fullWidth>
               Submit
             </Button>
@@ -183,7 +221,7 @@ const PostArticles = ({ getData }) => {
       </Modal>
 
       <Button type="button" color="cyan" onClick={open}>
-        + Add Eveents
+        + Add Events
       </Button>
     </div>
   );
