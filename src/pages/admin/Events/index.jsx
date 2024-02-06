@@ -27,7 +27,7 @@ const index = () => {
 
   return (
     <div className="md:mt-10">
-      <PostEvents getData={getData} />
+      <PostEvents getDatas={getData} />
       <Table striped highlightOnHover withTableBorder withColumnBorders mt={15}>
         <Table.Thead>
           <Table.Tr>
@@ -39,7 +39,7 @@ const index = () => {
             <Table.Th>Time</Table.Th>
             <Table.Th>Speakers</Table.Th>
             <Table.Th>Online</Table.Th>
-            <Table.Th>Link</Table.Th>
+            <Table.Th>Image</Table.Th>
             <Table.Th>Action</Table.Th>
           </Table.Tr>
         </Table.Thead>
@@ -72,7 +72,7 @@ const index = () => {
                   </Table.Td>
                   <Table.Td className="flex justify-normal gap-2">
                     <DeleteEvent getData={getData} item={item} />
-                    <EditEvents getData={getData} item={item} />
+                    <EditEvents getDatas={getData} item={item} />
                     <SeeAll getData={getData} item={item} />
                   </Table.Td>
                 </Table.Tr>

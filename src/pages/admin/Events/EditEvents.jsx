@@ -1,18 +1,41 @@
-import { Box, Button, Modal, TextInput, Textarea } from "@mantine/core";
+import {
+  Box,
+  Button,
+  Checkbox,
+  Modal,
+  MultiSelect,
+  TextInput,
+  Textarea,
+} from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import axios from "axios";
-import React, { useState } from "react";
+import { Input } from "@mantine/core";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
-const EditEvents = ({ getData, item }) => {
+const EditEvents = ({ getDatas, item }) => {
   const [opened, { open, close }] = useDisclosure(false);
   const [file, setFile] = useState();
   const [image, setImage] = useState();
+  const [data, setData] = useState();
+  const [speakersId, setSpeakersId] = useState([]);
 
   const handleChange = (e) => {
     setFile(URL.createObjectURL(e.target.files[0]));
     setImage(e.target.files[0]);
   };
+  async function getData() {
+    try {
+      const response = await axios.get("speakers");
+      setData(response.data);
+    } catch (error) {
+      toast.error(error.message);
+    }
+  }
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   const handleSubmit = async (values) => {
     values.preventDefault();
@@ -46,12 +69,13 @@ const EditEvents = ({ getData, item }) => {
       formdataForSubmit.append("file", file);
     }
     formdataForSubmit.append("city", values.target.city.value ?? item.city);
-    formdataForSubmit.append(
-      "speakers",
-      values.target.speakers.value ?? item.speakers
-    );
+    formdataForSubmit.append("speakers", speakersId ?? item.speakers);
     formdataForSubmit.append("time", values.target.time.value ?? item.time);
     formdataForSubmit.append("field", values.target.field.value ?? item.field);
+    formdataForSubmit.append(
+      "online",
+      values.target.online.value ?? item.online.checked
+    );
 
     try {
       const response = await axios.patch(
@@ -61,7 +85,7 @@ const EditEvents = ({ getData, item }) => {
       if (response.status === 200) {
         toast.success("Edited SucsesFull!");
         close();
-        getData();
+        getDatas();
       }
     } catch (error) {
       toast.error("Error submitting news patch:", error);
@@ -126,14 +150,26 @@ const EditEvents = ({ getData, item }) => {
               defaultValue={item.city}
               name="city"
             />
-            <TextInput
-              mt="sm"
-              label="Events title Uzbek"
-              placeholder="Events title Uzbek"
-              defaultValue={item.speakers}
+            <MultiSelect
+              label="Choose your speakers"
+              placeholder="Pick value"
+              data={data
+                ?.filter((item) => !speakersId.includes(String(item?.fullName)))
+                .map((item) => ({
+                  value: String(item?.id),
+                  label: item?.fullName,
+                }))}
+              clearable
               name="speakers"
+              defaultValue={
+                item.speakers
+                  ? item.speakers.map((speaker) => String(speaker?.fullName))
+                  : []
+              }
+              onChange={(selectedOption) => setSpeakersId(selectedOption)}
             />
-            <TextInput
+            <Input
+              type="datetime-local"
               mt="sm"
               label="Events title Uzbek"
               placeholder="Events title Uzbek"
@@ -147,6 +183,15 @@ const EditEvents = ({ getData, item }) => {
               defaultValue={item.field}
               name="field"
             />
+            <Checkbox
+              label="your choose your status"
+              className="py-5"
+              onChange={(e) => {
+                setFile(e.target.checked);
+              }}
+              name="online"
+            />
+
             <input
               type="file"
               name="image"

@@ -14,7 +14,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
-const PostArticles = ({ getData }) => {
+const PostArticles = ({ getDatas }) => {
   const [opened, { open, close }] = useDisclosure(false);
   const [speakersId, setSpeakersId] = useState("");
   const [file, setFile] = useState();
@@ -85,7 +85,7 @@ const PostArticles = ({ getData }) => {
       if (response.status === 201) {
         toast.success("Webinar post successful");
         close();
-        getData();
+        getDatas();
       }
     } catch (error) {
       toast.error("Error submitting Webinar post:", error);
