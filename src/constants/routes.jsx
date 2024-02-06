@@ -1,15 +1,16 @@
 import {
   Home,
   Login,
-  Events,
   NewsId,
   VideoId,
+  EventsId,
   Speakers,
   NewsMain,
   Register,
   VideoMain,
   LibraryId,
   ArticleId,
+  EventsMain,
   ArticleMain,
   LibraryMain,
   // admin pages
@@ -22,7 +23,6 @@ import {
   AdminLibrary,
   AdminSpeakers,
   AdminPartners,
-  Participate,
 } from "../pages";
 
 const admin_token = sessionStorage.getItem("doctors-admin-token");
@@ -92,11 +92,11 @@ export const CLIENT = [
   },
   {
     path: "/events",
-    element: <Events />,
+    element: <EventsMain />,
   },
   {
     path: "/events/:id",
-    element: client_token ? <Participate /> : <Login />,
+    element: client_token ? <EventsId /> : <Login />,
   },
   {
     path: "/speakers",
