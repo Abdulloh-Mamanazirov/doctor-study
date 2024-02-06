@@ -1,7 +1,8 @@
-import { Checkbox, Radio } from "@mantine/core";
-import { Countdown } from "../../../components";
+import { Checkbox, Input, Radio } from "@mantine/core";
+import { Countdown } from "../../../../components";
 import { Card, Image, Text } from "@mantine/core";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 function EventCard() {
   return (
@@ -30,6 +31,14 @@ function EventCard() {
 }
 
 const index = () => {
+  const [filter, setFilter] = useState({
+    title: "",
+    cities: [],
+    fields: [],
+    format: null,
+    speakers: [],
+  });
+
   return (
     <section>
       <Countdown
@@ -41,10 +50,22 @@ const index = () => {
       />
       <div className="grid sm:grid-cols-[20%,1fr]">
         <div className="sm:min-h-screen px-4 mb-5 sm:mb-0">
+          {/* search */}
+          <div>
+            <h4 className="text-lg font-bold mb-2">Event title:</h4>
+            <Input
+              onChange={(e) =>
+                setFilter((old) => ({ ...old, title: e.target.value }))
+              }
+            />
+          </div>
           {/* cities */}
-          <details className="block sm:hidden pb-1 border-b border-gray-400">
+          <details className="mt-5 block sm:hidden pb-1 border-b border-gray-400">
             <summary className="text-lg font-bold mb-2">Cities</summary>
-            <Checkbox.Group className="ml-3">
+            <Checkbox.Group
+              className="ml-3"
+              onChange={(e) => setFilter((old) => ({ ...old, cities: e }))}
+            >
               <Checkbox value={"Moscow"} label="Moscow" mb={5} />
               <Checkbox
                 value={"Sant peterburg"}
@@ -59,9 +80,12 @@ const index = () => {
               <Checkbox value={"Voronezh"} label="Voronezh" mb={5} />
             </Checkbox.Group>
           </details>
-          <div className="hidden sm:block">
+          <div className="mt-10 hidden sm:block">
             <h4 className="text-lg font-bold mb-2">Cities</h4>
-            <Checkbox.Group className="ml-3">
+            <Checkbox.Group
+              className="ml-3"
+              onChange={(e) => setFilter((old) => ({ ...old, cities: e }))}
+            >
               <Checkbox value={"Moscow"} label="Moscow" mb={5} />
               <Checkbox
                 value={"Sant peterburg"}
@@ -79,7 +103,10 @@ const index = () => {
           {/* fields */}
           <details className="mt-5 block sm:hidden pb-1 border-b border-gray-400">
             <summary className="text-lg font-bold mb-2">Fields</summary>
-            <Checkbox.Group className="ml-3">
+            <Checkbox.Group
+              className="ml-3"
+              onChange={(e) => setFilter((old) => ({ ...old, fields: e }))}
+            >
               <Checkbox
                 value={"Allergology and immunology"}
                 label="Allergology and immunology"
@@ -109,7 +136,10 @@ const index = () => {
           </details>
           <div className="mt-10 hidden sm:block">
             <h4 className="text-lg font-bold mb-2">Fields</h4>
-            <Checkbox.Group className="ml-3">
+            <Checkbox.Group
+              className="ml-3"
+              onChange={(e) => setFilter((old) => ({ ...old, fields: e }))}
+            >
               <Checkbox
                 value={"Allergology and immunology"}
                 label="Allergology and immunology"
@@ -140,22 +170,29 @@ const index = () => {
           {/* format */}
           <details className="mt-5 block sm:hidden pb-1 border-b border-gray-400">
             <summary className="text-lg font-bold mb-2">Format</summary>
-            <Radio.Group>
-              <Radio value={"Online"} label="Online" mb={5} />
-              <Radio value={"Hybrid"} label="Hybrid" mb={5} />
+            <Radio.Group
+              onChange={(e) => setFilter((old) => ({ ...old, format: e }))}
+            >
+              <Radio value={"false"} label="Online" mb={5} />
+              <Radio value={"true"} label="Hybrid" mb={5} />
             </Radio.Group>
           </details>
           <div className="mt-10 hidden sm:block">
             <h4 className="text-lg font-bold mb-2">Format</h4>
-            <Radio.Group>
-              <Radio value={"Online"} label="Online" mb={5} />
-              <Radio value={"Hybrid"} label="Hybrid" mb={5} />
+            <Radio.Group
+              onChange={(e) => setFilter((old) => ({ ...old, format: e }))}
+            >
+              <Radio value={"false"} label="Online" mb={5} />
+              <Radio value={"true"} label="Hybrid" mb={5} />
             </Radio.Group>
           </div>
           {/* speakers */}
           <details className="mt-5 block sm:hidden pb-1 border-b border-gray-400">
             <summary className="text-lg font-bold mb-2">Speakers</summary>
-            <Checkbox.Group className="ml-3">
+            <Checkbox.Group
+              className="ml-3"
+              onChange={(e) => setFilter((old) => ({ ...old, speakers: e }))}
+            >
               <Checkbox value={"Abuova G.N."} label="Abuova G.N." mb={5} />
               <Checkbox value={"Ageeva K.A."} label="Ageeva K.A." mb={5} />
               <Checkbox
@@ -196,7 +233,10 @@ const index = () => {
           </details>
           <div className="mt-10 hidden sm:block">
             <h4 className="text-lg font-bold mb-2">Speakers</h4>
-            <Checkbox.Group className="ml-3">
+            <Checkbox.Group
+              className="ml-3"
+              onChange={(e) => setFilter((old) => ({ ...old, speakers: e }))}
+            >
               <Checkbox value={"Abuova G.N."} label="Abuova G.N." mb={5} />
               <Checkbox value={"Ageeva K.A."} label="Ageeva K.A." mb={5} />
               <Checkbox

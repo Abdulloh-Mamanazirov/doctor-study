@@ -1,3 +1,4 @@
+import { Button, Input } from "@mantine/core";
 import React from "react";
 import { Link } from "react-router-dom";
 import { News } from "../../../../assets";
@@ -33,13 +34,25 @@ const ArticleCard = (props) => {
 };
 
 const index = () => {
+  function handleSearch(e) {
+    e.preventDefault();
+    const q = e.target.q.value;
+    console.log(q);
+  }
+
   return (
-    <section className="flex items-center py-5 lg:py-10">
-      <div className="justify-center flex-1 max-w-5xl px-4 py-4 mx-auto text-left lg:py-10 ">
-        <div className="mb-10 text-center">
-          <h1 className="text-2xl md:text-4xl text-primary-tite font-bold capitalize">
+    <section className="flex items-center py-5 lg:pb-10">
+      <div className="justify-center flex-1 max-w-5xl px-4 py-4 mx-auto text-left lg:pb-10 ">
+        <div className="mb-10 flex items-center justify-between gap-2">
+          <h1 className="text-3xl md:text-4xl text-primary-tite font-bold capitalize">
             Articles
           </h1>
+          <form onSubmit={handleSearch} className="flex items-center">
+            <Input name="q" type={"search"} />
+            <Button type="submit" variant={"light"}>
+              <span role={"button"} className="fa-solid fa-search" />
+            </Button>
+          </form>
         </div>
         {new Array(5).fill(null).map((_, ind) => (
           <ArticleCard

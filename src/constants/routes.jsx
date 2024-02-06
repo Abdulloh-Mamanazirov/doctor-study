@@ -1,16 +1,16 @@
 import {
   Home,
   Login,
-  Events,
   NewsId,
   VideoId,
+  EventsId,
   Speakers,
   NewsMain,
   Register,
   VideoMain,
   LibraryId,
   ArticleId,
-  Participate,
+  EventsMain,
   ArticleMain,
   LibraryMain,
   // admin pages
@@ -107,11 +107,11 @@ export const CLIENT = [
   },
   {
     path: "/events",
-    element: <Events />,
+    element: <EventsMain />,
   },
   {
     path: "/events/:id",
-    element: client_token ? <Participate /> : <Login />,
+    element: client_token ? <EventsId /> : <Login />,
   },
   {
     path: "/speakers",
