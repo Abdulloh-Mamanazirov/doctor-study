@@ -15,6 +15,8 @@ import {
   SimpleGrid,
   UnstyledButton,
   useMantineTheme,
+  Avatar,
+  Menu,
 } from "@mantine/core";
 import { useEffect } from "react";
 import { useDisclosure } from "@mantine/hooks";
@@ -157,9 +159,35 @@ export default function Navbar() {
           <Group visibleFrom="sm">
             <LanguagePicker />
             {client_token ? (
-              <Button color={"red"} onClick={handleLogOut}>
-                {t("logout")}
-              </Button>
+              <Menu shadow="md" width={200}>
+                <Menu.Target>
+                  <Avatar
+                    role={"button"}
+                    variant={"white"}
+                    radius="xl"
+                    color={"black"}
+                    bg={"#fff"}
+                  />
+                </Menu.Target>
+                <Menu.Dropdown>
+                  <Menu.Item
+                    component={Link}
+                    to="/my-profile"
+                    leftSection={<span className="fa-solid fa-user-circle" />}
+                  >
+                    {t("view")}
+                  </Menu.Item>
+                  <Menu.Item
+                    color={"red"}
+                    onClick={handleLogOut}
+                    leftSection={
+                      <span className="fa-solid fa-arrow-right-from-bracket" />
+                    }
+                  >
+                    {t("logout")}
+                  </Menu.Item>
+                </Menu.Dropdown>
+              </Menu>
             ) : (
               <>
                 <Link to={"/login"} className="focus:outline-none">
@@ -236,6 +264,13 @@ export default function Navbar() {
             style={{ fontSize: 18 }}
           >
             {t("speakers_link")}
+          </Link>
+          <Link
+            to="/my-profile"
+            className={`${classes.link} mb-2`}
+            style={{ fontSize: 18 }}
+          >
+            {t("view")}
           </Link>
 
           <Divider my="sm" />

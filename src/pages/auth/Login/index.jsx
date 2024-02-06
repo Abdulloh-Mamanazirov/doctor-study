@@ -32,18 +32,12 @@ export default function Index() {
       if (response.data.access_token) {
         setToken(response.data.access_token);
         toast.success("Authentication successful");
-
-        if (keepLoggedIn) {
-          localStorage.setItem(
-            "doctors-admin-token",
-            response.data.access_token
-          );
+        sessionStorage.setItem("doctors-token", response.data.access_token);
+        if (window.location.pathname === "/login") {
+          window.location.replace("/");
+        } else {
+          window.location.reload();
         }
-
-        sessionStorage.setItem(
-          "doctors-admin-token",
-          response.data.access_token
-        );
       } else {
         toast.error("Authentication failed");
       }
