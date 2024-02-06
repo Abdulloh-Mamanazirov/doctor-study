@@ -1,3 +1,4 @@
+import { Button, Input } from "@mantine/core";
 import React from "react";
 import { Link } from "react-router-dom";
 import { Pdf } from "../../../../assets";
@@ -23,18 +24,37 @@ const LibraryCard = (props) => {
 };
 
 const index = () => {
+  function handleSearch(e) {
+    e.preventDefault();
+    const q = e.target.q.value;
+    console.log(q);
+  }
+
   return (
-    <div className="max-w-6xl px-4 py-4 mx-auto text-left lg:py-10 grid gap-3 md:grid-cols-2 lg:grid-cols-3">
-      {new Array(7).fill(null).map((_, ind) => (
-        <LibraryCard
-          key={ind}
-          id={ind}
-          title={ind + " Book title goes here"}
-          desc={
-            "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ratione consequatur, ellat unde expedita incidunt quas nulla iste accusantium!"
-          }
-        />
-      ))}
+    <div className="max-w-6xl px-4 py-4 mx-auto">
+      <div className="py-10 flex items-center justify-between gap-2">
+        <h1 className="text-3xl md:text-4xl text-primary-tite font-bold capitalize">
+          Library
+        </h1>
+        <form onSubmit={handleSearch} className="flex items-center">
+          <Input name="q" type={"search"} />
+          <Button type="submit" variant={"light"}>
+            <span role={"button"} className="fa-solid fa-search" />
+          </Button>
+        </form>
+      </div>
+      <div className="text-left lg:py-10 grid gap-3 md:grid-cols-2 lg:grid-cols-3">
+        {new Array(7).fill(null).map((_, ind) => (
+          <LibraryCard
+            key={ind}
+            id={ind}
+            title={ind + " Book title goes here"}
+            desc={
+              "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ratione consequatur, ellat unde expedita incidunt quas nulla iste accusantium!"
+            }
+          />
+        ))}
+      </div>
     </div>
   );
 };

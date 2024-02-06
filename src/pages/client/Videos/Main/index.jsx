@@ -1,3 +1,5 @@
+import { Button, Input } from "@mantine/core";
+import { data } from "autoprefixer";
 import React from "react";
 import { Link } from "react-router-dom";
 
@@ -30,24 +32,43 @@ const VideoCard = (props) => {
 };
 
 const index = () => {
+  function handleSearch(e) {
+    e.preventDefault();
+    const q = e.target.q.value;
+    console.log(q);
+  }
+
   return (
-    <div className="max-w-6xl px-4 py-4 mx-auto text-left lg:py-10 grid gap-3 md:grid-cols-2 lg:grid-cols-3">
-      {new Array(7).fill(null).map((_, ind) => (
-        <VideoCard
-          key={ind}
-          id={ind}
-          video={
-            ind % 2 === 0
-              ? "https://youtu.be/a6IIhwZv4ls?si=073d7TXqwpKHA0zI"
-              : "https://youtu.be/8xI10SFgzQ8?si=rltzXwPjWopF8ge_"
-          }
-          title={"Video title goes here"}
-          desc={
-            "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ratione consequatur, ellat unde expedita incidunt quas nulla iste accusantium!"
-          }
-          date={"25-01-2024"}
-        />
-      ))}
+    <div className="max-w-6xl px-4 py-4 mx-auto">
+      <div className="py-10 flex items-center justify-between gap-2">
+        <h1 className="text-3xl md:text-4xl text-primary-tite font-bold capitalize">
+          Videos
+        </h1>
+        <form onSubmit={handleSearch} className="flex items-center">
+          <Input name="q" type={"search"} />
+          <Button type="submit" variant={"light"}>
+            <span role={"button"} className="fa-solid fa-search" />
+          </Button>
+        </form>
+      </div>
+      <div className="text-left lg:py-10 grid gap-3 md:grid-cols-2 lg:grid-cols-3">
+        {new Array(7).fill(null).map((_, ind) => (
+          <VideoCard
+            key={ind}
+            id={ind}
+            video={
+              ind % 2 === 0
+                ? "https://youtu.be/a6IIhwZv4ls?si=073d7TXqwpKHA0zI"
+                : "https://youtu.be/8xI10SFgzQ8?si=rltzXwPjWopF8ge_"
+            }
+            title={"Video title goes here"}
+            desc={
+              "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ratione consequatur, ellat unde expedita incidunt quas nulla iste accusantium!"
+            }
+            date={"25-01-2024"}
+          />
+        ))}
+      </div>
     </div>
   );
 };
