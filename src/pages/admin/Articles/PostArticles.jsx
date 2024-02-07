@@ -15,12 +15,14 @@ const PostArticles = ({ getData }) => {
       [name]: value,
     }));
   };
-
   const handleChange = (e) => {
-    if (e.target && e.target.files && e.target.files.length > 0) {
-      setFile(URL.createObjectURL(e.target.files[0]));
+    const selectedFile = e.target.files[0];
+    setFile(selectedFile);
+    if (selectedFile) {
+      setFile(URL.createObjectURL(selectedFile));
     }
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -127,7 +129,9 @@ const PostArticles = ({ getData }) => {
                 className="file:cursor-pointer file:rounded-md file:bg-transparent file:px-5"
                 onChange={handleChange}
               />
-              <img src={file} className="w-[400px] " />
+              {file && (
+                <img src={file} className="w-[400px]" alt="File Preview" />
+              )}
             </label>
 
             <Button type="submit" color="cyan" mt="sm" fullWidth>

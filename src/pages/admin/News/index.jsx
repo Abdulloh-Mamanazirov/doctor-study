@@ -44,8 +44,10 @@ function Index() {
   useEffect(() => {
     getData();
   }, []);
-
-
+  const handleMenuToggle = () => {
+    setOpen((prevOpen) => !prevOpen);
+    console.log(`Menu opened: ${open}`);
+  };
   return (
     <div>
       <PostNews getData={getData} />
@@ -67,9 +69,7 @@ function Index() {
                     >
                       <Menu.Target>
                         <ActionIcon
-                          onClick={() => {
-                            setOpen((prevOpen) => !prevOpen);
-                          }}
+                          onClick={handleMenuToggle}
                           variant="subtle"
                           color="gray"
                         >
@@ -91,7 +91,6 @@ function Index() {
                         >
                           <SeeAll getData={getData} item={item} />
                         </Menu.Item>
-
                         <Menu.Item
                           leftSection={
                             <span

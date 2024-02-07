@@ -1,11 +1,11 @@
+import { Table } from "@mantine/core";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import PostEvents from "./PostEvents";
-import { Table } from "@mantine/core";
-import DeleteEvent from "./DeleteEvents";
-import EditEvents from "./EditEvents";
 import { image_url } from "../../../constants/url";
+import DeleteEvents from "./DeleteEvents";
+import EditEvents from "./EditEvents";
+import PostEvents from "./PostEvents";
 import SeeAll from "./SeeAll";
 
 const index = () => {
@@ -71,7 +71,7 @@ const index = () => {
                     />
                   </Table.Td>
                   <Table.Td className="flex justify-normal gap-2">
-                    <DeleteEvent getData={getData} item={item} />
+                    <DeleteEvents getData={getData} item={item} />
                     <EditEvents getDatas={getData} item={item} />
                     <SeeAll getData={getData} item={item} />
                   </Table.Td>

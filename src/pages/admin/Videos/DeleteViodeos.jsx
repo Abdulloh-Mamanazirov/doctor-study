@@ -3,7 +3,7 @@ import axios from "axios";
 import React from "react";
 import { toast } from "react-toastify";
 
-const DeleteSpeakers = ({ getData, item }) => {
+const DeleteViodeos = ({ getData, item }) => {
   async function handleDelete() {
     try {
       const res = await axios.delete(`/materials/${item?.id}`);
@@ -42,4 +42,4 @@ const DeleteSpeakers = ({ getData, item }) => {
   );
 };
 
-export default DeleteSpeakers;
+export default DeleteViodeos;

@@ -1,9 +1,10 @@
 import { Box, Button, Popover, Text } from "@mantine/core";
 import axios from "axios";
-import React from "react";
+import React, { useState } from "react";
 import { toast } from "react-toastify";
 
 const DeleteArticles = ({ getData, item }) => {
+  const [popoverOpen, setPopoverOpen] = useState(false);
   async function handleDelete() {
     try {
       const res = await axios.delete(`/webinars/${item.id}`);
@@ -19,7 +20,9 @@ const DeleteArticles = ({ getData, item }) => {
   const confirm = () => {
     handleDelete();
   };
-
+  const onClose = () => {
+    setPopoverOpen(!false);
+  };
   return (
     <div>
       <Popover width={200} position="bottom" withArrow shadow="md">
@@ -32,7 +35,7 @@ const DeleteArticles = ({ getData, item }) => {
             <Button variant="outline" color="red" size="xs" onClick={confirm}>
               yes
             </Button>
-            <Button size="xs" variant="outline" ml={15}>
+            <Button size="xs" variant="outline" ml={15} onClick={onClose}>
               no
             </Button>
           </Box>
