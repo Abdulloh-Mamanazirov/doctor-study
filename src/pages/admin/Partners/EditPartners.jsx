@@ -38,7 +38,7 @@ const EditPartners = ({ getData, item }) => {
 
     try {
       const response = await axios.patch(
-        `webinar/${item.id}`,
+        `partners/${item.id}`,
         formdataForSubmit
       );
       if (response.status === 200) {
@@ -103,7 +103,10 @@ const EditPartners = ({ getData, item }) => {
       </Modal>
 
       <div>
-        <button onClick={open}>Edit Partners</button>
+        <span
+          onClick={open}
+          className="fa-solid fa-edit text-xl text-blue-500 cursor-pointer"
+        />
       </div>
     </div>
   );

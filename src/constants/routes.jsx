@@ -23,6 +23,7 @@ import {
   AdminLibrary,
   AdminSpeakers,
   AdminPartners,
+  AdminLogin,
 } from "../pages";
 
 const admin_token = sessionStorage.getItem("doctors-admin-token");
@@ -32,56 +33,70 @@ export const ADMIN = [
   {
     path: "/admin",
     title: "Dashboard",
-    element: admin_token ? <AdminDashboard /> : <Login />,
+    element: admin_token ? <AdminDashboard /> : <AdminLogin />,
     icon: <span className="fa-solid fa-house" />,
+    show: true,
   },
   {
     path: "/admin/news",
     title: "News",
-    element: admin_token ? <AdminNews /> : <Login />,
+    element: admin_token ? <AdminNews /> : <AdminLogin />,
     icon: <span className="fa-solid fa-newspaper" />,
+    show: true,
   },
   {
     path: "/admin/events",
     title: "Events",
-    element: admin_token ? <AdminEvents /> : <Login />,
+    element: admin_token ? <AdminEvents /> : <AdminLogin />,
     icon: <span className="fa-solid fa-calendar-days" />,
+    show: true,
   },
   {
     path: "/admin/users",
     title: "Users",
-    element: admin_token ? <AdminUsers /> : <Login />,
+    element: admin_token ? <AdminUsers /> : <AdminLogin />,
     icon: <span className="fa-solid fa-user" />,
+    show: true,
   },
   {
     path: "/admin/video-materials",
     title: "Video-materials",
-    element: admin_token ? <AdminVideos /> : <Login />,
+    element: admin_token ? <AdminVideos /> : <AdminLogin />,
     icon: <span className="fa-solid fa-video" />,
+    show: true,
   },
   {
     path: "/admin/articles",
     title: "Articles",
-    element: admin_token ? <AdminArticles /> : <Login />,
+    element: admin_token ? <AdminArticles /> : <AdminLogin />,
     icon: <span className="fa-solid fa-paperclip" />,
+    show: true,
   },
   {
     path: "/admin/library",
     title: "Library",
-    element: admin_token ? <AdminLibrary /> : <Login />,
+    element: admin_token ? <AdminLibrary /> : <AdminLogin />,
     icon: <span className="fa-solid fa-book" />,
+    show: true,
   },
   {
     path: "/admin/speakers",
     title: "Speakers",
-    element: admin_token ? <AdminSpeakers /> : <Login />,
+    element: admin_token ? <AdminSpeakers /> : <AdminLogin />,
     icon: <span className="fa-solid fa-bullhorn" />,
+    show: true,
   },
   {
     path: "/admin/partners",
     title: "Partners",
-    element: admin_token ? <AdminPartners /> : <Login />,
+    element: admin_token ? <AdminPartners /> : <AdminLogin />,
     icon: <span className="fa-solid fa-handshake" />,
+    show: true,
+  },
+  {
+    path: "/admin-login",
+    element: <div>sadasd</div>,
+    show: false,
   },
 ];
 

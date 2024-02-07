@@ -45,17 +45,10 @@ const EditEvents = ({ getData, item }) => {
     if (file) {
       formdataForSubmit.append("file", file);
     }
-    formdataForSubmit.append("city", values.target.city.value ?? item.city);
-    formdataForSubmit.append(
-      "speakers",
-      values.target.speakers.value ?? item.speakers
-    );
-    formdataForSubmit.append("time", values.target.time.value ?? item.time);
-    formdataForSubmit.append("field", values.target.field.value ?? item.field);
 
     try {
       const response = await axios.patch(
-        `webinars/${item.id}`,
+        `materials/${item.id}`,
         formdataForSubmit
       );
       if (response.status === 200) {
@@ -119,34 +112,7 @@ const EditEvents = ({ getData, item }) => {
               defaultValue={item.description_uz}
               name="description_uz"
             />
-            <TextInput
-              mt="sm"
-              label="Events title Uzbek"
-              placeholder="Events title Uzbek"
-              defaultValue={item.city}
-              name="city"
-            />
-            <TextInput
-              mt="sm"
-              label="Events title Uzbek"
-              placeholder="Events title Uzbek"
-              defaultValue={item.speakers}
-              name="speakers"
-            />
-            <TextInput
-              mt="sm"
-              label="Events title Uzbek"
-              placeholder="Events title Uzbek"
-              defaultValue={item.time}
-              name="time"
-            />
-            <TextInput
-              mt="sm"
-              label="Events title Uzbek"
-              placeholder="Events title Uzbek"
-              defaultValue={item.field}
-              name="field"
-            />
+
             <input
               type="file"
               name="image"
@@ -162,10 +128,7 @@ const EditEvents = ({ getData, item }) => {
       </Modal>
 
       <div>
-        <span
-          onClick={open}
-          className="fa-solid fa-edit text-xl text-blue-500 cursor-pointer"
-        />
+        <button onClick={open}>Edit Events</button>
       </div>
     </div>
   );

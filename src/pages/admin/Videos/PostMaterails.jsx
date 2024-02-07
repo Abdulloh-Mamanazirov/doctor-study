@@ -4,10 +4,11 @@ import axios from "axios";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 
-const PostPartners = ({ getData }) => {
+const PostMaterails = ({ getData }) => {
   const [opened, { open, close }] = useDisclosure(false);
   const [file, setFile] = useState();
   const [formData, setFormData] = useState({});
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevFormData) => ({
@@ -24,17 +25,27 @@ const PostPartners = ({ getData }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const { title_en, title_ru, title_uz, url, file } = e.target;
+    const {
+      title_en,
+      title_ru,
+      title_uz,
+      description_en,
+      description_ru,
+      description_uz,
+      file,
+    } = e.target;
 
     const formdataForSubmit = new FormData();
     formdataForSubmit.append("title_en", title_en.value);
     formdataForSubmit.append("title_ru", title_ru.value);
     formdataForSubmit.append("title_uz", title_uz.value);
-    formdataForSubmit.append("url", url.value);
+    formdataForSubmit.append("description_en", description_en.value);
+    formdataForSubmit.append("description_ru", description_ru.value);
+    formdataForSubmit.append("description_uz", description_uz.value);
     formdataForSubmit.append("file  ", file.files[0]);
 
     try {
-      const response = await axios.post("partners", formdataForSubmit);
+      const response = await axios.post("materials", formdataForSubmit);
       if (response.status === 201) {
         toast.success("news post sucsesful");
         close();
@@ -50,14 +61,14 @@ const PostPartners = ({ getData }) => {
       <Modal
         opened={opened}
         onClose={close}
-        title="Create Partners"
+        title="Create News"
         size="calc(70vw - 3rem)"
       >
         <Box maw={840} mx="auto">
           <form onSubmit={handleSubmit}>
             <TextInput
-              label="Partners title English"
-              placeholder="Partners title English"
+              label="News title English"
+              placeholder="News title English"
               name="title_en"
               required
               value={formData.title_en}
@@ -65,8 +76,8 @@ const PostPartners = ({ getData }) => {
             />
             <TextInput
               mt="sm"
-              label="Partners title Russian"
-              placeholder="Partners title Russian"
+              label="News title Russian"
+              placeholder="News title Russian"
               name="title_ru"
               value={formData.title_ru}
               onChange={handleInputChange}
@@ -74,22 +85,39 @@ const PostPartners = ({ getData }) => {
             />
             <TextInput
               mt="sm"
-              label="Partners title Uzbek"
-              placeholder="Partners title Uzbek"
+              label="News title Uzbek"
+              placeholder="News title Uzbek"
               required
               name="title_uz"
               value={formData.title_uz}
               onChange={handleInputChange}
             />
-
-            <TextInput
+            <Textarea
               mt="md"
-              label="Partners Description Uzbek"
-              placeholder="news description Uzbek"
-              value={formData.url}
+              label="News Description English"
+              placeholder="news description English"
+              value={formData.description_en}
+              name="description_en"
               onChange={handleInputChange}
               required
-              name="url"
+            />
+            <Textarea
+              mt="md"
+              label="News Description Russian"
+              placeholder="news description Russian"
+              value={formData.description_ru}
+              onChange={handleInputChange}
+              required
+              name="description_ru"
+            />
+            <Textarea
+              mt="md"
+              label="News Description Uzbek"
+              placeholder="news description Uzbek"
+              value={formData.description_uz}
+              onChange={handleInputChange}
+              required
+              name="description_uz"
             />
             <label className="">
               Choose Image file
@@ -111,10 +139,10 @@ const PostPartners = ({ getData }) => {
       </Modal>
 
       <Button type="button" color="cyan" onClick={open}>
-        + Add Partners
+        + Add News
       </Button>
     </div>
   );
 };
 
-export default PostPartners;
+export default PostMaterails;
