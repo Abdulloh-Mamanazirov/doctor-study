@@ -4,10 +4,17 @@ import axios from "axios";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 
-const PostMaterails = ({ getData }) => {
+const PostMaterials = ({ getData }) => {
   const [opened, { open, close }] = useDisclosure(false);
   const [file, setFile] = useState();
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState({
+    title_en: "",
+    title_ru: "",
+    title_uz: "",
+    description_en: "",
+    description_ru: "",
+    description_uz: "",
+  });
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -22,6 +29,7 @@ const PostMaterails = ({ getData }) => {
       setFile(URL.createObjectURL(e.target.files[0]));
     }
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -42,12 +50,12 @@ const PostMaterails = ({ getData }) => {
     formdataForSubmit.append("description_en", description_en.value);
     formdataForSubmit.append("description_ru", description_ru.value);
     formdataForSubmit.append("description_uz", description_uz.value);
-    formdataForSubmit.append("file  ", file.files[0]);
+    formdataForSubmit.append("file", file.files[0]);
 
     try {
       const response = await axios.post("materials", formdataForSubmit);
       if (response.status === 201) {
-        toast.success("news post sucsesful");
+        toast.success("news post successful");
         close();
         getData();
       }
@@ -61,14 +69,14 @@ const PostMaterails = ({ getData }) => {
       <Modal
         opened={opened}
         onClose={close}
-        title="Create News"
+        title="Create Material"
         size="calc(70vw - 3rem)"
       >
         <Box maw={840} mx="auto">
           <form onSubmit={handleSubmit}>
             <TextInput
-              label="News title English"
-              placeholder="News title English"
+              label="Material title English"
+              placeholder="Material title English"
               name="title_en"
               required
               value={formData.title_en}
@@ -76,8 +84,8 @@ const PostMaterails = ({ getData }) => {
             />
             <TextInput
               mt="sm"
-              label="News title Russian"
-              placeholder="News title Russian"
+              label="Material title Russian"
+              placeholder="Material title Russian"
               name="title_ru"
               value={formData.title_ru}
               onChange={handleInputChange}
@@ -85,8 +93,8 @@ const PostMaterails = ({ getData }) => {
             />
             <TextInput
               mt="sm"
-              label="News title Uzbek"
-              placeholder="News title Uzbek"
+              label="Material title Uzbek"
+              placeholder="Material title Uzbek"
               required
               name="title_uz"
               value={formData.title_uz}
@@ -94,7 +102,7 @@ const PostMaterails = ({ getData }) => {
             />
             <Textarea
               mt="md"
-              label="News Description English"
+              label="Material Description English"
               placeholder="news description English"
               value={formData.description_en}
               name="description_en"
@@ -103,7 +111,7 @@ const PostMaterails = ({ getData }) => {
             />
             <Textarea
               mt="md"
-              label="News Description Russian"
+              label="Material Description Russian"
               placeholder="news description Russian"
               value={formData.description_ru}
               onChange={handleInputChange}
@@ -112,7 +120,7 @@ const PostMaterails = ({ getData }) => {
             />
             <Textarea
               mt="md"
-              label="News Description Uzbek"
+              label="Material Description Uzbek"
               placeholder="news description Uzbek"
               value={formData.description_uz}
               onChange={handleInputChange}
@@ -139,10 +147,10 @@ const PostMaterails = ({ getData }) => {
       </Modal>
 
       <Button type="button" color="cyan" onClick={open}>
-        + Add News
+        + Add Video Materials
       </Button>
     </div>
   );
 };
 
-export default PostMaterails;
+export default PostMaterials;

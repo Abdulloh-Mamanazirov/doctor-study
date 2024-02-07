@@ -1,5 +1,6 @@
 import { Box, Grid, Image, Modal, Table } from "@mantine/core";
 import React, { useState } from "react";
+import { image_url } from "../../../constants/url";
 
 const SeeAll = ({ item }) => {
   const [opened, setOpen] = useState(false);
@@ -19,9 +20,7 @@ const SeeAll = ({ item }) => {
           <Box maw={840} mx="auto">
             <Grid justify="space-between">
               <Grid.Col span="auto">
-                <Image
-                  src={`http://192.168.137.67:8081/api/images/${item.link}`}
-                />
+                <Image src={image_url + item?.link} />
               </Grid.Col>
               <Grid.Col span="auto">
                 <Table

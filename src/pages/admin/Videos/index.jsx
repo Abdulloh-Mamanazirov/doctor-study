@@ -18,6 +18,7 @@ const index = () => {
   useEffect(() => {
     getData();
   }, []);
+
   return (
     <div>
       <PostMaterails getData={getData} />

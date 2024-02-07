@@ -15,6 +15,7 @@ import EditArticles from "./EditArticles";
 import DeleteArticles from "./DeleteArticles";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { image_url } from "../../../constants/url";
 
 const index = () => {
   const [data, setData] = useState([]);
@@ -106,12 +107,10 @@ const index = () => {
                   </Group>
                 </Card.Section>
                 <Text mt="sm" c="dimmed" size="sm">
-                  {item.description_en}
+                  {item?.description_en}
                 </Text>
                 <Card.Section mt="sm">
-                  <Image
-                    src={`http://192.168.137.67:8081/api/images/${item.link}`}
-                  />
+                  <Image src={image_url + item?.link} />
                 </Card.Section>
               </Card>
             );
