@@ -1,11 +1,4 @@
-import {
-  Button,
-  Checkbox,
-  PasswordInput,
-  Text,
-  TextInput,
-  Title,
-} from "@mantine/core";
+import { Button, PasswordInput, Text, TextInput, Title } from "@mantine/core";
 import axios from "axios";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
@@ -13,10 +6,9 @@ import { toast } from "react-toastify";
 
 export default function Index() {
   const [loading, setLoading] = useState(false);
-  const [token, setToken] = useState("");
-  const [keepLoggedIn, setKeepLoggedIn] = useState(false);
+  const [forgotPass, setForgotPass] = useState(false);
 
-  async function handleSubmit(e) {
+  async function handleLogIn(e) {
     e.preventDefault();
     setLoading(true);
     try {
@@ -30,7 +22,6 @@ export default function Index() {
           setLoading(false);
         });
       if (response.data.access_token) {
-        setToken(response.data.access_token);
         toast.success("Authentication successful");
         sessionStorage.setItem("doctors-token", response.data.access_token);
         if (window.location.pathname === "/login") {
@@ -46,6 +37,38 @@ export default function Index() {
     }
   }
 
+  async function handleSendingEmailToRestorePassword(e) {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const { email } = e.target;
+      const formData = new FormData();
+      formData.append("email", email.value);
+      const response = await axios
+        .get("auth/forgot-password", {
+          body: {
+            email: email.value,
+          },
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+      // if (response.data.access_token) {
+      //   toast.success("Authentication successful");
+      //   sessionStorage.setItem("doctors-token", response.data.access_token);
+      //   if (window.location.pathname === "/login") {
+      //     window.location.replace("/");
+      //   } else {
+      //     window.location.reload();
+      //   }
+      // } else {
+      //   toast.error("Authentication failed");
+      // }
+    } catch (error) {
+      toast.error("Error during authentication:", error);
+    }
+  }
+
   if (sessionStorage.getItem("doctors-admin-token")) {
     return window.location.replace("/admin");
   }
@@ -55,48 +78,104 @@ export default function Index() {
       <div className="absolute inset-0 bg-black/30" />
       <div className="w-11/12 md:w-1/3 mx-auto z-20">
         <div>
-          <form onSubmit={handleSubmit} radius={0} p={30} className="relative">
-            <Title order={2} ta="center" mt="md" mb={50}>
-              Welcome back!
-            </Title>
-
-            <TextInput
-              label="Email address"
-              placeholder="hello@gmail.com"
-              size="md"
-              name="email"
-              required
-            />
-            <PasswordInput
-              label="Password"
-              placeholder="Your password"
-              mt="md"
-              size="md"
-              required
-              name="password"
-            />
-            <button
-              type="button"
-              className="mt-2 text-primary-desc hover:underline"
+          {forgotPass ? (
+            <form
+              onSubmit={handleSendingEmailToRestorePassword}
+              radius={0}
+              p={30}
+              className="relative"
             >
-              Forgot password?
-            </button>
-            <Button color={"red"} fullWidth mt="xl" size="md" type="submit">
-              Login
-            </Button>
-            <div>
-              <Text ta="center" mt="md">
-                Don&apos;t have an account?{" "}
-                <Link
-                  to={"/register"}
-                  fw={700}
-                  className="text-primary-desc font-semibold hover:underline"
-                >
-                  Register
-                </Link>
-              </Text>
-            </div>
-          </form>
+              <Title order={2} ta="center" mt="md" mb={50}>
+                Restore password!
+              </Title>
+
+              <TextInput
+                label="Email address"
+                placeholder="hello@gmail.com"
+                size="md"
+                name="email"
+                required
+                type={"email"}
+              />
+
+              <Button
+                loading={loading}
+                loaderProps={{ type: "dots" }}
+                color={"red"}
+                fullWidth
+                mt="xl"
+                size="md"
+                type="submit"
+              >
+                Send email
+              </Button>
+              <div>
+                <Text ta="center" mt="md">
+                  Don&apos;t have an account?{" "}
+                  <Link
+                    to={"/register"}
+                    fw={700}
+                    className="text-primary-desc font-semibold hover:underline"
+                  >
+                    Register
+                  </Link>
+                </Text>
+              </div>
+            </form>
+          ) : (
+            <form onSubmit={handleLogIn} radius={0} p={30} className="relative">
+              <Title order={2} ta="center" mt="md" mb={50}>
+                Welcome back!
+              </Title>
+
+              <TextInput
+                label="Email address"
+                placeholder="hello@gmail.com"
+                size="md"
+                name="email"
+                required
+                type={"email"}
+              />
+              <PasswordInput
+                label="Password"
+                placeholder="Your password"
+                mt="md"
+                size="md"
+                required
+                name="password"
+              />
+              <button
+                type="button"
+                onClick={() => setForgotPass(true)}
+                className="mt-2 text-primary-desc hover:underline"
+              >
+                Forgot password?
+              </button>
+              <Button
+                loading={loading}
+                loaderProps={{ type: "dots" }}
+                color={"red"}
+                fullWidth
+                mt="xl"
+                size="md"
+                type="submit"
+              >
+                Login
+              </Button>
+              <div>
+                <Text ta="center" mt="md">
+                  Don&apos;t have an account?{" "}
+                  <Link
+                    to={"/register"}
+                    fw={700}
+                    className="text-primary-desc font-semibold hover:underline"
+                  >
+                    Register
+                  </Link>
+                </Text>
+              </div>
+            </form>
+          )}
         </div>
       </div>
     </div>
