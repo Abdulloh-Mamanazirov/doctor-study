@@ -1,19 +1,20 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import { News } from "../../../../assets";
+import { loadingIcon, News } from "../../../../assets";
+import { image_url } from "../../../../constants";
 
-const NewsCard = ({ id, image, date, title, desc }) => {
+const NewsCard = ({ data, id, image, date, title, desc }) => {
   return (
     <Link
       to={`/news/${id}`}
+      state={data}
       className="grid grid-cols-1 mb-6 md:grid-cols-[40%,1fr] border-gray-200 rounded-md border gap-2"
     >
       <div>
         <img
-          src={
-            image ??
-            "https://images.unsplash.com/photo-1575936123452-b67c3203c357?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D"
-          }
+          src={image ?? News}
           alt="doctor study news image"
           className="object-cover w-full rounded-md h-96 max-h-96 md:h-full"
         />
@@ -33,6 +34,32 @@ const NewsCard = ({ id, image, date, title, desc }) => {
 };
 
 const index = () => {
+  const [data, setData] = useState();
+  const [loading, setLoading] = useState(true);
+  const { i18n } = useTranslation();
+  const [lang, setLang] = useState(i18n.language);
+
+  async function fetchData() {
+    const res = await axios.get("/news").finally(() => setLoading(false));
+    setData(res?.data);
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    setLang(i18n.language);
+  }, [i18n.language]);
+
+  if (loading) {
+    return (
+      <div className="w-full grid place-items-center h-[50vh]">
+        <img src={loadingIcon} alt="loading" className="max-w-24" />
+      </div>
+    );
+  }
+
   return (
     <section className="flex items-center py-5 lg:py-10">
       <div className="justify-center flex-1 max-w-5xl px-4 py-4 mx-auto text-left lg:py-10 ">
@@ -41,16 +68,15 @@ const index = () => {
             News
           </h1>
         </div>
-        {new Array(5).fill(null).map((_, ind) => (
+        {data?.map?.((item) => (
           <NewsCard
-            key={ind}
-            id={ind}
-            image={ind % 2 === 0 ? News : null}
-            date={new Date().toLocaleDateString()}
-            title={"Lorem ipsum dolor sit amet, consectetur adipiscing elit"}
-            desc={
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat qudeleniti doloribus ratione. Magnam illum sapiente aperiam cumque! Magnam animi minus minima, quisquam sint in?"
-            }
+            key={item?.id}
+            data={item}
+            id={item?.id}
+            image={image_url + item?.link}
+            date={item?.createdDate?.slice(0, 10)}
+            title={item[`title_${lang}`]}
+            desc={item[`description_${lang}`]}
           />
         ))}
       </div>

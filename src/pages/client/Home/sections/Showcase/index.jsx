@@ -15,15 +15,17 @@ const Card = ({ value, title, desc, img }) => {
         <img src={img} alt="doctor s icon" className="w-full" />
       </div>
       <div className="col-span-2">
-        <h4 className="text-4xl font-extrabold text-white">{value}</h4>
-        <p className="text-xl font-bold text-white">{title}</p>
-        <p className="mt-7 text-white font-semibold">{desc}</p>
+        <h4 className="text-3xl md:text-4xl font-extrabold text-white">
+          {value}
+        </h4>
+        <p className="md:text-xl font-bold text-white">{title}</p>
+        <p className="mt-2 md:mt-7 text-white font-semibold">{desc}</p>
       </div>
     </div>
   );
 };
 
-const index = () => {
+const index = ({ data }) => {
   const { t } = useTranslation();
   return (
     <div
@@ -32,13 +34,13 @@ const index = () => {
     >
       <div className="absolute inset-0 bg-black/40" />
       <div className="relative pt-7 pb-3">
-        <h1 className="text-center text-5xl text-white font-bold leading-tight">
+        <h1 className="text-center text-3xl md:text-5xl text-white font-bold leading-tight">
           {t("home.title")} <br />{" "}
           <span className="font-extrabold">"DOCTOR-STUDY"</span>
         </h1>
         <div className="w-11/12 md:w-9/12 mx-auto mt-10 grid md:grid-cols-2 gap-10">
           <Card
-            value={"120+"}
+            value={data?.material ?? 0}
             title={t("home.videos.title")}
             img={videoIcon}
             desc={
@@ -46,7 +48,7 @@ const index = () => {
             }
           />
           <Card
-            value={"10+"}
+            value={data?.webinar ?? 0}
             title={t("home.events.title")}
             img={eventsIcon}
             desc={
@@ -54,7 +56,7 @@ const index = () => {
             }
           />
           <Card
-            value={"50+"}
+            value={data?.article ?? 0}
             title={t("home.articles.title")}
             img={articleIcon}
             desc={
@@ -62,7 +64,7 @@ const index = () => {
             }
           />
           <Card
-            value={"30+"}
+            value={data?.resources ?? 0}
             title={t("home.resources.title")}
             img={booksIcon}
             desc={

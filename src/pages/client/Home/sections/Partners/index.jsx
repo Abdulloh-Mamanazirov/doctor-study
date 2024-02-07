@@ -2,11 +2,12 @@ import { useRef } from "react";
 import { Container } from "@mantine/core";
 import { Carousel } from "@mantine/carousel";
 import { Logo_text, Logo, Logo_icon } from "../../../../../assets";
+import { image_url } from "../../../../../constants";
 import Autoplay from "embla-carousel-autoplay";
 
 import "@mantine/carousel/styles.css";
 
-const index = () => {
+const index = ({ data }) => {
   const autoplay = useRef(Autoplay({ delay: 2000 }));
 
   return (
@@ -28,48 +29,16 @@ const index = () => {
         withIndicators
         plugins={[autoplay.current]}
       >
-        <Carousel.Slide>
-          <img
-            src={Logo}
-            alt="doctor-c partner logo"
-            className="h-32 w-full object-contain"
-          />
-        </Carousel.Slide>
-        <Carousel.Slide>
-          <img
-            src={Logo_icon}
-            alt="doctor-c partner logo"
-            className="h-32 w-full object-contain"
-          />
-        </Carousel.Slide>
-        <Carousel.Slide>
-          <img
-            src={Logo_text}
-            alt="doctor-c partner logo"
-            className="h-32 w-full object-contain"
-          />
-        </Carousel.Slide>
-        <Carousel.Slide>
-          <img
-            src={Logo}
-            alt="doctor-c partner logo"
-            className="h-32 w-full object-contain"
-          />
-        </Carousel.Slide>
-        <Carousel.Slide>
-          <img
-            src={Logo_icon}
-            alt="doctor-c partner logo"
-            className="h-32 w-full object-contain"
-          />
-        </Carousel.Slide>
-        <Carousel.Slide>
-          <img
-            src={Logo_text}
-            alt="doctor-c partner logo"
-            className="h-32 w-full object-contain"
-          />
-        </Carousel.Slide>
+        {data &&
+          data?.map((item) => (
+            <Carousel.Slide key={item?.id}>
+              <img
+                src={image_url + item?.link}
+                alt="doctor-c partner logo"
+                className="h-32 w-full object-contain"
+              />
+            </Carousel.Slide>
+          ))}
       </Carousel>
       <div></div>
     </Container>

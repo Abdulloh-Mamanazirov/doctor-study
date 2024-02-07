@@ -1,7 +1,8 @@
 import { Button } from "@mantine/core";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
-const Countdown = ({ startDate, title, timezone }) => {
+const Countdown = ({ startDate, title, data }) => {
   const calculateTimeLeft = () => {
     let difference = +new Date(startDate) - +new Date();
     let timeLeft = {};
@@ -42,21 +43,21 @@ const Countdown = ({ startDate, title, timezone }) => {
         </div>
         <div className="flex items-center justify-center gap-3 text-center my-10">
           <span className="flex flex-col text-center">
-            <p className="text-2xl md:text-5xl font-semibold text-primary-tite">
+            <p className="text-3xl md:text-5xl font-semibold text-primary-tite">
               {timeLeft.days < 10 ? "0" + timeLeft.days : timeLeft.days}
             </p>
             <p className="opacity-70">days</p>
           </span>
           <span>:</span>
           <span className="flex flex-col text-center">
-            <p className="text-2xl md:text-5xl font-semibold text-primary-tite">
+            <p className="text-3xl md:text-5xl font-semibold text-primary-tite">
               {timeLeft.hours < 10 ? "0" + timeLeft.hours : timeLeft.hours}
             </p>
             <p className="opacity-70">hours</p>
           </span>
           <span>:</span>
           <span className="flex flex-col text-center">
-            <p className="text-2xl md:text-5xl font-semibold text-primary-tite">
+            <p className="text-3xl md:text-5xl font-semibold text-primary-tite">
               {timeLeft.minutes < 10
                 ? "0" + timeLeft.minutes
                 : timeLeft.minutes}
@@ -65,7 +66,7 @@ const Countdown = ({ startDate, title, timezone }) => {
           </span>
           <span>:</span>
           <span className="flex flex-col text-center">
-            <p className="text-2xl md:text-5xl font-semibold text-primary-tite">
+            <p className="text-3xl md:text-5xl font-semibold text-primary-tite">
               {timeLeft.seconds < 10
                 ? "0" + timeLeft.seconds
                 : timeLeft.seconds}
@@ -74,10 +75,13 @@ const Countdown = ({ startDate, title, timezone }) => {
           </span>
         </div>
         <div className="text-center">
-          <p className="mb-5 text-xl text-primary-desc">
-            Time zone: {timezone}
-          </p>
-          <Button color={"darkred"} size="lg">
+          <Button
+            color={"darkred"}
+            size="lg"
+            component={Link}
+            state={data}
+            to={String(data?.id)}
+          >
             Participate
           </Button>
         </div>

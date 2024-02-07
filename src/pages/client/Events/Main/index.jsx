@@ -1,30 +1,34 @@
+import axios from "axios";
 import { Checkbox, Input, Radio } from "@mantine/core";
 import { Countdown } from "../../../../components";
 import { Card, Image, Text } from "@mantine/core";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { loadingIcon } from "../../../../assets";
+import { image_url } from "../../../../constants";
 
-function EventCard() {
+function EventCard({ data, id, img, title, desc }) {
   return (
-    <Card shadow="sm" padding="xl" component={Link} to={crypto.randomUUID()}>
+    <Card shadow="sm" padding="xl" component={Link} to={id} state={data}>
       <Card.Section>
         <Image
-          src="https://www.shutterstock.com/image-vector/medical-conference-clinic-group-meeting-260nw-1721618806.jpg"
+          src={
+            img
+              ? image_url + img
+              : "https://www.shutterstock.com/image-vector/medical-conference-clinic-group-meeting-260nw-1721618806.jpg"
+          }
           h={160}
           alt="No way!"
         />
       </Card.Section>
 
       <Text fw={500} size="lg" mt="md" lineClamp={3}>
-        Rhinitis and sinusitis: multicomponent drugs with a low dose of active
-        ingredients to help the practicing physician.
+        {title}
       </Text>
 
       <Text mt="xs" c="dimmed" size="sm" lineClamp={6}>
-        Please click anywhere on this card to claim your reward, this is not a
-        fraud, trust us. Lorem ipsum dolor sit, amet consectetur adipisicing
-        elit. Aperiam facere magnam esse in pariatur, minima sit ex. Qui, minima
-        accusamus!
+        {desc}
       </Text>
     </Card>
   );
@@ -32,52 +36,115 @@ function EventCard() {
 
 const index = () => {
   const [filter, setFilter] = useState({
-    title: "",
     cities: [],
     fields: [],
     format: null,
     speakers: [],
   });
+  const [data, setData] = useState();
+  const [cities, setCities] = useState();
+  const [fields, setFields] = useState();
+  const [speakers, setSpeakers] = useState();
+  const [loading, setLoading] = useState(true);
+  const { i18n } = useTranslation();
+  const [lang, setLang] = useState(i18n.language);
+
+  async function fetchData() {
+    const res = await axios.get("/webinars").finally(() => setLoading(false));
+    setData(res?.data);
+    const cities = await axios.get("/webinars/city");
+    setCities(cities?.data);
+    const fields = await axios.get("/webinars/field");
+    setFields(fields?.data);
+    const speakers = await axios.get("/speakers");
+    setSpeakers(speakers?.data);
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    setLang(i18n.language);
+  }, [i18n.language]);
+
+  function findClosestDate(array) {
+    let closestObj = null;
+    let closestDiff = Infinity;
+
+    const now = new Date();
+
+    if (Array.isArray(array)) {
+      for (let obj of array) {
+        let date = new Date(obj?.time);
+        let diff = Math.abs(now - date);
+
+        if (diff < closestDiff) {
+          closestDiff = diff;
+          closestObj = obj;
+        }
+      }
+    }
+
+    return closestObj;
+  }
+
+  function filterData(data, filter) {
+    return data.filter((item) => {
+      // Filter by city
+      if (filter.cities.length > 0 && !filter.cities.includes(item.city)) {
+        return false;
+      }
+
+      // Filter by field
+      if (filter.fields.length > 0 && !filter.fields.includes(item.field)) {
+        return false;
+      }
+
+      // Filter by format
+      if (filter.format !== null && filter.format !== item?.online) {
+        return false;
+      }
+
+      // Filter by speakers
+      if (filter.speakers.length > 0) {
+        const speakerIds = item.speakers.map((speaker) => speaker.fullName);
+        if (!filter.speakers.some((id) => speakerIds.includes(id))) {
+          return false;
+        }
+      }
+
+      return true;
+    });
+  }
+
+  if (loading) {
+    return (
+      <div className="w-full grid place-items-center h-[50vh]">
+        <img src={loadingIcon} alt="loading" className="max-w-24" />
+      </div>
+    );
+  }
 
   return (
     <section>
       <Countdown
-        startDate={new Date("2024-12-31T00:00:00")}
-        title={
-          "Rhinitis and sinusitis: multicomponent drugs with a low dose of active ingredients to help the practicing physician"
-        }
-        timezone={"Moscow, Russia"}
+        startDate={new Date(findClosestDate(data)?.time)}
+        title={findClosestDate(data)?.[`title_${lang}`]}
+        data={findClosestDate(data)}
       />
-      <div className="grid sm:grid-cols-[20%,1fr]">
+      <div className="grid sm:items-start sm:grid-cols-[20%,1fr] pt-3">
         <div className="sm:min-h-screen px-4 mb-5 sm:mb-0">
-          {/* search */}
-          <div>
-            <h4 className="text-lg font-bold mb-2">Event title:</h4>
-            <Input
-              onChange={(e) =>
-                setFilter((old) => ({ ...old, title: e.target.value }))
-              }
-            />
-          </div>
           {/* cities */}
-          <details className="mt-5 block sm:hidden pb-1 border-b border-gray-400">
+          <details className="block sm:hidden pb-1 border-b border-gray-400">
             <summary className="text-lg font-bold mb-2">Cities</summary>
             <Checkbox.Group
               className="ml-3"
               onChange={(e) => setFilter((old) => ({ ...old, cities: e }))}
             >
-              <Checkbox value={"Moscow"} label="Moscow" mb={5} />
-              <Checkbox
-                value={"Sant peterburg"}
-                label="Sant Peterburg"
-                mb={5}
-              />
-              <Checkbox value={"Kazan"} label="Kazan" mb={5} />
-              <Checkbox value={"Omsk"} label="Omsk" mb={5} />
-              <Checkbox value={"Permian"} label="Permian" mb={5} />
-              <Checkbox value={"Ryazan"} label="Ryazan" mb={5} />
-              <Checkbox value={"Saratov"} label="Saratov" mb={5} />
-              <Checkbox value={"Voronezh"} label="Voronezh" mb={5} />
+              {cities?.map?.((item, ind) => (
+                <Checkbox key={ind} value={item} label={item} mb={5} />
+              ))}
             </Checkbox.Group>
           </details>
           <div className="mt-10 hidden sm:block">
@@ -86,18 +153,9 @@ const index = () => {
               className="ml-3"
               onChange={(e) => setFilter((old) => ({ ...old, cities: e }))}
             >
-              <Checkbox value={"Moscow"} label="Moscow" mb={5} />
-              <Checkbox
-                value={"Sant peterburg"}
-                label="Sant Peterburg"
-                mb={5}
-              />
-              <Checkbox value={"Kazan"} label="Kazan" mb={5} />
-              <Checkbox value={"Omsk"} label="Omsk" mb={5} />
-              <Checkbox value={"Permian"} label="Permian" mb={5} />
-              <Checkbox value={"Ryazan"} label="Ryazan" mb={5} />
-              <Checkbox value={"Saratov"} label="Saratov" mb={5} />
-              <Checkbox value={"Voronezh"} label="Voronezh" mb={5} />
+              {cities?.map?.((item, ind) => (
+                <Checkbox key={ind} value={item} label={item} mb={5} />
+              ))}
             </Checkbox.Group>
           </div>
           {/* fields */}
@@ -107,31 +165,9 @@ const index = () => {
               className="ml-3"
               onChange={(e) => setFilter((old) => ({ ...old, fields: e }))}
             >
-              <Checkbox
-                value={"Allergology and immunology"}
-                label="Allergology and immunology"
-                mb={5}
-              />
-              <Checkbox
-                value={"Dermatovenereology"}
-                label="Dermatovenereology"
-                mb={5}
-              />
-              <Checkbox
-                value={"Infectious diseases"}
-                label="Infectious diseases"
-                mb={5}
-              />
-              <Checkbox value={"Cardiology"} label="Cardiology" mb={5} />
-              <Checkbox value={"Neurology"} label="Neurology" mb={5} />
-              <Checkbox
-                value={"Otorhinolaryngology"}
-                label="Otorhinolaryngology"
-                mb={5}
-              />
-              <Checkbox value={"Ophthalmology"} label="Ophthalmology" mb={5} />
-              <Checkbox value={"Pediatrics"} label="Pediatrics" mb={5} />
-              <Checkbox value={"Therapy"} label="Therapy" mb={5} />
+              {fields?.map?.((item, ind) => (
+                <Checkbox key={ind} value={item} label={item} mb={5} />
+              ))}
             </Checkbox.Group>
           </details>
           <div className="mt-10 hidden sm:block">
@@ -140,50 +176,32 @@ const index = () => {
               className="ml-3"
               onChange={(e) => setFilter((old) => ({ ...old, fields: e }))}
             >
-              <Checkbox
-                value={"Allergology and immunology"}
-                label="Allergology and immunology"
-                mb={5}
-              />
-              <Checkbox
-                value={"Dermatovenereology"}
-                label="Dermatovenereology"
-                mb={5}
-              />
-              <Checkbox
-                value={"Infectious diseases"}
-                label="Infectious diseases"
-                mb={5}
-              />
-              <Checkbox value={"Cardiology"} label="Cardiology" mb={5} />
-              <Checkbox value={"Neurology"} label="Neurology" mb={5} />
-              <Checkbox
-                value={"Otorhinolaryngology"}
-                label="Otorhinolaryngology"
-                mb={5}
-              />
-              <Checkbox value={"Ophthalmology"} label="Ophthalmology" mb={5} />
-              <Checkbox value={"Pediatrics"} label="Pediatrics" mb={5} />
-              <Checkbox value={"Therapy"} label="Therapy" mb={5} />
+              {fields?.map?.((item, ind) => (
+                <Checkbox key={ind} value={item} label={item} mb={5} />
+              ))}
             </Checkbox.Group>
           </div>
           {/* format */}
           <details className="mt-5 block sm:hidden pb-1 border-b border-gray-400">
             <summary className="text-lg font-bold mb-2">Format</summary>
             <Radio.Group
-              onChange={(e) => setFilter((old) => ({ ...old, format: e }))}
+              onChange={(e) =>
+                setFilter((old) => ({ ...old, format: e === "true" }))
+              }
             >
-              <Radio value={"false"} label="Online" mb={5} />
-              <Radio value={"true"} label="Hybrid" mb={5} />
+              <Radio value={"true"} label="Online" mb={5} />
+              <Radio value={"false"} label="Hybrid" mb={5} />
             </Radio.Group>
           </details>
           <div className="mt-10 hidden sm:block">
             <h4 className="text-lg font-bold mb-2">Format</h4>
             <Radio.Group
-              onChange={(e) => setFilter((old) => ({ ...old, format: e }))}
+              onChange={(e) =>
+                setFilter((old) => ({ ...old, format: e === "true" }))
+              }
             >
-              <Radio value={"false"} label="Online" mb={5} />
-              <Radio value={"true"} label="Hybrid" mb={5} />
+              <Radio value={"true"} label="Online" mb={5} />
+              <Radio value={"false"} label="Hybrid" mb={5} />
             </Radio.Group>
           </div>
           {/* speakers */}
@@ -193,42 +211,14 @@ const index = () => {
               className="ml-3"
               onChange={(e) => setFilter((old) => ({ ...old, speakers: e }))}
             >
-              <Checkbox value={"Abuova G.N."} label="Abuova G.N." mb={5} />
-              <Checkbox value={"Ageeva K.A."} label="Ageeva K.A." mb={5} />
-              <Checkbox
-                value={"Akarachkova E.S."}
-                label="Akarachkova E.S."
-                mb={5}
-              />
-              <Checkbox
-                value={"Alekseeva L.I."}
-                label="Alekseeva L.I."
-                mb={5}
-              />
-              <Checkbox value={"Anokhin V.A."} label="Anokhin V.A." mb={5} />
-              <Checkbox
-                value={"Harutyunyan L.L."}
-                label="Harutyunyan L.L."
-                mb={5}
-              />
-              <Checkbox
-                value={"Akhmadeeva L.R."}
-                label="Akhmadeeva L.R."
-                mb={5}
-              />
-              <Checkbox
-                value={"Akhmedzhanova Z.I."}
-                label="Akhmedzhanova Z.I."
-                mb={5}
-              />
-              <Checkbox
-                value={"Akhmedova N.Sh."}
-                label="Akhmedova N.Sh."
-                mb={5}
-              />
-              <Checkbox value={"Ashirova M.Z."} label="Ashirova M.Z." mb={5} />
-              <Checkbox value={"Babak S.L."} label="Babak S.L." mb={5} />
-              <Checkbox value={"Babik R.K."} label="Babik R.K." mb={5} />
+              {speakers?.map?.((item, ind) => (
+                <Checkbox
+                  key={ind}
+                  value={item?.fullName}
+                  label={item?.fullName}
+                  mb={5}
+                />
+              ))}
             </Checkbox.Group>
           </details>
           <div className="mt-10 hidden sm:block">
@@ -237,49 +227,29 @@ const index = () => {
               className="ml-3"
               onChange={(e) => setFilter((old) => ({ ...old, speakers: e }))}
             >
-              <Checkbox value={"Abuova G.N."} label="Abuova G.N." mb={5} />
-              <Checkbox value={"Ageeva K.A."} label="Ageeva K.A." mb={5} />
-              <Checkbox
-                value={"Akarachkova E.S."}
-                label="Akarachkova E.S."
-                mb={5}
-              />
-              <Checkbox
-                value={"Alekseeva L.I."}
-                label="Alekseeva L.I."
-                mb={5}
-              />
-              <Checkbox value={"Anokhin V.A."} label="Anokhin V.A." mb={5} />
-              <Checkbox
-                value={"Harutyunyan L.L."}
-                label="Harutyunyan L.L."
-                mb={5}
-              />
-              <Checkbox
-                value={"Akhmadeeva L.R."}
-                label="Akhmadeeva L.R."
-                mb={5}
-              />
-              <Checkbox
-                value={"Akhmedzhanova Z.I."}
-                label="Akhmedzhanova Z.I."
-                mb={5}
-              />
-              <Checkbox
-                value={"Akhmedova N.Sh."}
-                label="Akhmedova N.Sh."
-                mb={5}
-              />
-              <Checkbox value={"Ashirova M.Z."} label="Ashirova M.Z." mb={5} />
-              <Checkbox value={"Babak S.L."} label="Babak S.L." mb={5} />
-              <Checkbox value={"Babik R.K."} label="Babik R.K." mb={5} />
+              {speakers?.map?.((item, ind) => (
+                <Checkbox
+                  key={ind}
+                  value={item?.fullName}
+                  label={item?.fullName}
+                  mb={5}
+                />
+              ))}
             </Checkbox.Group>
           </div>
         </div>
-        <div className="min-h-screen px-2 grid gap-3 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-          {new Array(12).fill(null).map((_, ind) => (
-            <EventCard key={ind} />
-          ))}
+        <div className="px-2 grid gap-3 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+          {Array.isArray(data) &&
+            filterData(data, filter)?.map?.((item, ind) => (
+              <EventCard
+                key={ind}
+                data={item}
+                id={String(item?.id)}
+                img={item?.file}
+                title={item[`title_${lang}`]}
+                desc={item[`description_${lang}`]}
+              />
+            ))}
         </div>
       </div>
     </section>

@@ -1,30 +1,75 @@
 import { Button } from "@mantine/core";
-import React from "react";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useLocation } from "react-router-dom";
+import { image_url } from "../../../../constants";
 
 const index = () => {
-  const { id } = useParams();
+  const { state } = useLocation();
+  const { i18n } = useTranslation();
+  const [lang, setLang] = useState(i18n.language);
+
+  useEffect(() => {
+    setLang(i18n.language);
+  }, [i18n.language]);
 
   return (
     <div className="max-w-6xl px-4 py-4 mx-auto">
       <div className="text-left lg:py-10 grid md:grid-cols-2 gap-2">
         <img
-          src="https://static.vecteezy.com/system/resources/thumbnails/004/216/831/original/3d-world-news-background-loop-free-video.jpg"
+          src={image_url + state?.file}
           alt="doctor-s news image"
-          className="w-full"
+          className="w-full max-h-96 object-cover"
         />
         <div>
           <h1 className="text-xl md:text-3xl font-bold text-primary-tite mt-5">
-            Webinar title goes here. Hello world!
+            {state?.[`title_${lang}`]}
           </h1>
-          <p className="text-md mt-5">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit
-            dolorum reprehenderit tenetur nulla architecto aliquid, esse
-            voluptas aut temporibus quae cumque placeat iusto quos laudantium
-            voluptatibus voluptatem accusamus, ducimus quis. Excepturi ad sunt,
-            dicta blanditiis porro culpa perspiciatis hic quisquam sint at modi
-            itaque cum? Provident voluptatem necessitatibus quia officia.
+          <p className="text-md mt-5">{state?.[`description_${lang}`]}</p>
+        </div>
+      </div>
+      <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-3 my-3">
+        <div className="border rounded-xl p-2">
+          <p className="text-xl font-semibold text-primary-tite">
+            <span className="fa-solid fa-location-dot text-sm" /> Location:
           </p>
+          <p className="ml-7 font-mono text-lg">{state?.city}</p>
+          <p className="text-xl font-semibold text-primary-tite">
+            {" "}
+            <span className="fa-solid fa-calendar text-sm" /> Date:
+          </p>
+          <p className="ml-7 font-mono text-lg">
+            {new Date(state?.time).toLocaleString()}
+          </p>
+        </div>
+        <div className="border rounded-xl p-2">
+          <p className="text-xl font-semibold text-primary-tite">
+            <span className="fa-solid fa-globe text-sm" /> Format:
+          </p>
+          {state?.online ? (
+            <p className="ml-7 font-mono text-lg">Online</p>
+          ) : (
+            <p className="ml-7 font-mono text-lg">On site</p>
+          )}
+          <p className="text-xl font-semibold text-primary-tite">
+            {" "}
+            <span className="fa-solid fa-calendar text-sm" /> Field:
+          </p>
+          <p className="ml-7 font-mono text-lg">{state?.field}</p>
+        </div>
+        <div className="border rounded-xl p-2">
+          <p className="text-xl font-semibold text-primary-tite">
+            <span className="fa-solid fa-bullhorn text-sm" /> Speakers:
+          </p>
+          <div className="ml-7">
+            <ol className="list-decimal">
+              {state?.speakers?.map((item) => (
+                <li key={item?.id} className="ml-7 font-mono text-lg">
+                  {item?.fullName}
+                </li>
+              ))}
+            </ol>
+          </div>
         </div>
       </div>
       <Button fullWidth size={"lg"}>
