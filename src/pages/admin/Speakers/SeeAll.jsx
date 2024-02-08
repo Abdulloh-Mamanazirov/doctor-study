@@ -13,14 +13,14 @@ const SeeAll = ({ item }) => {
           onClose={() => {
             setOpen(false);
           }}
-          title="Create News"
+          title={`See speaker ${item?.fullName}`}
           size="calc(70vw - 3rem)"
           className="z-50"
         >
           <Box maw={840} mx="auto">
             <Grid justify="space-between">
               <Grid.Col span="auto">
-                <Image src={image_url + item.link} />
+                <Image src={image_url + item?.link} />
               </Grid.Col>
               <Grid.Col span="auto">
                 <Table
@@ -32,37 +32,22 @@ const SeeAll = ({ item }) => {
                   <Table.Thead>
                     <Table.Tr>
                       <Table.Th>Description_en</Table.Th>
-                      <Table.Td>{item.description_en}</Table.Td>
+                      <Table.Td>{item?.description_en}</Table.Td>
                       <Table.Tr />
                     </Table.Tr>
                     <Table.Tr>
                       <Table.Th>Description_ru</Table.Th>
-                      <Table.Td>{item.description_ru}</Table.Td>
+                      <Table.Td>{item?.description_ru}</Table.Td>
                       <Table.Tr />
                     </Table.Tr>
                     <Table.Tr>
                       <Table.Th>Description_uz</Table.Th>
-                      <Table.Td>{item.description_uz}</Table.Td>
+                      <Table.Td>{item?.description_uz}</Table.Td>
                       <Table.Tr />
                     </Table.Tr>
                     <Table.Tr>
                       <Table.Th>Title_en</Table.Th>
-                      <Table.Td>{item.title_en}</Table.Td>
-                      <Table.Tr />
-                    </Table.Tr>
-                    <Table.Tr>
-                      <Table.Th>Title_ru</Table.Th>
-                      <Table.Td>{item.title_ru}</Table.Td>
-                      <Table.Tr />
-                    </Table.Tr>
-                    <Table.Tr>
-                      <Table.Th>Title_uz</Table.Th>
-                      <Table.Td>{item.title_uz}</Table.Td>
-                      <Table.Tr />
-                    </Table.Tr>
-                    <Table.Tr>
-                      <Table.Th>Created At</Table.Th>
-                      <Table.Td>{item.createdDate.slice(0, 10)}</Table.Td>
+                      <Table.Td>{item?.fullName}</Table.Td>
                       <Table.Tr />
                     </Table.Tr>
                   </Table.Thead>
@@ -72,13 +57,12 @@ const SeeAll = ({ item }) => {
           </Box>
         </Modal>
 
-        <button
+        <span
           onClick={() => {
             setOpen(true);
           }}
-        >
-          See All
-        </button>
+          className="fa-solid fa-eye text-xl text-cyan-500 cursor-pointer"
+        />
       </div>
     </div>
   );

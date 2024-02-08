@@ -97,7 +97,7 @@ const EditEvents = ({ getDatas, item }) => {
       <Modal
         opened={opened}
         onClose={close}
-        title="Create Events"
+        title="Edit Events"
         size="calc(70vw - 3rem)"
       >
         <Box maw={840} mx="auto">

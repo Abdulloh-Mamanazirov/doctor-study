@@ -20,11 +20,11 @@ const Index = () => {
   const [hiddenMessage, setHiddenMessage] = useState(false);
   async function handleSubmit(e) {
     e.preventDefault();
-    const { first_name, last_name, work_location, job, password, email } =
+    const { firstname, lastname, work_location, job, password, email } =
       register;
     const data = {
-      first_name,
-      last_name,
+      firstname,
+      lastname,
       work_location,
       job,
       email,
@@ -78,9 +78,9 @@ const Index = () => {
               label="First Name"
               placeholder="First Name"
               size="md"
-              name="first_name"
+              name="firstname"
               required
-              value={register.first_name}
+              value={register.firstname}
               onChange={(e) => dispatch(setFirstName(e.target.value))}
             />
             <TextInput
@@ -88,9 +88,9 @@ const Index = () => {
               label="Last Name"
               placeholder="Last Name"
               size="md"
-              name="last_name"
+              name="lastname"
               required
-              value={register.last_name}
+              value={register.lastname}
               onChange={(e) => dispatch(setLastName(e.target.value))}
               mt="md"
             />

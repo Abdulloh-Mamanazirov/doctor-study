@@ -58,7 +58,11 @@ const EditSpeakers = ({ getData, item }) => {
         className="fa-solid fa-edit text-blue-500 text-xl cursor-pointer pl-1"
         onClick={open}
       />
-      <Modal opened={opened} onClose={close} title="Authentication">
+      <Modal
+        opened={opened}
+        onClose={close}
+        title={`Edit Speaker ${item.fullName}`}
+      >
         <form onSubmit={handleSubmit}>
           <TextInput
             label="Edit Fulname"

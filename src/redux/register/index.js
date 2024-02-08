@@ -3,8 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 export const createRegisterSlice = createSlice({
   name: "register",
   initialState: {
-    first_name: "",
-    last_name: "",
+    firstname: "",
+    lastname: "",
     work_location: "",
     job: "",
     email: "",
@@ -12,10 +12,10 @@ export const createRegisterSlice = createSlice({
   },
   reducers: {
     setFirstName: (state, action) => {
-      state.first_name = action.payload;
+      state.firstname = action.payload;
     },
     setLastName: (state, action) => {
-      state.last_name = action.payload;
+      state.lastname = action.payload;
     },
     setWorkLocation: (state, action) => {
       state.work_location = action.payload;
