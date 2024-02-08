@@ -6,53 +6,28 @@ import { toast } from "react-toastify";
 
 const EditEvents = ({ getData, item }) => {
   const [opened, { open, close }] = useDisclosure(false);
-  const [file, setFile] = useState();
-  const [image, setImage] = useState();
-
-  const handleChange = (e) => {
-    setFile(URL.createObjectURL(e.target.files[0]));
-    setImage(e.target.files[0]);
-  };
 
   const handleSubmit = async (values) => {
     values.preventDefault();
-    const formdataForSubmit = new FormData();
-    formdataForSubmit.append(
-      "description_en",
-      values.target.description_en.value ?? item?.description_en
-    );
-    formdataForSubmit.append(
-      "description_ru",
-      values.target.description_ru.value ?? item?.description_ru
-    );
-    formdataForSubmit.append(
-      "description_uz",
-      values.target.description_uz.value ?? item?.description_uz
-    );
-    formdataForSubmit.append(
-      "title_en",
-      values.target.title_en.value ?? item?.title_en
-    );
-    formdataForSubmit.append(
-      "title_ru",
-      values.target.title_ru.value ?? item?.title_ru
-    );
-    formdataForSubmit.append(
-      "title_uz",
-      values.target.title_uz.value ?? item?.title_uz
-    );
 
-    if (file) {
-      formdataForSubmit.append("file", file);
-    }
+    const dataForSubmit = {
+      description_en:
+        values.target.description_en.value ?? item?.description_en,
+      description_ru:
+        values.target.description_ru.value ?? item?.description_ru,
+      description_uz:
+        values.target.description_uz.value ?? item?.description_uz,
+      title_en: values.target.title_en.value ?? item?.title_en,
+      title_ru: values.target.title_ru.value ?? item?.title_ru,
+      title_uz: values.target.title_uz.value ?? item?.title_uz,
+      link: values.target.link.value ?? item?.link,
+    };
 
     try {
-      const response = await axios.patch(
-        `materials/${item.id}`,
-        formdataForSubmit
-      );
+      const response = await axios.patch(`materials/${item.id}`, dataForSubmit);
+
       if (response.status === 200) {
-        toast.success("Edited SucsesFull!");
+        toast.success("Edited Successfully!");
         close();
         getData();
       }
@@ -66,41 +41,41 @@ const EditEvents = ({ getData, item }) => {
       <Modal
         opened={opened}
         onClose={close}
-        title="Create Events"
+        title="Create Material"
         size="calc(70vw - 3rem)"
       >
         <Box maw={840} mx="auto">
           <form onSubmit={handleSubmit}>
             <TextInput
-              label="Events title English"
-              placeholder="Events title English"
+              label="Material title English"
+              placeholder="Material title English"
               defaultValue={item.title_en}
               name="title_en"
             />
             <TextInput
               mt="sm"
-              label="Events title Russian"
-              placeholder="Events title Russian"
+              label="Material title Russian"
+              placeholder="Material title Russian"
               defaultValue={item.title_ru}
               name="title_ru"
             />
             <TextInput
               mt="sm"
-              label="Events title Uzbek"
-              placeholder="Events title Uzbek"
+              label="Material title Uzbek"
+              placeholder="Material title Uzbek"
               defaultValue={item.title_uz}
               name="title_uz"
             />
             <Textarea
               mt="md"
-              label="Events Description English"
-              placeholder="Events description English"
+              label="Material Description English"
+              placeholder="Material description English"
               defaultValue={item.description_en}
               name="description_en"
             />
             <Textarea
               mt="md"
-              label="Events Description Russian"
+              label="Material Description Russian"
               placeholder="news description Russian"
               defaultValue={item.description_ru}
               name="description_ru"
@@ -113,13 +88,13 @@ const EditEvents = ({ getData, item }) => {
               name="description_uz"
             />
 
-            <input
-              type="file"
-              name="image"
-              className="file:cursor-pointer file:rounded-md file:bg-transparent file:px-5"
-              onChange={handleChange}
+            <TextInput
+              mt="sm"
+              label="Material link"
+              placeholder="Material link"
+              defaultValue={item.link}
+              name="link"
             />
-            <img src={file} className="w-[400px] " />
             <Button type="submit" color="cyan" mt="sm" fullWidth>
               Submit
             </Button>
@@ -128,7 +103,10 @@ const EditEvents = ({ getData, item }) => {
       </Modal>
 
       <div>
-        <button onClick={open}>Edit Events</button>
+        <span
+          onClick={open}
+          className="fa-solid fa-edit text-xl text-blue-500 cursor-pointer"
+        />
       </div>
     </div>
   );

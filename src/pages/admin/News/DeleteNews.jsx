@@ -1,22 +1,18 @@
 import { Box, Button, Popover, Text } from "@mantine/core";
 import axios from "axios";
-import React, { useState } from "react";
+import React from "react";
 import { toast } from "react-toastify";
 
-const DeleteSpeakers = ({ getData, item }) => {
-  const [popoverVisible, setPopoverVisible] = useState(false);
-
+const DeleteNews = ({ getData, item }) => {
   async function handleDelete() {
     try {
       const res = await axios.delete(`/news/${item?.id}`);
       if (res.status === 204) {
         getData();
         toast.success("O'chirildi!");
-        setPopoverVisible(false);
       }
     } catch (error) {
       toast.error("Nimadadir xatolik ketdi!");
-      setPopoverVisible(false);
     }
   }
 
@@ -26,28 +22,25 @@ const DeleteSpeakers = ({ getData, item }) => {
 
   return (
     <div>
-      <Popover
-        position="bottom-end"
-        withArrow
-        shadow="md"
-        opened={popoverVisible}
-        onClose={() => setPopoverVisible(false)}
-      >
-        <p onClick={() => setPopoverVisible(true)}>delete</p>
+      <Popover width={200} position="bottom" withArrow shadow="md">
+        <Popover.Target>
+          <p>Delete</p>
+        </Popover.Target>
         <Popover.Dropdown className="flex items-center">
           <Box mx="lg">
-            <Text>Do this news</Text>
-            <Button variant="outline" color="red" size="xs" onClick={confirm}>
+            <Text className="text-nowrap">Delete this speaker?</Text>
+            <Button
+              fullWidth
+              variant="outline"
+              color="red"
+              size="xs"
+              onClick={confirm}
+            >
               yes
             </Button>
-            <Button
-              size="xs"
-              variant="outline"
-              ml={15}
-              onClick={() => setPopoverVisible(false)}
-            >
+            {/* <Button size="xs" variant="outline" ml={15}>
               no
-            </Button>
+            </Button> */}
           </Box>
         </Popover.Dropdown>
       </Popover>
@@ -55,4 +48,4 @@ const DeleteSpeakers = ({ getData, item }) => {
   );
 };
 
-export default DeleteSpeakers;
+export default DeleteNews;

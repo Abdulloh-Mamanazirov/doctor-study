@@ -47,13 +47,13 @@ const index = () => {
           {data?.length > 0 ? (
             data?.map((item, index) => {
               return (
-                <Table.Tr key={item?.id}>
+                <Table.Tr key={index}>
                   <Table.Td>{index + 1}</Table.Td>
                   <Table.Td>{item?.description_en}</Table.Td>
                   <Table.Td> {item?.title_en}</Table.Td>
                   <Table.Td>{item?.city}</Table.Td>
                   <Table.Td>{item?.field}</Table.Td>
-                  <Table.Td>{item?.time.slice(0, 10)}</Table.Td>
+                  <Table.Td>{item?.time?.slice?.(0, 10)}</Table.Td>
                   <Table.Td>{item?.speakers?.[0].fullName}</Table.Td>
                   <Table.Td>
                     {" "}
@@ -66,7 +66,7 @@ const index = () => {
                   <Table.Td>
                     <img
                       className="aspect-square w-11 rounded-full"
-                      src={image_url + item.link}
+                      src={image_url + item.file}
                       alt=""
                     />
                   </Table.Td>

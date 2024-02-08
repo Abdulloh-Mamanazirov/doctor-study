@@ -5,6 +5,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { image_url } from "../../../constants/url";
 import EditSpeakers from "./EditSpeakers";
+import SeeAll from "./SeeAll";
 
 const GetSpeakers = () => {
   const [data, setData] = useState();
@@ -60,6 +61,7 @@ const GetSpeakers = () => {
                   <Table.Td className="flex justify-normal">
                     <DeleteSpeakers getData={getData} item={item} />
                     <EditSpeakers getData={getData} item={item} />
+                    <SeeAll getData={getData} item={item} />
                   </Table.Td>
                 </Table.Tr>
               );

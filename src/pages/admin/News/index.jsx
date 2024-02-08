@@ -1,5 +1,6 @@
 import {
   ActionIcon,
+  Button,
   Card,
   Group,
   Image,
@@ -51,7 +52,7 @@ function Index() {
   return (
     <div>
       <PostNews getData={getData} />
-      <div className="md:mt-10 grid lg:grid-cols-3 md:grid-cols-2 gap-3">
+      <div className="md:mt-10 grid lg:grid-cols-3 w-full md:grid-cols-2 gap-3">
         {data?.length > 0 ? (
           data.map((item) => {
             return (
@@ -61,60 +62,6 @@ function Index() {
                     <Text fw={500} className="line-clamp-1">
                       {item.title_en}
                     </Text>
-                    <Menu
-                      zIndex={10}
-                      opened={open}
-                      position="bottom-end"
-                      shadow="sm"
-                    >
-                      <Menu.Target>
-                        <ActionIcon
-                          onClick={handleMenuToggle}
-                          variant="subtle"
-                          color="gray"
-                        >
-                          <span
-                            className="fa-solid fa-ellipsis-vertical"
-                            style={{ width: rem(16), height: rem(16) }}
-                          />
-                        </ActionIcon>
-                      </Menu.Target>
-                      <Menu.Dropdown>
-                        <Menu.Item
-                          leftSection={
-                            <span
-                              className="fa-solid fa-eye"
-                              style={{ width: rem(14), height: rem(14) }}
-                            />
-                          }
-                          color="gray"
-                        >
-                          <SeeAll getData={getData} item={item} />
-                        </Menu.Item>
-                        <Menu.Item
-                          leftSection={
-                            <span
-                              className="fa-solid fa-edit"
-                              style={{ width: rem(14), height: rem(14) }}
-                            />
-                          }
-                          color="blue"
-                        >
-                          <EditNews getData={getData} item={item} />
-                        </Menu.Item>
-                        <Menu.Item
-                          leftSection={
-                            <span
-                              className="fa-solid fa-trash"
-                              style={{ width: rem(14), height: rem(14) }}
-                            />
-                          }
-                          color="red"
-                        >
-                          <DeleteNews getData={getData} item={item} />
-                        </Menu.Item>
-                      </Menu.Dropdown>
-                    </Menu>
                   </Group>
                 </Card.Section>
                 <Text mt="sm" c="dimmed" size="sm">
@@ -123,6 +70,17 @@ function Index() {
                 <Card.Section mt="sm">
                   <Image src={image_url + item.link} />
                 </Card.Section>
+                <div className="flex gap-1">
+                  <Button fullWidth>
+                    <EditNews getData={getData} item={item} />
+                  </Button>
+                  <Button color="cyan" fullWidth>
+                    <SeeAll getData={getData} item={item} />
+                  </Button>
+                  <Button color="red" className="flex" fullWidth>
+                    <DeleteNews getData={getData} item={item} />
+                  </Button>
+                </div>
               </Card>
             );
           })

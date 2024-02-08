@@ -11,7 +11,7 @@ const SeeAll = ({ item }) => {
       <Modal
         opened={opened}
         onClose={close}
-        title="See Webinar"
+        title="See Events"
         size="calc(70vw - 3rem)"
       >
         <div>
@@ -64,7 +64,7 @@ const SeeAll = ({ item }) => {
               </Table.Tr>
               <Table.Tr>
                 <Table.Th>Time</Table.Th>
-                <Table.Td>{item?.time.slice(0, 10)}</Table.Td>
+                <Table.Td>{item?.time?.slice?.(0, 10)}</Table.Td>
                 <Table.Tr />
               </Table.Tr>
               <Table.Tr>
@@ -81,7 +81,7 @@ const SeeAll = ({ item }) => {
               </Table.Tr>
               <Table.Tr>
                 <Table.Td colSpan={2}>
-                  <Image src={image_url + item?.link} />
+                  <Image src={image_url + item?.file} />
                 </Table.Td>
                 <Table.Tr />
               </Table.Tr>

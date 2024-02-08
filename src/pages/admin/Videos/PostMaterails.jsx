@@ -6,7 +6,6 @@ import { toast } from "react-toastify";
 
 const PostMaterials = ({ getData }) => {
   const [opened, { open, close }] = useDisclosure(false);
-  const [file, setFile] = useState();
   const [formData, setFormData] = useState({
     title_en: "",
     title_ru: "",
@@ -14,6 +13,7 @@ const PostMaterials = ({ getData }) => {
     description_en: "",
     description_ru: "",
     description_uz: "",
+    link: "",
   });
 
   const handleInputChange = (e) => {
@@ -24,46 +24,35 @@ const PostMaterials = ({ getData }) => {
     }));
   };
 
-  const handleChange = (e) => {
-    if (e.target && e.target.files && e.target.files.length > 0) {
-      setFile(URL.createObjectURL(e.target.files[0]));
-    }
+  const isValidYouTubeLink = (url) => {
+    const youtubeRegex =
+      /^(https?:\/\/)?(www\.)?(youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/;
+    return youtubeRegex.test(url);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const {
-      title_en,
-      title_ru,
-      title_uz,
-      description_en,
-      description_ru,
-      description_uz,
-      file,
-    } = e.target;
-
-    const formdataForSubmit = new FormData();
-    formdataForSubmit.append("title_en", title_en.value);
-    formdataForSubmit.append("title_ru", title_ru.value);
-    formdataForSubmit.append("title_uz", title_uz.value);
-    formdataForSubmit.append("description_en", description_en.value);
-    formdataForSubmit.append("description_ru", description_ru.value);
-    formdataForSubmit.append("description_uz", description_uz.value);
-    formdataForSubmit.append("file", file.files[0]);
-
+    if (formData.link && !isValidYouTubeLink(formData.link)) {
+      toast.error("Invalid YouTube link. Please enter a valid YouTube URL.");
+      return;
+    }
     try {
-      const response = await axios.post("materials", formdataForSubmit);
+      const response = await axios.post("materials", formData, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
       if (response.status === 201) {
-        toast.success("news post successful");
+        toast.success("Material post successful");
         close();
         getData();
       }
     } catch (error) {
-      toast.error("Error submitting news post:", error);
+      toast.error("Error submitting material post:", error);
     }
   };
-
   return (
     <div>
       <Modal
@@ -103,7 +92,7 @@ const PostMaterials = ({ getData }) => {
             <Textarea
               mt="md"
               label="Material Description English"
-              placeholder="news description English"
+              placeholder="Material description English"
               value={formData.description_en}
               name="description_en"
               onChange={handleInputChange}
@@ -112,7 +101,7 @@ const PostMaterials = ({ getData }) => {
             <Textarea
               mt="md"
               label="Material Description Russian"
-              placeholder="news description Russian"
+              placeholder="Material description Russian"
               value={formData.description_ru}
               onChange={handleInputChange}
               required
@@ -121,24 +110,21 @@ const PostMaterials = ({ getData }) => {
             <Textarea
               mt="md"
               label="Material Description Uzbek"
-              placeholder="news description Uzbek"
+              placeholder="Material description Uzbek"
               value={formData.description_uz}
               onChange={handleInputChange}
               required
               name="description_uz"
             />
-            <label className="">
-              Choose Image file
-              <br />
-              <input
-                type="file"
-                name="file"
-                className="file:cursor-pointer file:rounded-md file:bg-transparent file:px-5"
-                onChange={handleChange}
-              />
-              <img src={file} className="w-[400px] " />
-            </label>
-
+            <TextInput
+              mt="sm"
+              label="Material link YouTube link"
+              placeholder="Material link"
+              name="link"
+              value={formData.link}
+              onChange={handleInputChange}
+              required
+            />
             <Button type="submit" color="cyan" mt="sm" fullWidth>
               Submit
             </Button>

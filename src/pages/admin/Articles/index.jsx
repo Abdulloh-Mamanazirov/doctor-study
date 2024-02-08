@@ -1,24 +1,27 @@
-import {
-  ActionIcon,
-  Card,
-  Group,
-  Image,
-  Menu,
-  Text,
-  Title,
-  rem,
-} from "@mantine/core";
-import { useEffect, useState } from "react";
-import PostArticles from "./PostArticles";
-import SeeAll from "./SeeAll";
-import EditArticles from "./EditArticles";
-import DeleteArticles from "./DeleteArticles";
+import { Button, Card, Group, Image, Text } from "@mantine/core";
 import axios from "axios";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { image_url } from "../../../constants/url";
+import { image_url } from "../../../constants";
+import DeleteArticles from "./DeleteArticles";
+import PostArticles from "./PostArticles";
+import EditArticles from "./EditArticles";
+import SeeAll from "./SeeAll";
 
-const index = () => {
+function Index() {
+  const [open, setOpen] = useState(false);
   const [data, setData] = useState([]);
+
+  const handleBodyClick = () => {
+    setOpen(true);
+  };
+  useEffect(() => {
+    document.body.addEventListener("click", handleBodyClick);
+    return () => {
+      document.body.removeEventListener("click", handleBodyClick);
+    };
+  }, []);
+
   async function getData() {
     await axios
       .get("article")
@@ -32,12 +35,11 @@ const index = () => {
   useEffect(() => {
     getData();
   }, []);
-  console.log(data, "data");
 
   return (
-    <div className=" md:mt-10">
+    <div>
       <PostArticles getData={getData} />
-      <div className="md:mt-10 grid lg:grid-cols-3 md:grid-cols-2 gap-3">
+      <div className="md:mt-10 grid lg:grid-cols-3 w-full md:grid-cols-2 gap-3">
         {data?.length > 0 ? (
           data.map((item) => {
             return (
@@ -47,87 +49,39 @@ const index = () => {
                     <Text fw={500} className="line-clamp-1">
                       {item.title_en}
                     </Text>
-                    <Menu
-                      zIndex={10}
-                      opened={open}
-                      position="bottom-end"
-                      shadow="sm"
-                    >
-                      <Menu.Target>
-                        <ActionIcon
-                          onClick={() => {
-                            setOpen((prevOpen) => !prevOpen);
-                          }}
-                          variant="subtle"
-                          color="gray"
-                        >
-                          <span
-                            className="fa-solid fa-ellipsis-vertical"
-                            style={{ width: rem(16), height: rem(16) }}
-                          />
-                        </ActionIcon>
-                      </Menu.Target>
-                      <Menu.Dropdown>
-                        <Menu.Item
-                          leftSection={
-                            <span
-                              className="fa-solid fa-eye"
-                              style={{ width: rem(14), height: rem(14) }}
-                            />
-                          }
-                          color="gray"
-                        >
-                          <SeeAll getData={getData} item={item} />
-                        </Menu.Item>
-
-                        <Menu.Item
-                          leftSection={
-                            <span
-                              className="fa-solid fa-edit"
-                              style={{ width: rem(14), height: rem(14) }}
-                            />
-                          }
-                          color="blue"
-                        >
-                          <EditArticles getData={getData} item={item} />
-                        </Menu.Item>
-                        <Menu.Item
-                          leftSection={
-                            <span
-                              className="fa-solid fa-trash"
-                              style={{ width: rem(14), height: rem(14) }}
-                            />
-                          }
-                          color="red"
-                        >
-                          <DeleteArticles getData={getData} item={item} />
-                        </Menu.Item>
-                      </Menu.Dropdown>
-                    </Menu>
                   </Group>
                 </Card.Section>
                 <Text mt="sm" c="dimmed" size="sm">
-                  {item?.description_en}
+                  {item.description_en}
                 </Text>
                 <Card.Section mt="sm">
-                  <Image src={image_url + item?.link} />
+                  <Image src={image_url + item.link} />
                 </Card.Section>
+                <div className="flex gap-1">
+                  <Button fullWidth>
+                    <EditArticles getData={getData} item={item} />
+                  </Button>
+                  <Button color="cyan" fullWidth>
+                    <SeeAll getData={getData} item={item} />
+                  </Button>
+                  <Button color="red" className="flex" fullWidth>
+                    <DeleteArticles getData={getData} item={item} />
+                  </Button>
+                </div>
               </Card>
             );
           })
         ) : (
-          <div>
-            <>
-              <div className="flex flex-col items-center gap-3">
-                <img src="/empty.png" alt="no data" width={100} />
-                <p className="text-gray-500">No data available.</p>
-              </div>
-            </>
+          <div className="grid place-content-center col-span-3">
+            <div className=" items-center gap-3">
+              <img src="/empty.png" alt="no data" width={100} />
+              <p className="text-gray-500">No data available.</p>
+            </div>
           </div>
         )}
       </div>
     </div>
   );
-};
+}
 
-export default index;
+export default Index;

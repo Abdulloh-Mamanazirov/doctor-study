@@ -83,12 +83,12 @@ const PostArticles = ({ getDatas }) => {
     try {
       const response = await axios.post("webinars", formdataForSubmit);
       if (response.status === 201) {
-        toast.success("Webinar post successful");
+        toast.success("Events post successful");
         close();
         getDatas();
       }
     } catch (error) {
-      toast.error("Error submitting Webinar post:", error);
+      toast.error("Error submitting Events post:", error);
     }
   };
 
@@ -97,14 +97,14 @@ const PostArticles = ({ getDatas }) => {
       <Modal
         opened={opened}
         onClose={close}
-        title="Create Webinar"
+        title="Create Events"
         size="calc(70vw - 3rem)"
       >
         <Box maw={840} mx="auto">
           <form onSubmit={handleSubmit}>
             <TextInput
-              label="Webinar title English"
-              placeholder="Webinar title English"
+              label="Events title English"
+              placeholder="Events title English"
               name="title_en"
               required
               value={formData?.title_en}
@@ -112,8 +112,8 @@ const PostArticles = ({ getDatas }) => {
             />
             <TextInput
               mt="sm"
-              label="Webinar title Russian"
-              placeholder="Webinar title Russian"
+              label="Events title Russian"
+              placeholder="Events title Russian"
               name="title_ru"
               value={formData?.title_ru}
               onChange={handleInputChange}
@@ -121,8 +121,8 @@ const PostArticles = ({ getDatas }) => {
             />
             <TextInput
               mt="sm"
-              label="Webinar title Uzbek"
-              placeholder="Webinar title Uzbek"
+              label="Events title Uzbek"
+              placeholder="Events title Uzbek"
               required
               name="title_uz"
               value={formData?.title_uz}
@@ -130,7 +130,7 @@ const PostArticles = ({ getDatas }) => {
             />
             <Textarea
               mt="md"
-              label="Webinar Description English"
+              label="Events Description English"
               placeholder="news description English"
               value={formData?.description_en}
               name="description_en"
@@ -139,7 +139,7 @@ const PostArticles = ({ getDatas }) => {
             />
             <Textarea
               mt="md"
-              label="Webinar Description Russian"
+              label="Events Description Russian"
               placeholder="news description Russian"
               value={formData?.description_ru}
               onChange={handleInputChange}
@@ -148,7 +148,7 @@ const PostArticles = ({ getDatas }) => {
             />
             <Textarea
               mt="md"
-              label="Webinar Description Uzbek"
+              label="Events Description Uzbek"
               placeholder="news description Uzbek"
               value={formData?.description_uz}
               onChange={handleInputChange}
@@ -157,7 +157,7 @@ const PostArticles = ({ getDatas }) => {
             />
             <TextInput
               mt="md"
-              label="city "
+              label="City "
               placeholder="city"
               value={formData?.city}
               onChange={handleInputChange}
@@ -165,7 +165,7 @@ const PostArticles = ({ getDatas }) => {
               name="city"
             />
             <MultiSelect
-              label="Choose your speakers"
+              label="Choose speakers"
               placeholder="Pick value"
               data={data?.map?.((item) => ({
                 value: String(item?.id),
@@ -176,7 +176,7 @@ const PostArticles = ({ getDatas }) => {
               onChange={(selectedOption) => setSpeakersId(selectedOption)}
             />
             <label htmlFor="" className="my-5">
-              Choose your date
+              Choose your webinar date
               <Input
                 type="datetime-local"
                 placeholder="Pick date and time"
@@ -185,7 +185,7 @@ const PostArticles = ({ getDatas }) => {
             </label>
             <TextInput
               mt="md"
-              label="field "
+              label="Field "
               placeholder="field"
               value={formData?.field}
               onChange={handleInputChange}
@@ -193,7 +193,7 @@ const PostArticles = ({ getDatas }) => {
               name="field"
             />
             <Checkbox
-              label="your choose your status"
+              label="Is online"
               className="py-5"
               onChange={(e) => {
                 setFormData((old) => ({ ...old, online: e.target.checked }));
