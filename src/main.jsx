@@ -1,8 +1,8 @@
+import axios from "axios";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import { MantineProvider } from "@mantine/core";
 import App from "./App.jsx";
-import axios from "axios";
 
 // i18n
 import "./i18n";
@@ -10,6 +10,7 @@ import "./i18n";
 // css
 import "./index.css";
 import "@mantine/core/styles.css";
+import "react-toastify/dist/ReactToastify.css";
 
 let global_url = "http://82.97.242.32:8081/api";
 axios.defaults.baseURL = global_url;

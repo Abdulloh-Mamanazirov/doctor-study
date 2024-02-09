@@ -1,14 +1,7 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import {
-  book,
-  event,
-  group,
-  megaphone,
-  news,
-  video,
-} from "../../../assets/stats_image/index";
+import { news, book, event, group, video, megaphone } from "../../../assets";
 
 const index = () => {
   const [data, setData] = useState([]);
@@ -28,7 +21,7 @@ const index = () => {
   }, []);
 
   return (
-    <div className=" ">
+    <div>
       <div className="grid grid-cols-1 md-lg:grid-cols-1 lg:grid-cols-2 gap-2 mt-5">
         <div className="border rounded-xl p-2 bg-white shadow-md shadow-black/30 grid grid-cols-3 transition-all hover:scale-[1.03]">
           <div className="col-span-2 flex flex-col gap-2">

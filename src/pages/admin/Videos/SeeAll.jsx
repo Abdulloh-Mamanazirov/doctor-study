@@ -1,5 +1,5 @@
+import { useState } from "react";
 import { Box, Modal, Table } from "@mantine/core";
-import React, { useState } from "react";
 
 const SeeAll = ({ item }) => {
   const [opened, setOpen] = useState(false);

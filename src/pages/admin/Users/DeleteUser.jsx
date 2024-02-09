@@ -1,6 +1,5 @@
-import { Box, Button, Popover, Text } from "@mantine/core";
 import axios from "axios";
-import React from "react";
+import { Box, Button, Popover, Text } from "@mantine/core";
 import { toast } from "react-toastify";
 
 const DeleteUser = ({ getData, item }) => {

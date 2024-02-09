@@ -1,16 +1,16 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
 import {
   Box,
-  Button,
-  Checkbox,
   Modal,
-  MultiSelect,
-  TextInput,
+  Input,
+  Button,
   Textarea,
+  Checkbox,
+  TextInput,
+  MultiSelect,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import axios from "axios";
-import { Input } from "@mantine/core";
-import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 const EditEvents = ({ getDatas, item }) => {

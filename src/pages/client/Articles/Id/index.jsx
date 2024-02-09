@@ -34,7 +34,7 @@ const index = () => {
         <a
           href={image_url + state?.link}
           target={"_blank"}
-          className="text-sky-600 hover:text-blue-500 hover:underline"
+          className="text-sky-600 hover:text-blue-500 hover:underline" rel="noreferrer"
         >
           Download link
         </a>

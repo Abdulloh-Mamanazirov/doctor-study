@@ -1,11 +1,8 @@
-import { Box, Button, Popover, Text } from "@mantine/core";
 import axios from "axios";
-import React, { useState } from "react";
+import { Box, Button, Popover, Text } from "@mantine/core";
 import { toast } from "react-toastify";
 
 const DeleteArticles = ({ getData, item }) => {
-  console.log(item, "web");
-
   async function handleDelete() {
     try {
       const res = await axios.delete(`/webinars/${item.id}`);
@@ -30,7 +27,7 @@ const DeleteArticles = ({ getData, item }) => {
         </Popover.Target>
         <Popover.Dropdown className="flex items-center">
           <Box mx="lg">
-            <Text>Do this news</Text>
+            <Text className="text-nowrap">Delete this news</Text>
             <Button
               fullWidth
               variant="outline"

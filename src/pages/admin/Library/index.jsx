@@ -1,7 +1,8 @@
-import { Table } from "@mantine/core";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { Table } from "@mantine/core";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+
 import PostResurces from "./PostResurces";
 import DeleteRoursec from "./DeleteRoursec";
 import EditResources from "./EditResources";

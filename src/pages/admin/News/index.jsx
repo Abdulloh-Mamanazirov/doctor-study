@@ -1,22 +1,13 @@
-import {
-  ActionIcon,
-  Button,
-  Card,
-  Group,
-  Image,
-  Menu,
-  Text,
-  Title,
-  rem,
-} from "@mantine/core";
+import axios from "axios";
 import { useEffect, useState } from "react";
-import PostNews from "./PostNews";
+import { Button, Card, Group, Image, Text } from "@mantine/core";
+import { toast } from "react-toastify";
+
+import { image_url } from "../../../constants";
 import SeeAll from "./SeeAll";
+import PostNews from "./PostNews";
 import EditNews from "./EditNews";
 import DeleteNews from "./DeleteNews";
-import axios from "axios";
-import { toast } from "react-toastify";
-import { image_url } from "../../../constants";
 
 function Index() {
   const [open, setOpen] = useState(false);

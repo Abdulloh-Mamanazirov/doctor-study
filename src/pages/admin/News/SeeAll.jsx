@@ -1,5 +1,5 @@
+import { useState } from "react";
 import { Box, Grid, Image, Modal, Table } from "@mantine/core";
-import React, { useState } from "react";
 import { image_url } from "../../../constants";
 
 const SeeAll = ({ item }) => {

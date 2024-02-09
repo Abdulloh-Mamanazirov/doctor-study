@@ -1,17 +1,17 @@
+import axios from "axios";
 import {
   Box,
+  Modal,
+  Input,
   Button,
   Checkbox,
-  FileInput,
-  Input,
-  Modal,
-  MultiSelect,
-  TextInput,
   Textarea,
+  TextInput,
+  FileInput,
+  MultiSelect,
 } from "@mantine/core";
+import { useEffect, useState } from "react";
 import { useDisclosure } from "@mantine/hooks";
-import axios from "axios";
-import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 const PostArticles = ({ getDatas }) => {

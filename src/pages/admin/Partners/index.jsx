@@ -1,8 +1,9 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { toast } from "react-toastify";
-import PostPartners from "./PostPartners";
+import { useEffect, useState } from "react";
 import { Table } from "@mantine/core";
+import { toast } from "react-toastify";
+
+import PostPartners from "./PostPartners";
 import EditPartners from "./EditPartners";
 import DeletePatners from "./DeletePatners";
 import { image_url } from "../../../constants";

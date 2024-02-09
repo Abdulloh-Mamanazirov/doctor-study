@@ -1,4 +1,3 @@
-import React from "react";
 import { useDisclosure } from "@mantine/hooks";
 import { Image, Modal, Table } from "@mantine/core";
 import { image_url } from "../../../constants";

@@ -1,8 +1,7 @@
-import React, { useState } from "react";
 import axios from "axios";
 import { Button, FileInput, TextInput, Modal } from "@mantine/core";
-import { toast } from "react-toastify";
 import { useDisclosure } from "@mantine/hooks";
+import { toast } from "react-toastify";
 
 const index = ({ getData }) => {
   const [opened, { open, close }] = useDisclosure(false);

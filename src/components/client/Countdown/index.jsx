@@ -1,6 +1,6 @@
-import { Button } from "@mantine/core";
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { Button } from "@mantine/core";
 import { Link } from "react-router-dom";
 
 const Countdown = ({ startDate, title, data }) => {

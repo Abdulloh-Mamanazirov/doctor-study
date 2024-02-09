@@ -1,7 +1,7 @@
-import { Box, Button, Modal, TextInput, Textarea } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
 import axios from "axios";
-import React, { useState } from "react";
+import { useState } from "react";
+import { Box, Button, Modal, TextInput } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
 import { toast } from "react-toastify";
 
 const EditPartners = ({ getData, item }) => {

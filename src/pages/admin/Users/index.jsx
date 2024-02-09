@@ -1,8 +1,8 @@
-import { Table } from "@mantine/core";
-import React, { useEffect, useState } from "react";
-import DeleteUser from "./DeleteUser";
 import axios from "axios";
+import { Table } from "@mantine/core";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import DeleteUser from "./DeleteUser";
 
 const index = () => {
   const [data, setData] = useState([]);

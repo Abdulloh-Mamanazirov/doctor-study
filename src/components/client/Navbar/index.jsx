@@ -20,11 +20,12 @@ import {
 } from "@mantine/core";
 import { useEffect } from "react";
 import { useDisclosure } from "@mantine/hooks";
-import { Logo_icon } from "../../../assets";
 import { Link, useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+
 import classes from "./HeaderMegaMenu.module.css";
 import { LanguagePicker } from "./language";
-import { useTranslation } from "react-i18next";
+import { Logo_icon } from "../../../assets";
 
 export default function Navbar() {
   const { pathname } = useLocation();
