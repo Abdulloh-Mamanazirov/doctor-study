@@ -11,7 +11,7 @@ import {
 const Card = ({ value, title, desc, img }) => {
   return (
     <div className="grid grid-cols-3">
-      <div className="w-full p-7">
+      <div className="w-full sm:p-7">
         <img src={img} alt="doctor s icon" className="w-full" />
       </div>
       <div className="col-span-2">
