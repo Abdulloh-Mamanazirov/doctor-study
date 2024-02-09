@@ -159,6 +159,7 @@ export default function Navbar() {
           <Group visibleFrom="sm">
             <LanguagePicker />
             {client_token ? (
+              /*
               <Menu shadow="md" width={200}>
                 <Menu.Target>
                   <Avatar
@@ -188,6 +189,16 @@ export default function Navbar() {
                   </Menu.Item>
                 </Menu.Dropdown>
               </Menu>
+              */
+              <Button
+                color={"red"}
+                onClick={handleLogOut}
+                leftSection={
+                  <span className="fa-solid fa-arrow-right-from-bracket" />
+                }
+              >
+                {t("logout")}
+              </Button>
             ) : (
               <>
                 <Link to={"/login"} className="focus:outline-none">
@@ -265,13 +276,13 @@ export default function Navbar() {
           >
             {t("speakers_link")}
           </Link>
-          <Link
+          {/* <Link
             to="/my-profile"
             className={`${classes.link} mb-2`}
             style={{ fontSize: 18 }}
           >
             {t("view")}
-          </Link>
+          </Link> */}
 
           <Divider my="sm" />
 

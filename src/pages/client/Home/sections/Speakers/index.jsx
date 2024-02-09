@@ -1,8 +1,11 @@
 import { Container, Title, Text, List, ThemeIcon, rem } from "@mantine/core";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import classes from "./HeroBullets.module.css";
 
 function About() {
+  const { t } = useTranslation();
+
   return (
     <Container size="md">
       <div className={"grid md:grid-cols-2 items-center py-24"}>
@@ -53,7 +56,7 @@ function About() {
               to={"/speakers"}
               className="bg-red-400 text-white py-2 px-5 rounded-lg"
             >
-              See more
+              {t("seemore")}
             </Link>
           </div>
         </div>

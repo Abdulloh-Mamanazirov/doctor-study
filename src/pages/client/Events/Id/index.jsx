@@ -6,7 +6,7 @@ import { image_url } from "../../../../constants";
 
 const index = () => {
   const { state } = useLocation();
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [lang, setLang] = useState(i18n.language);
 
   useEffect(() => {
@@ -73,7 +73,7 @@ const index = () => {
         </div>
       </div>
       <Button fullWidth size={"lg"}>
-        Participate
+        {t("participate")}
       </Button>
     </div>
   );

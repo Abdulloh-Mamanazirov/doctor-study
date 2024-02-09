@@ -1,20 +1,32 @@
+import axios from "axios";
+import React, { useState, useEffect } from "react";
 import { Button, Input } from "@mantine/core";
-import React from "react";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import { News } from "../../../../assets";
+import { loadingIcon, File } from "../../../../assets";
+import { image_url } from "../../../../constants";
 
 const ArticleCard = (props) => {
+  const placeholderImage = File;
+
+  const handleError = (e) => {
+    if (e.target.src !== placeholderImage) {
+      e.target.src = placeholderImage;
+    }
+  };
+
   return (
     <Link
       to={`/articles/${props?.id}`}
-      state={props}
+      state={props?.data}
       className="grid grid-cols-1 mb-6 md:grid-cols-[40%,1fr] border-gray-200 rounded-md border gap-2"
     >
       <div>
         <img
-          src={props?.image}
+          src={image_url + props?.image}
+          onError={handleError}
           alt="doctor study news image"
-          className="object-cover w-full rounded-md h-80 max-h-80 md:h-full"
+          className="object-contain w-full rounded-md h-80 max-h-80 md:h-full"
         />
       </div>
       <div className="px-4 py-4 lg:px-2 ">
@@ -34,10 +46,31 @@ const ArticleCard = (props) => {
 };
 
 const index = () => {
-  function handleSearch(e) {
-    e.preventDefault();
-    const q = e.target.q.value;
-    console.log(q);
+  const [q, setQ] = useState("");
+  const [data, setData] = useState();
+  const [loading, setLoading] = useState(true);
+  const { i18n } = useTranslation();
+  const [lang, setLang] = useState(i18n.language);
+
+  async function fetchData() {
+    const res = await axios.get("/article").finally(() => setLoading(false));
+    setData(res?.data);
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    setLang(i18n.language);
+  }, [i18n.language]);
+
+  if (loading) {
+    return (
+      <div className="w-full grid place-items-center h-[50vh]">
+        <img src={loadingIcon} alt="loading" className="max-w-24" />
+      </div>
+    );
   }
 
   return (
@@ -47,29 +80,34 @@ const index = () => {
           <h1 className="text-3xl md:text-4xl text-primary-tite font-bold capitalize">
             Articles
           </h1>
-          <form onSubmit={handleSearch} className="flex items-center">
-            <Input name="q" type={"search"} />
-            <Button type="submit" variant={"light"}>
+          <form className="flex items-center">
+            <Input
+              onChange={(e) => setQ(e.target.value?.toLowerCase())}
+              type={"search"}
+            />
+            <Button type="button" variant={"light"}>
               <span role={"button"} className="fa-solid fa-search" />
             </Button>
           </form>
         </div>
-        {new Array(5).fill(null).map((_, ind) => (
-          <ArticleCard
-            key={ind}
-            id={ind}
-            image={
-              ind % 2 === 0
-                ? News
-                : "https://blogs.biomedcentral.com/bmcblog/files/2010/09/picture2.gif"
-            }
-            date={new Date().toLocaleDateString()}
-            title={"Lorem ipsum dolor sit amet, consectetur adipiscing elit"}
-            desc={
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat qudeleniti doloribus ratione. Magnam illum sapiente aperiam cumque! Magnam animi minus minima, quisquam sint in?"
-            }
-          />
-        ))}
+        {data
+          ?.filter(
+            (item) =>
+              item?.title_uz?.toLowerCase()?.includes(q) ||
+              item?.title_ru?.toLowerCase()?.includes(q) ||
+              item?.title_en?.toLowerCase()?.includes(q)
+          )
+          ?.map?.((item) => (
+            <ArticleCard
+              key={item?.id}
+              id={item?.id}
+              data={item}
+              image={item?.link}
+              date={new Date(item?.createdDate).toLocaleDateString()}
+              title={item?.[`title_${lang}`]}
+              desc={item?.[`description_${lang}`]}
+            />
+          ))}
       </div>
     </section>
   );

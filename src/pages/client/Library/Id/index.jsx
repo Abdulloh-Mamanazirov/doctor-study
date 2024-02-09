@@ -1,9 +1,19 @@
 import React from "react";
+import { useEffect } from "react";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
 import { PdfId } from "../../../../assets";
+import { image_url } from "../../../../constants";
 
 const index = () => {
   const { state } = useLocation();
+  const { i18n } = useTranslation();
+  const [lang, setLang] = useState(i18n.language);
+
+  useEffect(() => {
+    setLang(i18n.language);
+  }, [i18n.language]);
 
   return (
     <div className="justify-center flex-1 max-w-5xl px-4 py-4 mx-auto text-left lg:py-5 ">
@@ -16,12 +26,10 @@ const index = () => {
           />
         </div>
         <div>
-          <h1 className="text-2xl md:text-4xl font-bold text-primary-tite mt-5">
-            {state?.title}
-          </h1>
-          <p className="text-lg mt-5">{state?.desc}</p>
+          <p className="text-xl mt-5">{state?.[`description_${lang}`]}</p>
           <a
-            href=""
+            href={image_url + state?.fileLink}
+            target={"_blank"}
             className="text-blue-600 underline underline-offset-2 hover:text-violet-600"
           >
             Download here

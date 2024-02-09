@@ -1,21 +1,48 @@
-import React from "react";
+import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
+import { File } from "../../../../assets";
+import { image_url } from "../../../../constants";
 
 const index = () => {
   const { state } = useLocation();
+  const { i18n } = useTranslation();
+  const [lang, setLang] = useState(i18n.language);
+
+  useEffect(() => {
+    setLang(i18n.language);
+  }, [i18n.language]);
+
+  const placeholderImage = File;
+
+  const handleError = (e) => {
+    if (e.target.src !== placeholderImage) {
+      e.target.src = placeholderImage;
+    }
+  };
 
   return (
     <div className="justify-center flex-1 max-w-5xl px-4 py-4 mx-auto text-left lg:py-10 ">
       <p className="text-center text-gray-500 font-bold mb-3">{state?.date}</p>
       <img
-        src={state?.image}
+        src={image_url + state?.link}
+        onError={handleError}
         alt="doctor-s news image"
-        className="w-full h-[500px] object-cover"
+        className="w-full h-[500px] object-contain"
       />
-      <h1 className="text-2xl md:text-4xl font-bold text-primary-tite text-center mt-5">
-        {state?.title}
-      </h1>
-      <p className="text-lg text-center mt-5">{state?.desc}</p>
+      <div className="text-center">
+        <a
+          href={image_url + state?.link}
+          target={"_blank"}
+          className="text-sky-600 hover:text-blue-500 hover:underline"
+        >
+          Download link
+        </a>
+        <h1 className="text-2xl md:text-4xl font-bold text-primary-tite mt-5">
+          {state?.[`title_${lang}`]}
+        </h1>
+        <p className="text-lg mt-5">{state?.[`description_${lang}`]}</p>
+      </div>
     </div>
   );
 };

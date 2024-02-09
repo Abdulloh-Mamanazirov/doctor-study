@@ -1,33 +1,55 @@
 import { Button, Input } from "@mantine/core";
+import axios from "axios";
 import React from "react";
+import { useEffect } from "react";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import { Pdf } from "../../../../assets";
+import { loadingIcon, Pdf } from "../../../../assets";
 
 const LibraryCard = (props) => {
   return (
     <Link
       to={`/library/${props?.id}`}
-      state={props}
-      className="border border-gray-300 rounded-md flex"
+      state={props?.data}
+      className="border border-gray-300 rounded-md grid grid-cols-3"
     >
       <div className="w-full">
         <img src={Pdf} alt="video image" className="w-52 aspect-square" />
       </div>
-      <div className="p-1">
-        <h3 className="text-xl font-bold text-primary-tite line-clamp-2">
-          {props?.title}
-        </h3>
-        <p className="text-sm line-clamp-3">{props?.desc}</p>
+      <div className="p-1 col-span-2">
+        <p className="text-sm line-clamp-5">{props?.desc}</p>
       </div>
     </Link>
   );
 };
 
 const index = () => {
-  function handleSearch(e) {
-    e.preventDefault();
-    const q = e.target.q.value;
-    console.log(q);
+  const [q, setQ] = useState("");
+  const [data, setData] = useState();
+  const [loading, setLoading] = useState(true);
+  const { i18n } = useTranslation();
+  const [lang, setLang] = useState(i18n.language);
+
+  async function fetchData() {
+    const res = await axios.get("/resources").finally(() => setLoading(false));
+    setData(res?.data);
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    setLang(i18n.language);
+  }, [i18n.language]);
+
+  if (loading) {
+    return (
+      <div className="w-full grid place-items-center h-[50vh]">
+        <img src={loadingIcon} alt="loading" className="max-w-24" />
+      </div>
+    );
   }
 
   return (
@@ -36,24 +58,32 @@ const index = () => {
         <h1 className="text-3xl md:text-4xl text-primary-tite font-bold capitalize">
           Library
         </h1>
-        <form onSubmit={handleSearch} className="flex items-center">
-          <Input name="q" type={"search"} />
-          <Button type="submit" variant={"light"}>
+        <form className="flex items-center">
+          <Input
+            onChange={(e) => setQ(e.target.value?.toLowerCase())}
+            type={"search"}
+          />
+          <Button type="button" variant={"light"}>
             <span role={"button"} className="fa-solid fa-search" />
           </Button>
         </form>
       </div>
       <div className="text-left lg:py-10 grid gap-3 md:grid-cols-2 lg:grid-cols-3">
-        {new Array(7).fill(null).map((_, ind) => (
-          <LibraryCard
-            key={ind}
-            id={ind}
-            title={ind + " Book title goes here"}
-            desc={
-              "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ratione consequatur, ellat unde expedita incidunt quas nulla iste accusantium!"
-            }
-          />
-        ))}
+        {data
+          ?.filter(
+            (item) =>
+              item?.description_uz?.toLowerCase()?.includes(q) ||
+              item?.description_ru?.toLowerCase()?.includes(q) ||
+              item?.description_en?.toLowerCase()?.includes(q)
+          )
+          ?.map((item) => (
+            <LibraryCard
+              key={item?.id}
+              id={item?.id}
+              data={item}
+              desc={item?.[`description_${lang}`]}
+            />
+          ))}
       </div>
     </div>
   );

@@ -1,8 +1,11 @@
 import { Button } from "@mantine/core";
 import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
 const Countdown = ({ startDate, title, data }) => {
+  const { t } = useTranslation();
+
   const calculateTimeLeft = () => {
     let difference = +new Date(startDate) - +new Date();
     let timeLeft = {};
@@ -82,7 +85,7 @@ const Countdown = ({ startDate, title, data }) => {
             state={data}
             to={String(data?.id)}
           >
-            Participate
+            {t("participate")}
           </Button>
         </div>
       </div>
