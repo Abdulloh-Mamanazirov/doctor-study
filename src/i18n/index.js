@@ -26,20 +26,20 @@ i18n.use(initReactI18next).init({
         home: {
           title: "Medical education portal",
           videos: {
-            title: "video materials available",
-            desc: "Use exclusive video materials developed by our experts",
+            title: "video materials",
+            desc: "Use our exclusive video materials developed by experts in their own fields",
           },
           events: {
             title: "face-to-face and online events",
-            desc: "",
+            desc: "Organization of in-person an online events in all regions of Uzbekistan and beyond.",
           },
           articles: {
-            title: "online articles available",
-            desc: "",
+            title: "online articles",
+            desc: "Improve your knowledge by reading our online articles about a lot of different topics",
           },
           resources: {
             title: "useful resources",
-            desc: "",
+            desc: "Use our useful books and PDF files for more information on different fields",
           },
           about: {
             title: "Welcome to",
@@ -100,20 +100,20 @@ i18n.use(initReactI18next).init({
         home: {
           title: "Tibbiy ta'lim portali",
           videos: {
-            title: "video materiallar mavjud",
-            desc: "Ekspertlar tomonidan ishlab chiqilgan video materiallardan foydalaning",
+            title: "video materiallar",
+            desc: "O'z sohalaridagi mutaxassislar tomonidan ishlab chiqilgan eksklyuziv video materiallarimizdan foydalaning",
           },
           events: {
             title: "online va offline tadbirlar",
-            desc: "",
+            desc: "O'zbekistonning barcha hududlarida va undan tashqarida shaxsan onlayn tadbirlarni tashkil etish.",
           },
           articles: {
-            title: "onlayn maqolalar mavjud",
-            desc: "",
+            title: "onlayn maqolalar",
+            desc: "Turli mavzulardagi onlayn maqolalarimizni o'qib, bilimingizni oshiring",
           },
           resources: {
             title: "foydali resurslar",
-            desc: "",
+            desc: "Turli sohalar bo'yicha qo'shimcha ma'lumot olish uchun foydali kitoblarimiz va PDF fayllarimizdan foydalaning",
           },
           about: {
             title: "Doktor-S Medical ga xush kelibsiz",
@@ -174,20 +174,20 @@ i18n.use(initReactI18next).init({
         home: {
           title: "Медицинский образовательный портал",
           videos: {
-            title: "доступны видеоматериалы",
-            desc: "Используйте эксклюзивные видеоматериалы, разработанные нашими специалистами",
+            title: "видеоматериалы",
+            desc: "Используйте наши эксклюзивные видеоматериалы, разработанные экспертами в своих областях.",
           },
           events: {
             title: "очные и онлайн мероприятия",
-            desc: "",
+            desc: "Организация очных и онлайн мероприятий во всех регионах Узбекистана и за его пределами.",
           },
           articles: {
-            title: "доступны онлайн-статьи",
-            desc: "",
+            title: "онлайн-статьи",
+            desc: "Совершенствуйте свои знания, читая наши онлайн-статьи на самые разные темы.",
           },
           resources: {
             title: "полезные ресурсы",
-            desc: "",
+            desc: "Используйте наши полезные книги и файлы PDF для получения дополнительной информации в различных областях.",
           },
           about: {
             title: "Добро пожаловать в ",
