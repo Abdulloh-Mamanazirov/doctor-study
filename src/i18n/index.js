@@ -51,6 +51,14 @@ i18n.use(initReactI18next).init({
               n4: "Conference",
             },
           },
+          webinar: {
+            title: "Improving Medical Education with Doktor-S Webinars",
+            desc: "Learn how Doktor-S’s medical webinars have transformed medical education, bringing leading authoritative experts to the forefront, and supporting practitioners to stay updated with the latest developments in modern evidence-based medicine.",
+            points: {
+              n1: "Access to leading authoritative experts in-country",
+              n2: "Stay up-to-date with modern evidence-based medicine",
+            },
+          },
         },
 
         // Words
@@ -63,12 +71,17 @@ i18n.use(initReactI18next).init({
         rights: "All rights are reserved",
         participate: "Participate",
         seemore: "See more",
+        partners: "Partners",
+        videos: "Videos",
+        news: "News",
+        articles: "Articles",
+        library: "Library",
       },
     },
     uz: {
       translation: {
         // Navigation
-        home_link: "Bosh Sahifa",
+        home_link: "Bosh ahifa",
         events_link: "Tadbirlar",
         news_link: "Yangiliklar",
         materials_link: "Foydali materiallar",
@@ -112,6 +125,14 @@ i18n.use(initReactI18next).init({
               n4: "Konferensiya",
             },
           },
+          webinar: {
+            title: "Doktor-S veb-seminarlari bilan tibbiy ta'limni yaxshilash",
+            desc: "Doktor-Sning tibbiy veb-seminarlari tibbiy ta'limni qanday o'zgartirganini, etakchi nufuzli mutaxassislarni birinchi o'ringa olib chiqishni va amaliyotchilarni zamonaviy dalillarga asoslangan tibbiyotdagi so'nggi ishlanmalardan xabardor bo'lishda qo'llab-quvvatlashini bilib oling.",
+            points: {
+              n1: "Mamlakatdagi yetakchi nufuzli mutaxassislarga kirish",
+              n2: "Zamonaviy dalillarga asoslangan tibbiyotdan xabardor bo'ling",
+            },
+          },
         },
 
         // Words
@@ -124,6 +145,11 @@ i18n.use(initReactI18next).init({
         rights: "Barcha huquqlar himoyalangan",
         participate: "Qatnashish",
         seemore: "Ko'proq ko'rish",
+        partners: "Hamkorlar",
+        videos: "Videolar",
+        news: "Yangiliklar",
+        articles: "Maqolalar",
+        library: "Kutubxona",
       },
     },
     ru: {
@@ -173,6 +199,15 @@ i18n.use(initReactI18next).init({
               n4: "Конференция",
             },
           },
+          webinar: {
+            title:
+              "Улучшайте медицинское образование с помощью вебинаров «Доктор-С»",
+            desc: "Узнайте, как медицинские вебинары «Доктор-С» изменили медицинское образование, выведя на передний план ведущих авторитетных экспертов и помогая практикующим врачам оставаться в курсе последних достижений современной доказательной медицины.",
+            points: {
+              n1: "Доступ к ведущим авторитетным экспертам внутри страны",
+              n2: "Будьте в курсе современной доказательной медицины",
+            },
+          },
         },
 
         // Words
@@ -185,6 +220,11 @@ i18n.use(initReactI18next).init({
         rights: "Все права защищены",
         participate: "Участвовать ",
         seemore: "Узнать больше",
+        partners: "Партнеры",
+        videos: "Видео",
+        news: "Новости",
+        articles: "Статьи",
+        library: "Библиотека",
       },
     },
   },

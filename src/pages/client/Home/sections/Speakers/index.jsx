@@ -19,15 +19,9 @@ function About() {
           />
         </div>
         <div className={classes.content}>
-          <Title className={classes.title}>
-            Improving Medical Education with{" "}
-            <span className={classes.highlight}>Doktor-S</span> Webinars
-          </Title>
+          <Title className={classes.title}>{t("home.webinar.title")}</Title>
           <Text c="dimmed" mt="md">
-            Learn how Doktor-S’s medical webinars have transformed medical
-            education, bringing leading authoritative experts to the forefront,
-            and supporting practitioners to stay updated with the latest
-            developments in modern evidence-based medicine.
+            {t("home.webinar.desc")}
           </Text>
 
           <List
@@ -45,15 +39,15 @@ function About() {
             }
           >
             <List.Item>
-              <p>Access to leading authoritative experts in-country</p>
+              <p>{t("home.webinar.points.n1")}</p>
             </List.Item>
             <List.Item>
-              <p>Stay up-to-date with modern evidence-based medicine</p>
+              <p>{t("home.webinar.points.n2")}</p>
             </List.Item>
           </List>
           <div className="mt-5">
             <Link
-              to={"/speakers"}
+              to={"/events"}
               className="bg-red-400 text-white py-2 px-5 rounded-lg"
             >
               {t("seemore")}

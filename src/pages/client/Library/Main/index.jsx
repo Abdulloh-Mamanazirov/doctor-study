@@ -28,7 +28,7 @@ const index = () => {
   const [q, setQ] = useState("");
   const [data, setData] = useState();
   const [loading, setLoading] = useState(true);
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [lang, setLang] = useState(i18n.language);
 
   async function fetchData() {
@@ -56,7 +56,7 @@ const index = () => {
     <div className="max-w-6xl px-4 py-4 mx-auto">
       <div className="py-10 flex items-center justify-between gap-2">
         <h1 className="text-3xl md:text-4xl text-primary-tite font-bold capitalize">
-          Library
+          {t("library")}
         </h1>
         <form className="flex items-center">
           <Input
