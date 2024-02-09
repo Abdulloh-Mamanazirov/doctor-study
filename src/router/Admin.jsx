@@ -17,7 +17,7 @@ const Admin = () => {
     const token = sessionStorage.clear();
 
     if (!token) {
-      window.location.replace("/login");
+      window.location.reload();
     }
   };
 
@@ -32,7 +32,7 @@ const Admin = () => {
           <img src={Logo_text} className={`cursor-pointer w-fit `} />
         </div>
         <ul className="pt-6 w-full">
-          {ADMIN.filter(item => item.show).map((Menu, index) => (
+          {ADMIN.filter((item) => item.show).map((Menu, index) => (
             <NavLink
               to={Menu.path}
               key={index}

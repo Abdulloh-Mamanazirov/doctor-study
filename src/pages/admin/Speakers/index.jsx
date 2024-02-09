@@ -77,7 +77,7 @@ const index = () => {
             label="Write full name"
             type="text"
             name="fullName"
-            placeholder="write fullName"
+            placeholder="Write full name"
             value={formData.fullName}
             onChange={handleInputChange}
             size="md"
@@ -85,10 +85,9 @@ const index = () => {
           />
 
           <Textarea
-            label="Write full name"
+            label="Description in Uzbek"
             type="text"
             name="description_uz"
-            placeholder="write description_uz"
             value={formData.description_uz}
             onChange={handleInputChange}
             size="md"
@@ -96,10 +95,9 @@ const index = () => {
             mt={10}
           />
           <Textarea
-            label="Write full name"
+            label="Description in Russian"
             type="text"
             name="description_ru"
-            placeholder="write description_ru"
             value={formData.description_ru}
             onChange={handleInputChange}
             size="md"
@@ -107,10 +105,9 @@ const index = () => {
             mt={10}
           />
           <Textarea
-            label="Write full name"
+            label="Description in English"
             type="text"
             name="description_en"
-            placeholder="write description_en"
             value={formData.description_en}
             onChange={handleInputChange}
             size="md"
