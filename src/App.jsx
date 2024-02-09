@@ -2,15 +2,17 @@ import { useEffect, useLayoutEffect, useState } from "react";
 import { Provider } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { store } from "./redux/store";
-import { AdminLogin } from "./pages";
 import { Admin, Client } from "./router";
+import { AdminLogin } from "./pages";
 
 function App() {
   const { pathname } = useLocation();
   const admin_token = sessionStorage.getItem("doctors-admin-token");
   const [routes, setRoutes] = useState();
   const [isLoggedIn, setIsLoggedIn] = useState(true);
+
 
   useEffect(() => {
     if (pathname.startsWith("/admin") && admin_token) {
@@ -28,7 +30,7 @@ function App() {
   }, [pathname]);
 
   if (!isLoggedIn) {
-    return <AdminLogin />;
+      return <AdminLogin />;
   }
   return (
     <>

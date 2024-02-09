@@ -1,5 +1,6 @@
-import axios from "axios";
 import { Box, Button, Popover, Text } from "@mantine/core";
+import axios from "axios";
+import React from "react";
 import { toast } from "react-toastify";
 
 const DeleteRoursec = ({ getData, item }) => {
@@ -27,15 +28,12 @@ const DeleteRoursec = ({ getData, item }) => {
         </Popover.Target>
         <Popover.Dropdown className="flex items-center">
           <Box mx="lg">
-            <Text className="text-nowrap">Delete this resource</Text>
-            <Button
-              fullWidth
-              variant="outline"
-              color="red"
-              size="xs"
-              onClick={confirm}
-            >
+            <Text>Do this resources</Text>
+            <Button variant="outline" color="red" size="xs" onClick={confirm}>
               yes
+            </Button>
+            <Button size="xs" variant="outline" ml={15}>
+              no
             </Button>
           </Box>
         </Popover.Dropdown>

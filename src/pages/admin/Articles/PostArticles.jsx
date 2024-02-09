@@ -1,7 +1,7 @@
-import axios from "axios";
-import { useState } from "react";
-import { useDisclosure } from "@mantine/hooks";
 import { Box, Button, Modal, TextInput, Textarea } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
+import axios from "axios";
+import React, { useState } from "react";
 import { toast } from "react-toastify";
 
 const PostArticles = ({ getData }) => {

@@ -1,8 +1,15 @@
-import axios from "axios";
-import { useState } from "react";
-import { Box, Modal, Button, Textarea, TextInput } from "@mantine/core";
+import React, { useState } from "react";
+import {
+  Box,
+  Modal,
+  Button,
+  Textarea,
+  TextInput,
+  FileInput,
+} from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 const EditNews = ({ getData, item }) => {
   const [opened, { open, close }] = useDisclosure(false);

@@ -1,8 +1,7 @@
+import { Button, Card, Group, Image, Text } from "@mantine/core";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Button, Card, Group, Image, Text } from "@mantine/core";
 import { toast } from "react-toastify";
-
 import { image_url } from "../../../constants";
 import DeleteArticles from "./DeleteArticles";
 import PostArticles from "./PostArticles";

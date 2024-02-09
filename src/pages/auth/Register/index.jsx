@@ -1,9 +1,9 @@
-import axios from "axios";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Button, Text, TextInput, Title } from "@mantine/core";
+import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
 import {
   setEmail,
   setFirstName,

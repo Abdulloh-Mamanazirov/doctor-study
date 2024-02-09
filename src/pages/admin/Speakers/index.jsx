@@ -1,9 +1,8 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
 import { Button, FileInput, TextInput, Textarea, Modal } from "@mantine/core";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useDisclosure } from "@mantine/hooks";
-
 import GetSpeakers from "./GetSpeakers";
 
 const index = () => {

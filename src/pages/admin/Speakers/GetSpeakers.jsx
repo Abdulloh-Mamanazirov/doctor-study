@@ -1,12 +1,11 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
 import { Table } from "@mantine/core";
+import React, { useEffect, useState } from "react";
+import DeleteSpeakers from "../Speakers/DeleteSpeakers";
+import axios from "axios";
 import { toast } from "react-toastify";
-
-import { image_url } from "../../../constants";
-import SeeAll from "./SeeAll";
+import { image_url } from "../../../constants/url";
 import EditSpeakers from "./EditSpeakers";
-import DeleteSpeakers from "./DeleteSpeakers";
+import SeeAll from "./SeeAll";
 
 const GetSpeakers = () => {
   const [data, setData] = useState();

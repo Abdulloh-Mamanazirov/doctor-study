@@ -62,15 +62,7 @@ export default function index() {
               required
               name="password"
             />
-            <Button
-              loading={loading}
-              loaderProps={{ type: "dots" }}
-              color={"red"}
-              fullWidth
-              mt="xl"
-              size="md"
-              type="submit"
-            >
+            <Button color={"red"} fullWidth mt="xl" size="md" type="submit">
               Login
             </Button>
           </form>

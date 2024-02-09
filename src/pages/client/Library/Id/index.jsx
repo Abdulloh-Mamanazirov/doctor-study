@@ -31,7 +31,6 @@ const index = () => {
             href={image_url + state?.fileLink}
             target={"_blank"}
             className="text-blue-600 underline underline-offset-2 hover:text-violet-600"
-            rel="noreferrer"
           >
             Download here
           </a>

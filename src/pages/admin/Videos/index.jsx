@@ -1,12 +1,11 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { Table } from "@mantine/core";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-
-import SeeAll from "./SeeAll";
+import PostMaterails from "./PostMaterails";
+import { Table } from "@mantine/core";
 import DeleteViodeos from "./DeleteViodeos";
 import EditMaterials from "./EditMaterials";
-import PostMaterails from "./PostMaterails";
+import SeeAll from "./SeeAll";
 
 const index = () => {
   const [data, setData] = useState([]);

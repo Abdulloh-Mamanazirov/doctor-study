@@ -1,7 +1,7 @@
-import axios from "axios";
-import { useState } from "react";
-import { Button, Modal, TextInput, Textarea } from "@mantine/core";
+import { Button, FileInput, Modal, TextInput, Textarea } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
+import axios from "axios";
+import React, { useState } from "react";
 import { toast } from "react-toastify";
 
 const EditSpeakers = ({ getData, item }) => {
