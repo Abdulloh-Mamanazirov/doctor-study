@@ -1,11 +1,11 @@
+import { Table } from "@mantine/core";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import PostEvents from "./PostEvents";
-import { Table } from "@mantine/core";
-import DeleteEvent from "./DeleteEvents";
-import EditEvents from "./EditEvents";
 import { image_url } from "../../../constants/url";
+import DeleteEvents from "./DeleteEvents";
+import EditEvents from "./EditEvents";
+import PostEvents from "./PostEvents";
 import SeeAll from "./SeeAll";
 
 const index = () => {
@@ -27,7 +27,7 @@ const index = () => {
 
   return (
     <div className="md:mt-10">
-      <PostEvents getData={getData} />
+      <PostEvents getDatas={getData} />
       <Table striped highlightOnHover withTableBorder withColumnBorders mt={15}>
         <Table.Thead>
           <Table.Tr>
@@ -39,7 +39,7 @@ const index = () => {
             <Table.Th>Time</Table.Th>
             <Table.Th>Speakers</Table.Th>
             <Table.Th>Online</Table.Th>
-            <Table.Th>Link</Table.Th>
+            <Table.Th>Image</Table.Th>
             <Table.Th>Action</Table.Th>
           </Table.Tr>
         </Table.Thead>
@@ -47,13 +47,13 @@ const index = () => {
           {data?.length > 0 ? (
             data?.map((item, index) => {
               return (
-                <Table.Tr key={item?.id}>
+                <Table.Tr key={index}>
                   <Table.Td>{index + 1}</Table.Td>
                   <Table.Td>{item?.description_en}</Table.Td>
                   <Table.Td> {item?.title_en}</Table.Td>
                   <Table.Td>{item?.city}</Table.Td>
                   <Table.Td>{item?.field}</Table.Td>
-                  <Table.Td>{item?.time.slice(0, 10)}</Table.Td>
+                  <Table.Td>{item?.time?.slice?.(0, 10)}</Table.Td>
                   <Table.Td>{item?.speakers?.[0].fullName}</Table.Td>
                   <Table.Td>
                     {" "}
@@ -66,13 +66,13 @@ const index = () => {
                   <Table.Td>
                     <img
                       className="aspect-square w-11 rounded-full"
-                      src={image_url + item.link}
+                      src={image_url + item.file}
                       alt=""
                     />
                   </Table.Td>
                   <Table.Td className="flex justify-normal gap-2">
-                    <DeleteEvent getData={getData} item={item} />
-                    <EditEvents getData={getData} item={item} />
+                    <DeleteEvents getData={getData} item={item} />
+                    <EditEvents getDatas={getData} item={item} />
                     <SeeAll getData={getData} item={item} />
                   </Table.Td>
                 </Table.Tr>

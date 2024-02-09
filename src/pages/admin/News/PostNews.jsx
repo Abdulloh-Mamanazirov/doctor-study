@@ -6,8 +6,16 @@ import { toast } from "react-toastify";
 
 const PostNews = ({ getData }) => {
   const [opened, { open, close }] = useDisclosure(false);
-  const [file, setFile] = useState();
-  const [formData, setFormData] = useState({});
+  const [file, setFile] = useState(null);
+  const [formData, setFormData] = useState({
+    title_en: "",
+    title_ru: "",
+    title_uz: "",
+    description_en: "",
+    description_ru: "",
+    description_uz: "",
+  });
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevFormData) => ({
@@ -17,42 +25,45 @@ const PostNews = ({ getData }) => {
   };
 
   const handleChange = (e) => {
-    if (e.target && e.target.files && e.target.files.length > 0) {
-      setFile(URL.createObjectURL(e.target.files[0]));
-    }
+    const selectedFile = e.target.files[0];
+    setFile(selectedFile);
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const {
-      title_en,
-      title_ru,
-      title_uz,
-      description_en,
-      description_ru,
-      description_uz,
-      file,
-    } = e.target;
-
     const formdataForSubmit = new FormData();
-    formdataForSubmit.append("title_en", title_en.value);
-    formdataForSubmit.append("title_ru", title_ru.value);
-    formdataForSubmit.append("title_uz", title_uz.value);
-    formdataForSubmit.append("description_en", description_en.value);
-    formdataForSubmit.append("description_ru", description_ru.value);
-    formdataForSubmit.append("description_uz", description_uz.value);
-    formdataForSubmit.append("file  ", file.files[0]);
+    for (const key in formData) {
+      formdataForSubmit.append(key, formData[key]);
+    }
+    formdataForSubmit.append("file", file);
 
     try {
       const response = await axios.post("news", formdataForSubmit);
       if (response.status === 201) {
-        toast.success("news post sucsesful");
+        toast.success("News post successful");
         close();
         getData();
       }
     } catch (error) {
       toast.error("Error submitting news post:", error);
     }
+  };
+
+  const isFormValid = () => {
+    const requiredFields = [
+      "title_en",
+      "title_ru",
+      "title_uz",
+      "description_en",
+      "description_ru",
+      "description_uz",
+    ];
+
+    return (
+      requiredFields.every((field) => formData[field].trim() !== "") &&
+      file !== null
+    );
   };
 
   return (
@@ -94,7 +105,7 @@ const PostNews = ({ getData }) => {
             <Textarea
               mt="md"
               label="News Description English"
-              placeholder="news description English"
+              placeholder="News description English"
               value={formData.description_en}
               name="description_en"
               onChange={handleInputChange}
@@ -103,7 +114,7 @@ const PostNews = ({ getData }) => {
             <Textarea
               mt="md"
               label="News Description Russian"
-              placeholder="news description Russian"
+              placeholder="News description Russian"
               value={formData.description_ru}
               onChange={handleInputChange}
               required
@@ -112,7 +123,7 @@ const PostNews = ({ getData }) => {
             <Textarea
               mt="md"
               label="News Description Uzbek"
-              placeholder="news description Uzbek"
+              placeholder="News description Uzbek"
               value={formData.description_uz}
               onChange={handleInputChange}
               required
@@ -127,10 +138,20 @@ const PostNews = ({ getData }) => {
                 className="file:cursor-pointer file:rounded-md file:bg-transparent file:px-5"
                 onChange={handleChange}
               />
-              <img src={file} className="w-[400px] " />
+              <img
+                src={file ? URL.createObjectURL(file) : ""}
+                className="w-[400px]"
+                alt="Selected File Preview"
+              />
             </label>
 
-            <Button type="submit" color="cyan" mt="sm" fullWidth>
+            <Button
+              type="submit"
+              color="cyan"
+              mt="sm"
+              fullWidth
+              disabled={!isFormValid()}
+            >
               Submit
             </Button>
           </form>

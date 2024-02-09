@@ -15,12 +15,14 @@ const PostArticles = ({ getData }) => {
       [name]: value,
     }));
   };
-
   const handleChange = (e) => {
-    if (e.target && e.target.files && e.target.files.length > 0) {
-      setFile(URL.createObjectURL(e.target.files[0]));
+    const selectedFile = e.target.files[0];
+    setFile(selectedFile);
+    if (selectedFile) {
+      setFile(URL.createObjectURL(selectedFile));
     }
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -66,8 +68,8 @@ const PostArticles = ({ getData }) => {
         <Box maw={840} mx="auto">
           <form onSubmit={handleSubmit}>
             <TextInput
-              label="News title English"
-              placeholder="News title English"
+              label="Article title English"
+              placeholder="Article title English"
               name="title_en"
               required
               value={formData.title_en}
@@ -75,8 +77,8 @@ const PostArticles = ({ getData }) => {
             />
             <TextInput
               mt="sm"
-              label="News title Russian"
-              placeholder="News title Russian"
+              label="Article title Russian"
+              placeholder="Article title Russian"
               name="title_ru"
               value={formData.title_ru}
               onChange={handleInputChange}
@@ -84,8 +86,8 @@ const PostArticles = ({ getData }) => {
             />
             <TextInput
               mt="sm"
-              label="News title Uzbek"
-              placeholder="News title Uzbek"
+              label="Article title Uzbek"
+              placeholder="Article title Uzbek"
               required
               name="title_uz"
               value={formData.title_uz}
@@ -93,7 +95,7 @@ const PostArticles = ({ getData }) => {
             />
             <Textarea
               mt="md"
-              label="News Description English"
+              label="Article Description English"
               placeholder="news description English"
               value={formData.description_en}
               name="description_en"
@@ -102,7 +104,7 @@ const PostArticles = ({ getData }) => {
             />
             <Textarea
               mt="md"
-              label="News Description Russian"
+              label="Article Description Russian"
               placeholder="news description Russian"
               value={formData.description_ru}
               onChange={handleInputChange}
@@ -111,7 +113,7 @@ const PostArticles = ({ getData }) => {
             />
             <Textarea
               mt="md"
-              label="News Description Uzbek"
+              label="Article Description Uzbek"
               placeholder="news description Uzbek"
               value={formData.description_uz}
               onChange={handleInputChange}
@@ -127,7 +129,9 @@ const PostArticles = ({ getData }) => {
                 className="file:cursor-pointer file:rounded-md file:bg-transparent file:px-5"
                 onChange={handleChange}
               />
-              <img src={file} className="w-[400px] " />
+              {file && (
+                <img src={file} className="w-[400px]" alt="File Preview" />
+              )}
             </label>
 
             <Button type="submit" color="cyan" mt="sm" fullWidth>
@@ -138,7 +142,7 @@ const PostArticles = ({ getData }) => {
       </Modal>
 
       <Button type="button" color="cyan" onClick={open}>
-        + Add News
+        + Add Article
       </Button>
     </div>
   );

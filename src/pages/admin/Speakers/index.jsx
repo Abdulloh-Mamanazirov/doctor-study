@@ -68,7 +68,7 @@ const index = () => {
   return (
     <div className=" md:mt-10">
       <Button color="cyan" onClick={open} mb={15}>
-        + Add speaks
+        + Add Speakers
       </Button>
 
       <Modal opened={opened} onClose={close} title="Create Speakers">
