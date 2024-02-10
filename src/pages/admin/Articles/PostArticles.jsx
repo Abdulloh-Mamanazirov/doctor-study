@@ -46,7 +46,7 @@ const PostArticles = ({ getData }) => {
     formdataForSubmit.append("file  ", file.files[0]);
 
     try {
-      const response = await axios.post("article", formdataForSubmit);
+      const response = await axios.post("articles", formdataForSubmit);
       if (response.status === 201) {
         toast.success("news post sucsesful");
         close();

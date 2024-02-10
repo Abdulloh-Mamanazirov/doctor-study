@@ -24,7 +24,7 @@ function Index() {
 
   async function getData() {
     await axios
-      .get("article")
+      .get("articles")
       .then((response) => {
         setData(response.data);
       })
