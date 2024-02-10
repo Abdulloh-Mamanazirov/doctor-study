@@ -48,7 +48,7 @@ const EditArticles = ({ getData, item }) => {
 
     try {
       const response = await axios.patch(
-        `article/${item.id}`,
+        `articles/${item.id}`,
         formdataForSubmit
       );
       if (response.status === 200) {

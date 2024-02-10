@@ -7,6 +7,7 @@ import DeleteArticles from "./DeleteArticles";
 import PostArticles from "./PostArticles";
 import EditArticles from "./EditArticles";
 import SeeAll from "./SeeAll";
+import { File } from "../../../assets";
 
 function Index() {
   const [open, setOpen] = useState(false);
@@ -24,7 +25,7 @@ function Index() {
 
   async function getData() {
     await axios
-      .get("article")
+      .get("articles")
       .then((response) => {
         setData(response.data);
       })
@@ -43,19 +44,25 @@ function Index() {
         {data?.length > 0 ? (
           data.map((item) => {
             return (
-              <Card withBorder shadow="sm" radius="md" key={item.id}>
+              <Card withBorder shadow="sm" radius="md" key={item?.id}>
                 <Card.Section withBorder inheritPadding py="xs">
                   <Group justify="space-between">
                     <Text fw={500} className="line-clamp-1">
-                      {item.title_en}
+                      {item?.title_en}
                     </Text>
                   </Group>
                 </Card.Section>
-                <Text mt="sm" c="dimmed" size="sm">
-                  {item.description_en}
+                <Text mt="sm" c="dimmed" size="sm" h={70} lineClamp={3}>
+                  {item?.description_en}
                 </Text>
                 <Card.Section mt="sm">
-                  <Image src={image_url + item.link} />
+                  <Image
+                    className="max-h-full max-w-full"
+                    src={image_url + item?.link}
+                    onError={(e) => {
+                      e.target.src = File;
+                    }}
+                  />
                 </Card.Section>
                 <div className="flex gap-1">
                   <Button fullWidth>
