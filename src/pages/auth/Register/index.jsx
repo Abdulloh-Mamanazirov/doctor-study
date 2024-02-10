@@ -16,10 +16,12 @@ import RegisterInput from "./RegisterInput";
 const Index = () => {
   const dispatch = useDispatch();
   const { register } = useSelector((state) => state);
-  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const [hiddenMessage, setHiddenMessage] = useState(false);
+
   async function handleSubmit(e) {
     e.preventDefault();
+    setLoading(true);
     const { firstname, lastname, work_location, job, password, email } =
       register;
     const data = {
@@ -41,13 +43,15 @@ const Index = () => {
       }
     } catch (error) {
       toast.error("Error during see your email registration:", error);
+    } finally {
+      setLoading(false);
     }
   }
 
   return (
     <div className="register-bg pb-[88px] relative min-h-screen">
       <div className="absolute inset-0 bg-black/30" />
-      <div className="bg-white/50  backdrop-blur-md   rounded-md w-11/12 md:w-1/2 lg:w-1/3 mx-auto z-20 relative md:top-10">
+      <div className="bg-white/60  backdrop-blur-md  pb-2 rounded-md w-11/12 md:w-1/2 lg:w-1/3 mx-auto z-20 relative md:top-10">
         {hiddenMessage ? (
           <div className="w-full grid place-items-center h-[90vh]">
             <div className="text-center">
@@ -57,6 +61,14 @@ const Index = () => {
               </h3>
               <div className="flex items-center justify-center gap-3 mt-3">
                 <Button
+                  onClick={() => {
+                    window.location.replace("/login");
+                  }}
+                >
+                  Login page
+                </Button>
+                <Button
+                  variant={"white"}
                   onClick={() => {
                     window.location.reload();
                     setHiddenMessage(false);
@@ -75,8 +87,8 @@ const Index = () => {
 
             <TextInput
               type="text"
-              label="First Name"
-              placeholder="First Name"
+              label="First name"
+              placeholder="First name"
               size="md"
               name="firstname"
               required
@@ -85,8 +97,8 @@ const Index = () => {
             />
             <TextInput
               type="text"
-              label="Last Name"
-              placeholder="Last Name"
+              label="Last name"
+              placeholder="Last name"
               size="md"
               name="lastname"
               required
@@ -97,7 +109,7 @@ const Index = () => {
             <TextInput
               type="text"
               label="Work Location"
-              placeholder="work_location"
+              placeholder="Work location"
               size="md"
               name="work_location"
               required
@@ -107,7 +119,7 @@ const Index = () => {
             <TextInput
               type="text"
               label="Job"
-              placeholder="job"
+              placeholder="Job"
               size="md"
               name="job"
               required
@@ -127,14 +139,17 @@ const Index = () => {
             />
             <RegisterInput />
 
-            <Button color={"red"} fullWidth mt="xl" size="md" type="submit">
+            <Button
+              loading={loading}
+              loaderProps={{ type: "dots" }}
+              color={"red"}
+              fullWidth
+              mt="xl"
+              size="md"
+              type="submit"
+            >
               Register
             </Button>
-            {hiddenMessage && (
-              <Text ta="center" mt="md" color={"blue"}>
-                {hiddenMessage}
-              </Text>
-            )}
             <div className="relative">
               <Text ta="center" mt="md">
                 Already have an account?{" "}

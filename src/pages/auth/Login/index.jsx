@@ -76,7 +76,7 @@ export default function Index() {
   return (
     <div className="login-bg pt-20 md:pt-28">
       <div className="absolute inset-0 bg-black/30" />
-      <div className="w-11/12 md:w-1/3 mx-auto z-20">
+      <div className="bg-white/50 backdrop-blur-md rounded-md w-11/12 md:w-1/3 mx-auto z-20 p-2">
         <div>
           {forgotPass ? (
             <form
