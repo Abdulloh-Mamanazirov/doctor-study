@@ -38,6 +38,7 @@ const index = () => {
             <Table.Th>Field</Table.Th>
             <Table.Th>Time</Table.Th>
             <Table.Th>Speakers</Table.Th>
+            <Table.Th>Participants</Table.Th>
             <Table.Th>Online</Table.Th>
             <Table.Th>Image</Table.Th>
             <Table.Th>Action</Table.Th>
@@ -55,6 +56,7 @@ const index = () => {
                   <Table.Td>{item?.field}</Table.Td>
                   <Table.Td>{item?.time?.slice?.(0, 10)}</Table.Td>
                   <Table.Td>{item?.speakers?.[0].fullName}</Table.Td>
+                  <Table.Td>{item?.userDtos?.length}</Table.Td>
                   <Table.Td>
                     {" "}
                     {item?.online ? (

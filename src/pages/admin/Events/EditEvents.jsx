@@ -184,7 +184,7 @@ const EditEvents = ({ getDatas, item }) => {
               name="field"
             />
             <Checkbox
-              label="your choose your status"
+              label="Is online"
               className="py-5"
               onChange={(e) => {
                 setFile(e.target.checked);
