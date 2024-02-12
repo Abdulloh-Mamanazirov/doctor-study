@@ -1,17 +1,42 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { Button } from "@mantine/core";
-import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { image_url } from "../../../../constants";
+import { toast } from "react-toastify";
 
 const index = () => {
+  const navigate = useNavigate();
   const { state } = useLocation();
   const { t, i18n } = useTranslation();
   const [lang, setLang] = useState(i18n.language);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setLang(i18n.language);
   }, [i18n.language]);
+
+  async function handleRegisterForWebinar() {
+    const user_id = sessionStorage.getItem("doctors-user-id");
+    const token = sessionStorage.getItem("doctors-token");
+    if (!user_id || !token) return window.location.replace("/login");
+
+    setLoading(true);
+    const response = await axios
+      .request({
+        method: "POST",
+        url: `webinars/${state?.id}/users/${user_id}`,
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
+      .finally(() => setLoading(false));
+    if (response.status === 200) {
+      toast.success("Ro'yxatdan o'tildi");
+      navigate(-1);
+    }
+  }
 
   return (
     <div className="max-w-6xl px-4 py-4 mx-auto">
@@ -72,7 +97,13 @@ const index = () => {
           </div>
         </div>
       </div>
-      <Button fullWidth size={"lg"}>
+      <Button
+        size={"lg"}
+        fullWidth
+        loading={loading}
+        loaderProps={{ type: "dots" }}
+        onClick={handleRegisterForWebinar}
+      >
         {t("participate")}
       </Button>
     </div>
