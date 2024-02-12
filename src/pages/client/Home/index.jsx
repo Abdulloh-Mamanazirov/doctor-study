@@ -15,6 +15,19 @@ const index = () => {
     setLang(i18n.language);
   }, [i18n.language]);
 
+  async function fetchData() {
+    const res = await axios.get("/home");
+    setData(res?.data);
+    const partners = await axios.get("/partners");
+    setPartners(partners?.data);
+    const webinar = await axios.get("/webinars");
+    setEvents(webinar?.data);
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   function findClosestDate(array) {
     let closestObj = null;
     let closestDiff = Infinity;
@@ -35,19 +48,6 @@ const index = () => {
 
     return closestObj;
   }
-
-  async function fetchData() {
-    const res = await axios.get("/home");
-    setData(res?.data);
-    const partners = await axios.get("/partners");
-    setPartners(partners?.data);
-    const webinar = await axios.get("/webinars");
-    setEvents(webinar?.data);
-  }
-
-  useEffect(() => {
-    fetchData();
-  }, []);
 
   return (
     <div>

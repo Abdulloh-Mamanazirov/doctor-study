@@ -53,7 +53,7 @@ const index = () => {
   const [lang, setLang] = useState(i18n.language);
 
   async function fetchData() {
-    const res = await axios.get("/article").finally(() => setLoading(false));
+    const res = await axios.get("/articles").finally(() => setLoading(false));
     setData(res?.data);
   }
 

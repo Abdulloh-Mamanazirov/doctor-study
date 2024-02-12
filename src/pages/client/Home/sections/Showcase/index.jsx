@@ -11,7 +11,7 @@ import {
 const Card = ({ value, title, desc, img }) => {
   return (
     <div className="grid grid-cols-3">
-      <div className="w-full sm:p-7">
+      <div className="w-full p-3 sm:p-7">
         <img src={img} alt="doctor s icon" className="w-full" />
       </div>
       <div className="col-span-2">
@@ -43,33 +43,25 @@ const index = ({ data }) => {
             value={data?.material ?? 0}
             title={t("home.videos.title")}
             img={videoIcon}
-            desc={
-              "Eveniet consectetur expedita, nulla laborum dicta nesciunt culpa officia magni neque voluptatibus ducimus, et sapiente."
-            }
+            desc={t("home.videos.desc")}
           />
           <Card
             value={data?.webinar ?? 0}
             title={t("home.events.title")}
             img={eventsIcon}
-            desc={
-              "Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus aspernatur iure at. Quisquam ex ."
-            }
+            desc={t("home.events.desc")}
           />
           <Card
             value={data?.article ?? 0}
             title={t("home.articles.title")}
             img={articleIcon}
-            desc={
-              "Nulla laborum dicta nesciunt culpa officia magni neque  sapiente. Adipisicing elit. Possimus aspernatur iure at. Quisquam ex."
-            }
+            desc={t("home.articles.desc")}
           />
           <Card
             value={data?.resources ?? 0}
             title={t("home.resources.title")}
             img={booksIcon}
-            desc={
-              "Culpa officia magni neque voluptatibus ducimus, et sapiente.consectetur adipisicing elit. Possimus aspernatur iure at. Quisquam ex."
-            }
+            desc={t("home.resources.desc")}
           />
         </div>
       </div>

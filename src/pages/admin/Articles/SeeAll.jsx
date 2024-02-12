@@ -77,7 +77,7 @@ const SeeAll = ({ item }) => {
             setOpen(true);
           }}
         >
-          Toliq ko'rish
+          See full
         </button>
       </div>
     </div>

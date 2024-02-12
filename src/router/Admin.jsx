@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Burger, Button } from "@mantine/core";
 import { NavLink, Route, Routes, useLocation } from "react-router-dom";
-import { Logo_text } from "../assets/images";
+import { Logo_icon } from "../assets";
 import { ADMIN } from "../constants";
 
 const Admin = () => {
@@ -14,11 +14,8 @@ const Admin = () => {
   };
 
   const LogoutComponent = () => {
-    const token = sessionStorage.clear();
-
-    if (!token) {
-      window.location.reload();
-    }
+    sessionStorage.clear();
+    window.location.reload();
   };
 
   function handleCancel() {
@@ -27,11 +24,11 @@ const Admin = () => {
 
   return (
     <div className="flex">
-      <div className={`w-72 border-r h-screen pt-8 md:block hidden`}>
-        <div className="flex gap-x-4 items-center">
-          <img src={Logo_text} className={`cursor-pointer w-fit `} />
+      <div className={`w-72 border-r h-screen pt-2 md:block hidden`}>
+        <div className="w-full flex items-center justify-center">
+          <img src={Logo_icon} className={`cursor-pointer w-32`} />
         </div>
-        <ul className="pt-6 w-full">
+        <ul className="pt-2 w-full">
           {ADMIN.filter((item) => item.show).map((Menu, index) => (
             <NavLink
               to={Menu.path}
@@ -66,15 +63,17 @@ const Admin = () => {
             </NavLink>
           ))}
         </ul>
-        <Button
-          fullWidth
-          color="red"
-          className="hidden items-center  bg-red-500 my-5 text-white xl:flex"
-          onClick={LogoutComponent}
-        >
-          <span className="fa-solid fa-arrow-left  items-center text-xl text-white" />
-          <p className="pl-5 text-xl  font-semibold"> Log out</p>
-        </Button>
+        <div className="p-2">
+          <Button
+            fullWidth
+            color="red"
+            className="hidden items-center  bg-red-500 my-5 text-white xl:flex"
+            onClick={LogoutComponent}
+          >
+            <span className="fa-solid fa-arrow-left  items-center text-xl text-white" />
+            <p className="pl-5 text-xl  font-semibold"> Log out</p>
+          </Button>
+        </div>
       </div>
       <div className="h-screen flex-1 p-7">
         <Routes>
@@ -95,7 +94,7 @@ const Admin = () => {
         <div className="bg-gray-800 text-white fixed top-0  w-64 h-screen">
           <div className="flex justify-between items-center">
             <div className="flex gap-x-4 items-center">
-              <img src={Logo_text} className={`cursor-pointer w-fit `} />
+              <img src={Logo_icon} className={`cursor-pointer w-fit `} />
             </div>
             {/* burger items */}
             <ul className="pt-6 ">

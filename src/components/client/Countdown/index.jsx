@@ -30,33 +30,31 @@ const Countdown = ({ startDate, title, data }) => {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [startDate]);
 
   return (
     Object.keys(timeLeft).length > 0 && (
       <div className="py-16">
         <div className="text-center">
-          <p className="text-xl text-primary-desc">
-            Live broadcast of the event
-          </p>
+          <p className="text-xl text-primary-desc">{t("livebroadcast")}</p>
           <h2 className="mx-auto my-5 w-11/12 md:max-w-screen-lg text-2xl md:text-3xl text-primary-tite font-bold">
             “{title}”
           </h2>
-          <p className="text-xl text-primary-desc">will start in</p>
+          <p className="text-xl text-primary-desc">{t("willstart")}</p>
         </div>
         <div className="flex items-center justify-center gap-3 text-center my-10">
           <span className="flex flex-col text-center">
             <p className="text-3xl md:text-5xl font-semibold text-primary-tite">
               {timeLeft.days < 10 ? "0" + timeLeft.days : timeLeft.days}
             </p>
-            <p className="opacity-70">days</p>
+            <p className="opacity-70">{t("days")}</p>
           </span>
           <span>:</span>
           <span className="flex flex-col text-center">
             <p className="text-3xl md:text-5xl font-semibold text-primary-tite">
               {timeLeft.hours < 10 ? "0" + timeLeft.hours : timeLeft.hours}
             </p>
-            <p className="opacity-70">hours</p>
+            <p className="opacity-70">{t("hours")}</p>
           </span>
           <span>:</span>
           <span className="flex flex-col text-center">
@@ -65,7 +63,7 @@ const Countdown = ({ startDate, title, data }) => {
                 ? "0" + timeLeft.minutes
                 : timeLeft.minutes}
             </p>
-            <p className="opacity-70">minutes</p>
+            <p className="opacity-70">{t("minutes")}</p>
           </span>
           <span>:</span>
           <span className="flex flex-col text-center">
@@ -74,7 +72,7 @@ const Countdown = ({ startDate, title, data }) => {
                 ? "0" + timeLeft.seconds
                 : timeLeft.seconds}
             </p>
-            <p className="opacity-70">seconds</p>
+            <p className="opacity-70">{t("seconds")}</p>
           </span>
         </div>
         <div className="text-center">
@@ -83,7 +81,7 @@ const Countdown = ({ startDate, title, data }) => {
             size="lg"
             component={Link}
             state={data}
-            to={String(data?.id)}
+            to={`/events/${String(data?.id)}`}
           >
             {t("participate")}
           </Button>
