@@ -28,12 +28,15 @@ const DeleteRoursec = ({ getData, item }) => {
         </Popover.Target>
         <Popover.Dropdown className="flex items-center">
           <Box mx="lg">
-            <Text>Do this resources</Text>
-            <Button variant="outline" color="red" size="xs" onClick={confirm}>
+            <Text className="text-nowrap">Delete this resourrces?</Text>
+            <Button
+              fullWidth
+              variant="outline"
+              color="red"
+              size="xs"
+              onClick={confirm}
+            >
               yes
-            </Button>
-            <Button size="xs" variant="outline" ml={15}>
-              no
             </Button>
           </Box>
         </Popover.Dropdown>

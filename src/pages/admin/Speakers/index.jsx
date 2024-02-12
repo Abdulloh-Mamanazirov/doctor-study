@@ -86,6 +86,7 @@ const index = () => {
 
           <Textarea
             label="Description in Uzbek"
+            placeholder="Description in Uzbek"
             type="text"
             name="description_uz"
             value={formData.description_uz}
@@ -96,6 +97,7 @@ const index = () => {
           />
           <Textarea
             label="Description in Russian"
+            placeholder="Description in Russian"
             type="text"
             name="description_ru"
             value={formData.description_ru}
@@ -106,6 +108,7 @@ const index = () => {
           />
           <Textarea
             label="Description in English"
+            placeholder="Description in English"
             type="text"
             name="description_en"
             value={formData.description_en}

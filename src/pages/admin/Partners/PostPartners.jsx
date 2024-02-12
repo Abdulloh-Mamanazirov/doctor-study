@@ -84,8 +84,8 @@ const PostPartners = ({ getData }) => {
 
             <TextInput
               mt="md"
-              label="Partners Description Uzbek"
-              placeholder="news description Uzbek"
+              label="Partners Url"
+              placeholder="partner url"
               value={formData.url}
               onChange={handleInputChange}
               required
