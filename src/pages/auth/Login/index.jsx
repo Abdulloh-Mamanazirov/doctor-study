@@ -45,25 +45,16 @@ export default function Index() {
       const formData = new FormData();
       formData.append("email", email.value);
       const response = await axios
-        .get("auth/forgot-password", {
-          body: {
-            email: email.value,
-          },
-        })
+        .post("auth/forgot-password", formData)
         .finally(() => {
           setLoading(false);
         });
-      // if (response.data.access_token) {
-      //   toast.success("Authentication successful");
-      //   sessionStorage.setItem("doctors-token", response.data.access_token);
-      //   if (window.location.pathname === "/login") {
-      //     window.location.replace("/");
-      //   } else {
-      //     window.location.reload();
-      //   }
-      // } else {
-      //   toast.error("Authentication failed");
-      // }
+
+      if (response.data.success) {
+        toast.success("Email sent to your mail address");
+      } else {
+        toast.error("Authentication failed");
+      }
     } catch (error) {
       toast.error("Error during authentication:", error);
     }

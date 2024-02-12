@@ -13,6 +13,7 @@ import {
   EventsMain,
   ArticleMain,
   LibraryMain,
+  ResetPassword,
   // admin pages
   AdminDashboard,
   AdminNews,
@@ -156,5 +157,9 @@ export const CLIENT = [
   {
     path: "/login",
     element: <Login />,
+  },
+  {
+    path: "/reset-password",
+    element: <ResetPassword />,
   },
 ];

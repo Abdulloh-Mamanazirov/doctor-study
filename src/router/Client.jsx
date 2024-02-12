@@ -15,6 +15,8 @@ const Client = () => {
       setIsNavHidden(true);
     } else if (pathname === "/register") {
       setIsNavHidden(true);
+    } else if (pathname === "/reset-password") {
+      setIsNavHidden(true);
     } else if (pathname.includes("/events/") && !client_token) {
       setIsNavHidden(true);
     } else if (pathname.includes("/video-materials") && !client_token) {

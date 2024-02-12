@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
 import { PdfId } from "../../../../assets";
-import { image_url } from "../../../../constants";
+import { file_url } from "../../../../constants";
 
 const index = () => {
   const { state } = useLocation();
@@ -28,7 +28,7 @@ const index = () => {
         <div>
           <p className="text-xl mt-5">{state?.[`description_${lang}`]}</p>
           <a
-            href={image_url + state?.fileLink}
+            href={file_url + state?.fileLink}
             target={"_blank"}
             className="text-blue-600 underline underline-offset-2 hover:text-violet-600"
           >

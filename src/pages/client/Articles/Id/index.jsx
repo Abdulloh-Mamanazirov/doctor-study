@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useRef, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
 import { File } from "../../../../assets";
-import { image_url } from "../../../../constants";
+import { file_url, image_url } from "../../../../constants";
 
 const index = () => {
+  const downloadRef = useRef();
   const { state } = useLocation();
   const { i18n } = useTranslation();
   const [lang, setLang] = useState(i18n.language);
@@ -18,6 +19,9 @@ const index = () => {
   const handleError = (e) => {
     if (e.target.src !== placeholderImage) {
       e.target.src = placeholderImage;
+    }
+    if (!downloadRef.current.href.includes("/download/")) {
+      downloadRef.current.href = file_url + state?.link;
     }
   };
 
@@ -34,6 +38,7 @@ const index = () => {
         <a
           href={image_url + state?.link}
           target={"_blank"}
+          ref={downloadRef}
           className="text-sky-600 hover:text-blue-500 hover:underline"
         >
           Download link
