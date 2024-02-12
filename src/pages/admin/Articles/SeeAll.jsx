@@ -1,6 +1,7 @@
 import { Box, Grid, Image, Modal, Table } from "@mantine/core";
 import React, { useState } from "react";
 import { image_url } from "../../../constants/url";
+import { File } from "../../../assets";
 
 const SeeAll = ({ item }) => {
   const [opened, setOpen] = useState(false);
@@ -13,14 +14,20 @@ const SeeAll = ({ item }) => {
           onClose={() => {
             setOpen(false);
           }}
-          title="Create News"
+          title="See Article"
           size="calc(70vw - 3rem)"
           className="z-50"
         >
           <Box maw={840} mx="auto">
             <Grid justify="space-between">
               <Grid.Col span="auto">
-                <Image src={image_url + item?.link} />
+                <Image
+                  className="max-h-full max-w-full"
+                  src={image_url + item?.link}
+                  onError={(e) => {
+                    e.target.src = File;
+                  }}
+                />
               </Grid.Col>
               <Grid.Col span="auto">
                 <Table
