@@ -5,6 +5,7 @@ import { image_url } from "../../../constants";
 
 const SeeAll = ({ item }) => {
   const [opened, { open, close }] = useDisclosure(false);
+  const formattedTime = new Date(item?.time).toLocaleString();
 
   return (
     <div>
@@ -64,7 +65,7 @@ const SeeAll = ({ item }) => {
               </Table.Tr>
               <Table.Tr>
                 <Table.Th>Time</Table.Th>
-                <Table.Td>{item?.time?.slice?.(0, 10)}</Table.Td>
+                <Table.Td>{formattedTime}</Table.Td>
                 <Table.Tr />
               </Table.Tr>
               <Table.Tr>

@@ -4,8 +4,6 @@ import React, { useState } from "react";
 import { toast } from "react-toastify";
 
 const DeleteArticles = ({ getData, item }) => {
-  console.log(item, "web");
-
   async function handleDelete() {
     try {
       const res = await axios.delete(`/webinars/${item.id}`);
