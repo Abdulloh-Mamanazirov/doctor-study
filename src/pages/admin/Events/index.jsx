@@ -25,6 +25,7 @@ const index = () => {
     getData();
   }, []);
 
+  const formattedTime = new Date(data?.time).toLocaleString;
   return (
     <div className="md:mt-10">
       <PostEvents getDatas={getData} />
@@ -54,7 +55,7 @@ const index = () => {
                   <Table.Td> {item?.title_en}</Table.Td>
                   <Table.Td>{item?.city}</Table.Td>
                   <Table.Td>{item?.field}</Table.Td>
-                  <Table.Td>{item?.time?.slice?.(0, 10)}</Table.Td>
+                  <Table.Td>{new Date(item?.time).toLocaleString()}</Table.Td>
                   <Table.Td>{item?.speakers?.[0].fullName}</Table.Td>
                   <Table.Td>{item?.userDtos?.length}</Table.Td>
                   <Table.Td>
