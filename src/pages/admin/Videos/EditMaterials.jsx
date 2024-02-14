@@ -11,15 +11,15 @@ const EditEvents = ({ getData, item }) => {
     values.preventDefault();
 
     const dataForSubmit = {
+      title_en: values.target.title_en.value ?? item?.title_en,
+      title_ru: values.target.title_ru.value ?? item?.title_ru,
+      title_uz: values.target.title_uz.value ?? item?.title_uz,
       description_en:
         values.target.description_en.value ?? item?.description_en,
       description_ru:
         values.target.description_ru.value ?? item?.description_ru,
       description_uz:
         values.target.description_uz.value ?? item?.description_uz,
-      title_en: values.target.title_en.value ?? item?.title_en,
-      title_ru: values.target.title_ru.value ?? item?.title_ru,
-      title_uz: values.target.title_uz.value ?? item?.title_uz,
       link: values.target.link.value ?? item?.link,
     };
 
