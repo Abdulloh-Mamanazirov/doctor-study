@@ -115,17 +115,21 @@ const index = () => {
             required
             mt={10}
           />
-
-          <FileInput
-            label="Choose image "
-            type="file"
-            name="file"
-            placeholder="image"
-            value={formData.file}
-            onChange={handleChange}
-            size="md"
-            required
-          />
+          <label htmlFor="file">
+            Choose image
+            <input
+              label="Choose image "
+              type="file"
+              name="file"
+              id="file"
+              placeholder="image"
+              value={formData.file}
+              onChange={handleChange}
+              size="md"
+              className="block w-full border rounded-md file:cursor-pointer file:rounded-md file:bg-transparent file:px-5"
+              required
+            />
+          </label>
           <img src={file} className="w-[400px] " />
 
           <Button color="cyan" fullWidth mt={15} type="submit">

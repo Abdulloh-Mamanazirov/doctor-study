@@ -127,6 +127,7 @@ const PostArticles = ({ getData }) => {
                 type="file"
                 name="file"
                 className="file:cursor-pointer file:rounded-md file:bg-transparent file:px-5"
+                required
                 onChange={handleChange}
               />
               {file && (

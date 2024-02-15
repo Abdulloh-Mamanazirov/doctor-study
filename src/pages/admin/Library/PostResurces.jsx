@@ -65,7 +65,13 @@ const index = ({ getData }) => {
 
           <label>
             File:
-            <FileInput placeholder="choose file" type="file" name="file" />
+            <input
+              className="block border rounded-md w-full file:bg-transparent file:border-none"
+              placeholder="choose file"
+              type="file"
+              name="file"
+              required
+            />
           </label>
 
           <Button color="cyan" mt={15} fullWidth type="submit">

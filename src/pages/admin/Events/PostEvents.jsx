@@ -173,14 +173,16 @@ const PostArticles = ({ getDatas }) => {
               }))}
               clearable
               name="speakers"
+              required
               onChange={(selectedOption) => setSpeakersId(selectedOption)}
             />
             <label htmlFor="" className="my-5">
-              Choose your webinar date
+              Choose your webinar date *
               <Input
                 type="datetime-local"
                 placeholder="Pick date and time"
                 name="time"
+                required
               />
             </label>
             <TextInput
@@ -202,13 +204,14 @@ const PostArticles = ({ getDatas }) => {
             />
 
             <label className="">
-              Choose Image file
+              Choose Image file *
               <br />
-              <FileInput
+              <input
                 placeholder="choose your file"
                 type="file"
                 name="file"
-                className="file:cursor-pointer file:rounded-md file:bg-transparent file:px-5"
+                className="border w-full rounded-md file:cursor-pointer file:rounded-md file:border-none file:bg-transparent file:px-5"
+                required
                 onChange={handleChange}
               />
               <img src={file} className="w-[400px] " />

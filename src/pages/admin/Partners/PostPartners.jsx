@@ -97,6 +97,7 @@ const PostPartners = ({ getData }) => {
               <input
                 type="file"
                 name="file"
+                required
                 className="file:cursor-pointer file:rounded-md file:bg-transparent file:px-5"
                 onChange={handleChange}
               />
