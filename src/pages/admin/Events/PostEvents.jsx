@@ -34,7 +34,7 @@ const PostArticles = ({ getDatas }) => {
       const response = await axios.get("speakers");
       setData(response.data);
     } catch (error) {
-      toast.error(error.message);
+      toast.error("error getting data");
     }
   }
 
@@ -88,7 +88,7 @@ const PostArticles = ({ getDatas }) => {
         getDatas();
       }
     } catch (error) {
-      toast.error("Error submitting Events post:", error);
+      toast.error("Error submitting Events post:");
     }
   };
 

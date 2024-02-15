@@ -39,7 +39,7 @@ function Index() {
         setData(response.data);
       })
       .catch((error) => {
-        toast.error(error.message);
+        toast.error("error during get data");
       });
   }
   useEffect(() => {

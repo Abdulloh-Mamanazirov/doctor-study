@@ -29,7 +29,7 @@ const EditEvents = ({ getDatas, item }) => {
       const response = await axios.get("speakers");
       setData(response.data);
     } catch (error) {
-      toast.error(error.message);
+      toast.error("error getting data");
     }
   }
 
@@ -88,7 +88,7 @@ const EditEvents = ({ getDatas, item }) => {
         getDatas();
       }
     } catch (error) {
-      toast.error("Error submitting news patch:", error);
+      toast.error("Error submitting news patch:");
     }
   };
 

@@ -50,7 +50,7 @@ const PostMaterials = ({ getData }) => {
         getData();
       }
     } catch (error) {
-      toast.error("Error submitting material post:", error);
+      toast.error("Error submitting material post:");
     }
   };
   return (
