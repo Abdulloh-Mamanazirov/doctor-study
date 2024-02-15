@@ -7,6 +7,7 @@ import Pdf from "./pdf.png";
 import PdfId from "./pdfId.png";
 import File from "./file.png";
 import ShowcaseBg from "./showcase-bg.jpg";
+import NoData from "./no-data.jpg";
 
 export {
   LoginBg,
@@ -18,4 +19,5 @@ export {
   PdfId,
   ShowcaseBg,
   File,
+  NoData,
 };

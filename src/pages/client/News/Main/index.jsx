@@ -36,7 +36,7 @@ const NewsCard = ({ data, id, image, date, title, desc }) => {
 const index = () => {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(true);
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [lang, setLang] = useState(i18n.language);
 
   async function fetchData() {
@@ -65,7 +65,7 @@ const index = () => {
       <div className="justify-center flex-1 max-w-5xl px-4 py-4 mx-auto text-left lg:py-10 ">
         <div className="mb-10 text-center">
           <h1 className="text-2xl md:text-4xl text-primary-tite font-bold capitalize">
-            News
+            {t("news_link")}
           </h1>
         </div>
         {data?.map?.((item) => (

@@ -12,7 +12,7 @@ const Card = ({ value, title, desc, img }) => {
   return (
     <div className="grid grid-cols-3">
       <div className="w-full p-3 sm:p-7">
-        <img src={img} alt="doctor s icon" className="w-full" />
+        <img src={img} alt="doctor s icon" className="w-full rounded-md" />
       </div>
       <div className="col-span-2">
         <h4 className="text-3xl md:text-4xl font-extrabold text-white">

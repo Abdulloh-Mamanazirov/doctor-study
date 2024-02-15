@@ -5,7 +5,7 @@ import { Card, Image, Text } from "@mantine/core";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { loadingIcon } from "../../../../assets";
+import { loadingIcon, NoData } from "../../../../assets";
 import { image_url } from "../../../../constants";
 
 function EventCard({ data, id, img, title, desc }) {
@@ -122,6 +122,14 @@ const index = () => {
     return (
       <div className="w-full grid place-items-center h-[50vh]">
         <img src={loadingIcon} alt="loading" className="max-w-24" />
+      </div>
+    );
+  }
+
+  if (data?.length === 0) {
+    return (
+      <div className="grid place-items-center">
+        <img src={NoData} alt="no data" className="my-20" />
       </div>
     );
   }
