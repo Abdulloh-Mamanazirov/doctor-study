@@ -42,7 +42,7 @@ const Index = () => {
         }
       }
     } catch (error) {
-      toast.error("Error during see your email registration:");
+      toast.error("Authentication failed");
     } finally {
       setLoading(false);
     }

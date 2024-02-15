@@ -23,7 +23,7 @@ const index = () => {
   useEffect(() => {
     getData();
   }, []);
-  console.log(data, "partners");
+  
   return (
     <div className=" md:mt-10">
       <PostPartners getData={getData} />

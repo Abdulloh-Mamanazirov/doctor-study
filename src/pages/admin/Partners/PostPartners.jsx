@@ -41,7 +41,7 @@ const PostPartners = ({ getData }) => {
         getData();
       }
     } catch (error) {
-      toast.error("Error submitting news post:");
+      toast.error("Error submitting news post");
     }
   };
 

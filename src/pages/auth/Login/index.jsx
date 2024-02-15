@@ -34,7 +34,7 @@ export default function Index() {
         toast.error("Authentication failed");
       }
     } catch (error) {
-      toast.error("Error during authentication:");
+      toast.error("Error during authentication");
     }
   }
 

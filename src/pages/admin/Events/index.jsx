@@ -18,7 +18,7 @@ const index = () => {
         setData(response.data);
       })
       .catch((error) => {
-        toast.error("error geting data");
+        toast.error("Error geting data");
       });
   }
   useEffect(() => {

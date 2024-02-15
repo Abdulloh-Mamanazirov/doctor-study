@@ -52,7 +52,7 @@ const EditResources = ({ getData, item }) => {
         getData();
       }
     } catch (error) {
-      toast.error("Error submitting news patch:");
+      toast.error("Error submitting news patch");
     }
   };
 
