@@ -30,8 +30,8 @@ const index = () => {
       .then((response) => {
         setData(response.data);
       })
-      .catch((error) => {
-        toast.error(error.message);
+      .catch(() => {
+        toast.error("error during get data");
       });
   }
   useEffect(() => {
@@ -59,9 +59,7 @@ const index = () => {
         getData();
       }
     } catch (error) {
-      toast.error("Error submitting news post:", error);
-
-      toast.error("error in created");
+      toast.error("Error submitting news post:");
     }
   };
 

@@ -25,7 +25,7 @@ const index = ({ getData }) => {
         getData();
       }
     } catch (error) {
-      toast.error("Error:", error);
+      toast.error("Error during post:");
     }
   };
 
