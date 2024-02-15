@@ -15,7 +15,7 @@ const SpeakerCard = ({ image, name, job, desc }) => {
             "https://hips.hearstapps.com/hmg-prod/images/portrait-of-a-happy-young-doctor-in-his-clinic-royalty-free-image-1661432441.jpg"
           }
           alt="doctor study speaker image"
-          className="object-cover aspect-square rounded-full h-64 max-h-64"
+          className="object-cover aspect-square rounded-full h-80 max-h-80"
         />
       </div>
       <div className="px-4 py-4 lg:px-2">
