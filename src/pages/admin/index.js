@@ -7,6 +7,7 @@ import AdminPartners from "./Partners";
 import AdminSpeakers from "./Speakers";
 import AdminUsers from "./Users";
 import AdminVideos from "./Videos";
+import AdminQuestion from "./Question";
 
 export {
   AdminArticles,
@@ -18,4 +19,5 @@ export {
   AdminSpeakers,
   AdminUsers,
   AdminVideos,
+  AdminQuestion,
 };

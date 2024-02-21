@@ -16,6 +16,7 @@ import {
   ResetPassword,
   // admin pages
   AdminDashboard,
+  AdminQuestion,
   AdminNews,
   AdminEvents,
   AdminUsers,
@@ -94,6 +95,13 @@ export const ADMIN = [
     title: "Partners",
     element: admin_token ? <AdminPartners /> : <AdminLogin />,
     icon: <span className="fa-solid fa-handshake" />,
+    show: true,
+  },
+  {
+    path: "/admin/question",
+    title: "Test",
+    element: admin_token ? <AdminQuestion /> : <AdminLogin />,
+    icon: <span className="fa-solid fa-question" />,
     show: true,
   },
   {

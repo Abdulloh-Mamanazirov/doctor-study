@@ -25,7 +25,7 @@ const Admin = () => {
   return (
     <div className="flex">
       <div className={`w-72 border-r h-screen pt-2 md:block hidden`}>
-        <div className="w-full flex items-center justify-center">
+        <div className="w-full flex items-center justify-center ">
           <img src={Logo_icon} className={`cursor-pointer w-32`} />
         </div>
         <ul className="pt-2 w-full">
