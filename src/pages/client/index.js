@@ -6,4 +6,5 @@ export * from "./Library";
 export * from "./News";
 export * from "./Videos";
 export * from "./Events";
+export * from "./Test";
 export { Home, Speakers };
