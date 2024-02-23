@@ -1,16 +1,17 @@
-import { Table } from "@mantine/core";
+import { Card, Group, Table } from "@mantine/core";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import DeleteQuestion from "./DeleteQuestion";
 import EditQuestion from "./EditQuestion";
 import PostQuestion from "./PostQuestion";
+import { Link } from "react-router-dom";
 
 const index = () => {
   const [data, setData] = useState([]);
   async function getData() {
     await axios
-      .get("test")
+      .get(`test${id}`)
       .then((response) => {
         setData(response.data);
       })
@@ -24,53 +25,49 @@ const index = () => {
 
   return (
     <div>
-      <PostQuestion />
-      <Table striped highlightOnHover withTableBorder withColumnBorders mt={15}>
-        <Table.Thead>
-          <Table.Tr>
-            <Table.Th>#</Table.Th>
-            <Table.Th>Firstname</Table.Th>
-            <Table.Th>lastname</Table.Th>
-            <Table.Th>role</Table.Th>
-            <Table.Th>Email</Table.Th>
-            <Table.Th>Enabled</Table.Th>
-            <Table.Th>Action</Table.Th>
-          </Table.Tr>
-        </Table.Thead>
-        <Table.Tbody>
-          {data?.length > 0 ? (
-            data?.map((item, index) => {
-              return (
-                <Table.Tr key={item?.id}>
-                  <Table.Td>{index + 1}</Table.Td>
-                  <Table.Td>{item.firstname}</Table.Td>
-                  <Table.Td>{item.lastname}</Table.Td>
-                  <Table.Td>{item.role}</Table.Td>
-                  <Table.Td>{item.email}</Table.Td>
-                  <Table.Td>
-                    {item.enabled ? (
-                      <span className="fa-solid fa-check text-xl text-green-500" />
-                    ) : (
-                      <span className="fa-solid fa-xmark text-xl text-red-500" />
-                    )}
-                  </Table.Td>
-                  <Table.Td className="flex justify-normal">
-                    <DeleteQuestion getData={getData} item={item} />
-                    <EditQuestion getData={getData} item={item} />
-                  </Table.Td>
-                </Table.Tr>
-              );
-            })
-          ) : (
-            <Table.Td colSpan={11}>
-              <div className="flex flex-col items-center gap-3">
-                <img src="/empty.png" alt="no data" width={100} />
-                <p className="text-gray-500">No data available.</p>
-              </div>
-            </Table.Td>
-          )}
-        </Table.Tbody>
-      </Table>
+      <PostQuestion getData={getData} />
+      <div className="md:mt-10 grid lg:grid-cols-3 w-full md:grid-cols-2 gap-3">
+        {/* {data?.length > 0 ? ( */}
+        {
+          data.map((item) => {
+            return (
+              <Link to={`${item.id}`}>
+                <Card withBorder shadow="sm" radius="md" key={item.id}>
+                  <Card.Section withBorder inheritPadding py="xs">
+                    <Group justify="space-between">
+                      <Text fw={500} className="line-clamp-1">
+                        {item.title_en}
+                      </Text>
+                    </Group>
+                  </Card.Section>
+                  <Text mt="sm" c="dimmed" size="sm">
+                    {item.description_en}
+                  </Text>
+                  <Card.Section mt="sm">
+                    <Image src={image_url + item.link} />
+                  </Card.Section>
+                  <div className="flex gap-1">
+                    <Button fullWidth>
+                      <EditQuestion getData={getData} item={item} />
+                    </Button>
+                    <Button color="red" className="flex" fullWidth>
+                      <DeleteQuestion getData={getData} item={item} />
+                    </Button>
+                  </div>
+                </Card>
+              </Link>
+            );
+          })
+          // ) : (
+          //   <div className="grid place-content-center col-span-3">
+          //     <div className=" items-center gap-3">
+          //       <img src="/empty.png" alt="no data" width={100} />
+          //       <p className="text-gray-500">No data available.</p>
+          //     </div>
+          //   </div>
+          // )}
+        }
+      </div>
     </div>
   );
 };

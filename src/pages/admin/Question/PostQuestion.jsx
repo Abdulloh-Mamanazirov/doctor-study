@@ -1,4 +1,4 @@
-import { Button, Drawer, MultiSelect, TextInput } from "@mantine/core";
+import { Button, Drawer, Modal, MultiSelect, TextInput } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import axios from "axios";
 import React, { useState } from "react";
@@ -68,7 +68,7 @@ const PostQuestion = () => {
 
   return (
     <div>
-      <Drawer
+      <Modal
         opened={opened}
         onClose={close}
         title="Create Test"
@@ -160,7 +160,7 @@ const PostQuestion = () => {
         >
           Create Test
         </Button>
-      </Drawer>
+      </Modal>
       <Button color="cyan" onClick={open}>
         + Create New Test
       </Button>

@@ -26,6 +26,7 @@ import {
   AdminSpeakers,
   AdminPartners,
   AdminLogin,
+  IdPageQuestion,
 } from "../pages";
 
 const admin_token = sessionStorage.getItem("doctors-admin-token");
@@ -101,6 +102,11 @@ export const ADMIN = [
     element: admin_token ? <AdminQuestion /> : <AdminLogin />,
     icon: <span className="fa-solid fa-question" />,
     show: true,
+  },
+  {
+    path: "/admin/question/:id",
+    element: admin_token ? <IdPageQuestion /> : <AdminLogin />,
+    show: false,
   },
   {
     path: "/admin-login",
