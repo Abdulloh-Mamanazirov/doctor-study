@@ -8,6 +8,7 @@ import AdminSpeakers from "./Speakers";
 import AdminUsers from "./Users";
 import AdminVideos from "./Videos";
 import AdminQuestion from "./Question";
+import IdPageQuestion from "./Question/IdPageQuestion.jsx";
 
 export {
   AdminArticles,
@@ -20,4 +21,5 @@ export {
   AdminUsers,
   AdminVideos,
   AdminQuestion,
+  IdPageQuestion,
 };

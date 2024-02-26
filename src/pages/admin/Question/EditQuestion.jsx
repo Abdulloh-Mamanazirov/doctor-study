@@ -14,13 +14,11 @@ const EditQuestion = ({ getData, item }) => {
       title_en: values.target.title_en.value ?? item?.title_en,
       title_ru: values.target.title_ru.value ?? item?.title_ru,
       title_uz: values.target.title_uz.value ?? item?.title_uz,
-      description_en:
-        values.target.description_en.value ?? item?.description_en,
-      description_ru:
-        values.target.description_ru.value ?? item?.description_ru,
-      description_uz:
-        values.target.description_uz.value ?? item?.description_uz,
-      link: values.target.link.value ?? item?.link,
+      variant1: values.target.variant1.value ?? item?.variant1,
+      variant2: values.target.variant2.value ?? item?.variant2,
+      variant3: values.target.variant3.value ?? item?.variant3,
+      variant4: values.target.variant4.value ?? item?.variant3,
+      TreuVariant: values.target.TreuVariant.value ?? item?.TreuVariant,
     };
 
     try {
@@ -32,7 +30,7 @@ const EditQuestion = ({ getData, item }) => {
         getData();
       }
     } catch (error) {
-      toast.error("Error submitting news patch:");
+      toast.error("Error submitting Test patch:");
     }
   };
 
@@ -68,33 +66,40 @@ const EditQuestion = ({ getData, item }) => {
             />
             <TextInput
               mt="md"
-              label="Test Description English"
-              placeholder="Test description English"
-              defaultValue={item.description_en}
-              name="description_en"
+              label="Test Variant 1"
+              placeholder="Test Variant 1"
+              defaultValue={item.variant1}
+              name="variant1"
             />
             <TextInput
               mt="md"
-              label="Test Description Russian"
-              placeholder="news description Russian"
-              defaultValue={item.description_ru}
-              name="description_ru"
+              label="Test Variant 2"
+              placeholder="Test Variant 2"
+              defaultValue={item.variant2}
+              name="variant2"
             />
             <TextInput
               mt="md"
-              label="Article Description Uzbek"
-              placeholder="news description Uzbek"
-              defaultValue={item.description_uz}
-              name="description_uz"
+              label="Test Variant 3"
+              placeholder="Test Variant 3"
+              defaultValue={item.variant3}
+              name="variant3"
+            />
+            <TextInput
+              mt="md"
+              label="Test Variant 4"
+              placeholder="Test Variant 4"
+              defaultValue={item.variant4}
+              name="variant4"
+            />
+            <TextInput
+              mt="md"
+              label="Test TreuVariant"
+              placeholder="Test TreuVariant"
+              defaultValue={item.TreuVariant}
+              name="TreuVariant"
             />
 
-            <TextInput
-              mt="sm"
-              label="Test link"
-              placeholder="Test link"
-              defaultValue={item.link}
-              name="link"
-            />
             <Button type="submit" color="cyan" mt="sm" fullWidth>
               Submit
             </Button>
