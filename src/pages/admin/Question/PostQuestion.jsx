@@ -10,6 +10,7 @@ import {
 import { useDisclosure } from "@mantine/hooks";
 import axios from "axios";
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 
 // Define the PostQuestion component
 const PostQuestion = () => {
@@ -17,15 +18,13 @@ const PostQuestion = () => {
   const [trueVariant, setTrueVariant] = useState("");
   const [opened, { open, close }] = useDisclosure(false);
   const [formData, setFormData] = useState({
-    question: "What is the capital of Canada?",
-    option1: "Toronto",
-    option2: "Vancouver",
-    option3: "Ottawa",
-    option4: "Montreal",
-    favoriteFramework: "",
+    question: "",
+    option1: "",
+    option2: "",
+    option3: "",
+    option4: "",
   });
 
-  // Handle input change
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -34,31 +33,28 @@ const PostQuestion = () => {
     });
   };
 
-  // Handle form submission
   const handleSubmit = async () => {
     if (trueVariant === "") {
-      console.log("Please select a true variant");
+      toast.error("Please select a true variant");
       return;
     }
 
     const postData = {
       question: formData.question,
+      material: 1,
       options: [
         formData.option1,
         formData.option2,
         formData.option3,
         formData.option4,
       ],
-      correct: trueVariant,
-      material: 1,
     };
+
+    postData.corect = postData.options[trueVariant];
 
     try {
       const response = await axios.post("/api/your-api-endpoint", postData);
-
-      console.log(response.data);
-
-      console.log("Test created successfully!");
+      toast.success("Test created successfully!");
       setFormData({
         question: "",
         option1: "",
@@ -68,9 +64,10 @@ const PostQuestion = () => {
       });
       setTrueVariant("");
     } catch (error) {
-      console.error("Failed to create test:", error.message);
+      toast.error("Failed to create test:", error.message);
     }
   };
+
   return (
     <div>
       <Modal
@@ -133,10 +130,10 @@ const PostQuestion = () => {
           onChange={setTrueVariant}
         >
           <Group mt="xs">
-            <Radio value="option1" label="Variant 1" />
-            <Radio value="option2" label="Variant 2" />
-            <Radio value="option3" label="Variant 3" />
-            <Radio value="option4" label="Variant 4" />
+            <Radio value="0" label="Variant 1" />
+            <Radio value="1" label="Variant 2" />
+            <Radio value="2" label="Variant 3" />
+            <Radio value="3" label="Variant 4" />
           </Group>
         </Radio.Group>
 
