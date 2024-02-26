@@ -162,11 +162,11 @@ export const CLIENT = [
   },
   {
     path: "/test/:id",
-    element: client_token ? <Test /> : <Login />,
+    element: client_token ? <Test /> : <Home />,
   },
   {
     path: "/finish",
-    element: client_token ? <Finish /> : <Login />,
+    element: client_token ? <Finish /> : <Home />,
   },
   {
     path: "/register",

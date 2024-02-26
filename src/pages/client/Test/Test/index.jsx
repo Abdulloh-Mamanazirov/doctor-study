@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button } from "@mantine/core";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addAnswer, resetAnswers } from "../../../../redux/test";
 
 const AnswerButton = ({ ind, value, onClick }) => {
@@ -57,43 +57,72 @@ const QuestionCard = () => {
 
   const data = [
     {
-      question: "What is the capital of France?",
-      answers: ["Paris", "London", "Berlin", "Madrid"],
-      correctAnswer: "Paris",
-    },
-    {
-      question: "What is the square root of 81?",
-      answers: ["7", "8", "9", "10"],
-      correctAnswer: "9",
-    },
-    {
-      question: "Who wrote 'To Kill a Mockingbird'?",
-      answers: [
-        "Ernest Hemingway",
-        "Harper Lee",
-        "Mark Twain",
-        "F. Scott Fitzgerald",
+      id: 1,
+      question:
+        "Can you name the city that serves as the capital of the North American country known as Canada?",
+      options: [
+        "Toronto, the largest city in Canada",
+        "Vancouver, a major city in western Canada",
+        "Ottawa, located in eastern Ontario",
+        "Montreal, the largest city in Canada's Quebec province",
       ],
-      correctAnswer: "Harper Lee",
+      correct: "Ottawa, located in eastern Ontario",
     },
     {
-      question: "What is the chemical symbol for Hydrogen?",
-      answers: ["H", "He", "Hy", "Ho"],
-      correctAnswer: "H",
+      id: 2,
+      question:
+        "What is the capital city of the European country France, known for its culture, fashion, and history?",
+      options: [
+        "Paris, the city of love and home to the Eiffel Tower",
+        "London, the capital of the United Kingdom",
+        "Berlin, the capital of Germany known for its Berlin Wall",
+        "Madrid, the capital of Spain known for its vibrant culture",
+      ],
+      correct: "Paris, the city of love and home to the Eiffel Tower",
     },
     {
-      question: "Which planet is known as the Red Planet?",
-      answers: ["Earth", "Venus", "Mars", "Jupiter"],
-      correctAnswer: "Mars",
+      id: 3,
+      question:
+        "Can you calculate the square root of the number 81, a perfect square?",
+      options: [
+        "7, which is the square root of 49",
+        "8, which is the square root of 64",
+        "9, which is the square root of 81",
+        "10, which is the square root of 100",
+      ],
+      correct: "9, which is the square root of 81",
+    },
+    {
+      id: 4,
+      question:
+        "What is the chemical symbol for the element Hydrogen, the lightest and most abundant element in the universe?",
+      options: [
+        "H, the symbol for Hydrogen",
+        "He, the symbol for Helium",
+        "Hy, not a symbol for any known element",
+        "Ho, the symbol for Holmium",
+      ],
+      correct: "H, the symbol for Hydrogen",
+    },
+    {
+      id: 5,
+      question:
+        "Which planet in our solar system is often referred to as the Red Planet due to its reddish appearance?",
+      options: [
+        "Earth, our home planet",
+        "Venus, the second planet from the sun",
+        "Mars, the fourth planet from the sun",
+        "Jupiter, the largest planet in our solar system",
+      ],
+      correct: "Mars, the fourth planet from the sun",
     },
   ];
-
-  
   const handleNext = () => {
     dispatch(
       addAnswer({
         question: data[currentQuestion].question,
         answer: selectedAnswer,
+        correct: data[currentQuestion].correct,
       })
     );
     setSelectedAnswer(null);
@@ -107,9 +136,11 @@ const QuestionCard = () => {
       addAnswer({
         question: data[currentQuestion].question,
         answer: selectedAnswer,
+        correct: data[currentQuestion].correct,
       })
     );
-    navigate("/finish"); 
+
+    navigate("/finish");
   };
 
   return (
@@ -118,7 +149,7 @@ const QuestionCard = () => {
         {currentQuestion + 1}. {data[currentQuestion]?.question}
       </h4>
       <div className="grid md:grid-cols-2 gap-5 py-3">
-        {data[currentQuestion]?.answers.map((answer, ind) => (
+        {data[currentQuestion]?.options.map((answer, ind) => (
           <AnswerButton
             key={ind}
             ind={ind}
@@ -152,8 +183,6 @@ const QuestionCard = () => {
 };
 
 const index = () => {
-  const { test } = useSelector((state) => state);
-  console.log(test);
   return (
     <section className="flex items-center py-5 lg:py-10">
       <div className="justify-center flex-1 max-w-5xl px-4 py-4 mx-auto text-left lg:py-10 ">

@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  userAnswers: [],
+  answers: [],
 };
 
 const quizSlice = createSlice({
@@ -9,19 +9,19 @@ const quizSlice = createSlice({
   initialState,
   reducers: {
     addAnswer: (state, action) => {
-      const { question, answer } = action.payload;
-      const existingAnswer = state.userAnswers.find(
+      const { question, answer, correct } = action.payload;
+      const existingAnswer = state.answers.find(
         (item) => item.question === question
       );
 
       if (existingAnswer) {
         existingAnswer.answer = answer;
       } else {
-        state.userAnswers.push({ question, answer });
+        state.answers.push({ question, answer, correct });
       }
     },
     resetAnswers: (state) => {
-      state.userAnswers = [];
+      state.answers = [];
     },
   },
 });
