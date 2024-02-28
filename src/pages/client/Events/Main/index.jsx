@@ -1,12 +1,12 @@
 import axios from "axios";
-import { Checkbox, Input, Radio } from "@mantine/core";
-import { Countdown } from "../../../../components";
-import { Card, Image, Text } from "@mantine/core";
-import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { loadingIcon, NoData } from "../../../../assets";
+import { Checkbox, Radio } from "@mantine/core";
+import { Card, Image, Text } from "@mantine/core";
+import { Countdown } from "../../../../components";
 import { image_url } from "../../../../constants";
+import { loadingIcon, NoData } from "../../../../assets";
 
 function EventCard({ data, id, img, title, desc }) {
   return (

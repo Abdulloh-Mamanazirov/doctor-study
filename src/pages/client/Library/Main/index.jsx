@@ -1,8 +1,6 @@
-import { Button, Input } from "@mantine/core";
 import axios from "axios";
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
+import { Button, Input } from "@mantine/core";
+import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { loadingIcon, Pdf } from "../../../../assets";
