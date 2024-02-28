@@ -1,21 +1,31 @@
-import { Button, Drawer, Modal, MultiSelect, TextInput } from "@mantine/core";
+import {
+  Box,
+  Button,
+  Drawer,
+  Group,
+  Modal,
+  Radio,
+  TextInput,
+} from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import axios from "axios";
 import React, { useState } from "react";
 
+// Define the PostQuestion component
 const PostQuestion = () => {
+  // State variables
   const [trueVariant, setTrueVariant] = useState("");
   const [opened, { open, close }] = useDisclosure(false);
   const [formData, setFormData] = useState({
-    titleEnglish: "",
-    titleRussian: "",
-    titleUzbek: "",
-    variant1: "",
-    variant2: "",
-    variant3: "",
-    variant4: "",
+    question: "What is the capital of Canada?",
+    option1: "Toronto",
+    option2: "Vancouver",
+    option3: "Ottawa",
+    option4: "Montreal",
+    favoriteFramework: "",
   });
 
+  // Handle input change
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -24,10 +34,7 @@ const PostQuestion = () => {
     });
   };
 
-  const handleSelectTrueVariant = (variant) => {
-    setTrueVariant(variant);
-  };
-
+  // Handle form submission
   const handleSubmit = async () => {
     if (trueVariant === "") {
       console.log("Please select a true variant");
@@ -35,78 +42,60 @@ const PostQuestion = () => {
     }
 
     const postData = {
-      titleEnglish: formData.titleEnglish,
-      titleRussian: formData.titleRussian,
-      titleUzbek: formData.titleUzbek,
-      variant1: formData.variant1,
-      variant2: formData.variant2,
-      variant3: formData.variant3,
-      variant4: formData.variant4,
-      trueVariant: trueVariant,
+      question: formData.question,
+      options: [
+        formData.option1,
+        formData.option2,
+        formData.option3,
+        formData.option4,
+      ],
+      correct: trueVariant,
+      material: 1,
     };
 
     try {
-      const response = await axios.post("test", postData);
+      const response = await axios.post("/api/your-api-endpoint", postData);
 
       console.log(response.data);
 
       console.log("Test created successfully!");
       setFormData({
-        titleEnglish: "",
-        titleRussian: "",
-        titleUzbek: "",
-        variant1: "",
-        variant2: "",
-        variant3: "",
-        variant4: "",
+        question: "",
+        option1: "",
+        option2: "",
+        option3: "",
+        option4: "",
       });
       setTrueVariant("");
     } catch (error) {
       console.error("Failed to create test:", error.message);
     }
   };
-
   return (
     <div>
       <Modal
         opened={opened}
         onClose={close}
         title="Create Test"
-        size="calc(50vw - 3rem)"
+        size="calc(60vw - 3rem)"
       >
         <TextInput
           mt="sm"
           label="Test title English"
           placeholder="Test title English"
-          name="titleEnglish"
-          value={formData.titleEnglish}
+          name="question"
+          className="w-full"
+          value={formData.question}
           onChange={handleInputChange}
           required
         />
-        <TextInput
-          mt="sm"
-          label="Test title Russian"
-          placeholder="Test title Russian"
-          name="titleRussian"
-          value={formData.titleRussian}
-          onChange={handleInputChange}
-          required
-        />
-        <TextInput
-          mt="sm"
-          label="Test title Uzbek"
-          placeholder="Test title Uzbek"
-          name="titleUzbek"
-          value={formData.titleUzbek}
-          onChange={handleInputChange}
-          required
-        />
+
         <TextInput
           mt="sm"
           label="Test Variant 1"
           placeholder="Test Variant 1"
-          name="variant1"
-          value={formData.variant1}
+          name="option1"
+          value={formData.option1}
           onChange={handleInputChange}
           required
         />
@@ -114,8 +103,8 @@ const PostQuestion = () => {
           mt="sm"
           label="Test Variant 2"
           placeholder="Test Variant 2"
-          name="variant2"
-          value={formData.variant2}
+          name="option2"
+          value={formData.option2}
           onChange={handleInputChange}
           required
         />
@@ -123,8 +112,8 @@ const PostQuestion = () => {
           mt="sm"
           label="Test Variant 3"
           placeholder="Test Variant 3"
-          name="variant3"
-          value={formData.variant3}
+          name="option3"
+          value={formData.option3}
           onChange={handleInputChange}
           required
         />
@@ -132,24 +121,24 @@ const PostQuestion = () => {
           mt="sm"
           label="Test Variant 4"
           placeholder="Test Variant 4"
-          name="variant4"
-          value={formData.variant4}
+          name="option4"
+          value={formData.option4}
           onChange={handleInputChange}
           required
         />
 
-        <MultiSelect
-          label="Choose true variant"
-          placeholder="Pick value"
-          clearable
+        <Radio.Group
           name="trueVariant"
-          data={[1, 2, 3, 4].map((variant) => ({
-            value: String(variant),
-            label: `Variant ${variant}`,
-          }))}
-          required
-          onChange={(selectedOption) => handleSelectTrueVariant(selectedOption)}
-        />
+          value={trueVariant}
+          onChange={setTrueVariant}
+        >
+          <Group mt="xs">
+            <Radio value="option1" label="Variant 1" />
+            <Radio value="option2" label="Variant 2" />
+            <Radio value="option3" label="Variant 3" />
+            <Radio value="option4" label="Variant 4" />
+          </Group>
+        </Radio.Group>
 
         <Button
           color="cyan"
