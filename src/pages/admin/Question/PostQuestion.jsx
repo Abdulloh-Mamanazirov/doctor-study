@@ -1,28 +1,20 @@
-import {
-  Box,
-  Button,
-  Drawer,
-  Group,
-  Modal,
-  Radio,
-  TextInput,
-} from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
 import axios from "axios";
-import React, { useState } from "react";
+import { useState } from "react";
+import { toast } from "react-toastify";
+import { useParams } from "react-router-dom";
+import { Button, Group, Modal, Radio, TextInput } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
 
-// Define the PostQuestion component
-const PostQuestion = () => {
-  // State variables
-  const [trueVariant, setTrueVariant] = useState("");
+const PostQuestion = ({getData}) => {
+  const { material_id } = useParams();
   const [opened, { open, close }] = useDisclosure(false);
+  const [trueVariant, setTrueVariant] = useState("");
   const [formData, setFormData] = useState({
-    question: "What is the capital of Canada?",
-    option1: "Toronto",
-    option2: "Vancouver",
-    option3: "Ottawa",
-    option4: "Montreal",
-    favoriteFramework: "",
+    question: "",
+    option1: "",
+    option2: "",
+    option3: "",
+    option4: "",
   });
 
   // Handle input change
@@ -37,7 +29,7 @@ const PostQuestion = () => {
   // Handle form submission
   const handleSubmit = async () => {
     if (trueVariant === "") {
-      console.log("Please select a true variant");
+      toast.info("Please select a true variant");
       return;
     }
 
@@ -49,16 +41,14 @@ const PostQuestion = () => {
         formData.option3,
         formData.option4,
       ],
-      correct: trueVariant,
-      material: 1,
+      material: material_id,
     };
 
+    postData.correct = postData.options[+trueVariant];
+
     try {
-      const response = await axios.post("/api/your-api-endpoint", postData);
+      await axios.post("/tests", postData);
 
-      console.log(response.data);
-
-      console.log("Test created successfully!");
       setFormData({
         question: "",
         option1: "",
@@ -67,10 +57,13 @@ const PostQuestion = () => {
         option4: "",
       });
       setTrueVariant("");
+      close();
+      getData()
     } catch (error) {
-      console.error("Failed to create test:", error.message);
+      return;
     }
   };
+
   return (
     <div>
       <Modal
@@ -81,7 +74,7 @@ const PostQuestion = () => {
       >
         <TextInput
           mt="sm"
-          label="Test title English"
+          label="Question"
           placeholder="Test title English"
           name="question"
           className="w-full"
@@ -133,10 +126,10 @@ const PostQuestion = () => {
           onChange={setTrueVariant}
         >
           <Group mt="xs">
-            <Radio value="option1" label="Variant 1" />
-            <Radio value="option2" label="Variant 2" />
-            <Radio value="option3" label="Variant 3" />
-            <Radio value="option4" label="Variant 4" />
+            <Radio value="0" label="Variant 1" />
+            <Radio value="1" label="Variant 2" />
+            <Radio value="2" label="Variant 3" />
+            <Radio value="3" label="Variant 4" />
           </Group>
         </Radio.Group>
 

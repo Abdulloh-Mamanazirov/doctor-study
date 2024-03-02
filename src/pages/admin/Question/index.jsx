@@ -25,14 +25,13 @@ const index = () => {
   useEffect(() => {
     getData();
   }, []);
-
+  console.log(data);
   return (
     <div>
       <PostQuestion getData={getData} />
       <div className="md:mt-10 grid lg:grid-cols-3 w-full md:grid-cols-2 gap-3">
-        {/* {data?.length > 0 ? ( */}
         {
-          data.map((item) => {
+          data?.map?.((item) => {
             return (
               <Link to={`${item.id}`}>
                 <Card withBorder shadow="sm" radius="md" key={item.id}>
