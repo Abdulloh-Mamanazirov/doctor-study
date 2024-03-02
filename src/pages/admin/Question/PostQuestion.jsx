@@ -1,22 +1,14 @@
-import {
-  Box,
-  Button,
-  Drawer,
-  Group,
-  Modal,
-  Radio,
-  TextInput,
-} from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
 import axios from "axios";
-import React, { useState } from "react";
+import { useState } from "react";
 import { toast } from "react-toastify";
+import { useParams } from "react-router-dom";
+import { Button, Group, Modal, Radio, TextInput } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
 
-// Define the PostQuestion component
-const PostQuestion = () => {
-  // State variables
-  const [trueVariant, setTrueVariant] = useState("");
+const PostQuestion = ({ getData }) => {
+  const { material_id } = useParams();
   const [opened, { open, close }] = useDisclosure(false);
+  const [trueVariant, setTrueVariant] = useState("");
   const [formData, setFormData] = useState({
     question: "",
     option1: "",
@@ -25,6 +17,7 @@ const PostQuestion = () => {
     option4: "",
   });
 
+  // Handle input change
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -33,28 +26,29 @@ const PostQuestion = () => {
     });
   };
 
+  // Handle form submission
   const handleSubmit = async () => {
     if (trueVariant === "") {
-      toast.error("Please select a true variant");
+      toast.info("Please select a true variant");
       return;
     }
 
     const postData = {
       question: formData.question,
-      material: 1,
       options: [
         formData.option1,
         formData.option2,
         formData.option3,
         formData.option4,
       ],
+      material: material_id,
     };
 
-    postData.corect = postData.options[trueVariant];
+    postData.correct = postData.options[+trueVariant];
 
     try {
-      const response = await axios.post("/api/your-api-endpoint", postData);
-      toast.success("Test created successfully!");
+      await axios.post("/tests", postData);
+
       setFormData({
         question: "",
         option1: "",
@@ -63,8 +57,10 @@ const PostQuestion = () => {
         option4: "",
       });
       setTrueVariant("");
+      close();
+      getData();
     } catch (error) {
-      toast.error("Failed to create test:", error.message);
+      return;
     }
   };
 
@@ -78,7 +74,7 @@ const PostQuestion = () => {
       >
         <TextInput
           mt="sm"
-          label="Test title English"
+          label="Question"
           placeholder="Test title English"
           name="question"
           className="w-full"
