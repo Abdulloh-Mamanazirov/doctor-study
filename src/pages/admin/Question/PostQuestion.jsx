@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { Button, Group, Modal, Radio, TextInput } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 
-const PostQuestion = ({getData}) => {
+const PostQuestion = ({ getData }) => {
   const { material_id } = useParams();
   const [opened, { open, close }] = useDisclosure(false);
   const [trueVariant, setTrueVariant] = useState("");
@@ -58,7 +58,7 @@ const PostQuestion = ({getData}) => {
       });
       setTrueVariant("");
       close();
-      getData()
+      getData();
     } catch (error) {
       return;
     }
