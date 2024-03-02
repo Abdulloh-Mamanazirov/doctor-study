@@ -1,6 +1,5 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { toast } from "react-toastify";
 import {
   book,
   event,
@@ -20,7 +19,7 @@ const index = () => {
         setData(response.data);
       })
       .catch((error) => {
-        toast.error("error during getting data");
+        return;
       });
   }
   useEffect(() => {
