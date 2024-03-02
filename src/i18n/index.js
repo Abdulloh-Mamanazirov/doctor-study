@@ -24,6 +24,8 @@ i18n.use(initReactI18next).init({
 
         // Home page
         home: {
+          heading:
+            "Department of Obstetrics and Gynecology, Ministry of Health of the Republic of Uzbekistan, Center for Professional Development of Medical Institutions",
           title: "Medical education portal",
           videos: {
             title: "video materials",
@@ -108,6 +110,8 @@ i18n.use(initReactI18next).init({
 
         // Home page
         home: {
+          heading:
+            "O'zbekiston Respublikasi sog'liqni saqlash vazirligi, tibbiyot xodimlarini kasbiy malakasini rivojlantirish markazi, Akusherlik va ginekologiya kafedrasi",
           title: "Tibbiy ta'lim portali",
           videos: {
             title: "video materiallar",
@@ -192,6 +196,8 @@ i18n.use(initReactI18next).init({
 
         // Home page
         home: {
+          heading:
+            "Кафедра акушерства и гинекологии Министерства здравоохранения Республики Узбекистан, Центр повышения квалификации медицинских учреждений",
           title: "Медицинский образовательный портал",
           videos: {
             title: "видеоматериалы",

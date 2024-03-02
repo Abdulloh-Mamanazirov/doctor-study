@@ -34,9 +34,14 @@ const index = ({ data }) => {
     >
       <div className="absolute inset-0 bg-black/40" />
       <div className="relative pt-7 pb-3">
-        <h1 className="text-center text-3xl md:text-5xl text-white font-bold leading-tight">
+        <h2 className="text-center text-xl md:text-2xl text-white font-semibold leading-tight md:max-w-screen-lg mx-auto">
+          {t("home.heading")}
+        </h2>
+        <h1 className="text-center text-3xl md:text-4xl text-white font-bold leading-tight">
           {t("home.title")} <br />{" "}
-          <span className="font-extrabold">"DOCTOR-STUDY"</span>
+          <span className="font-extrabold text-3xl md:text-5xl">
+            "DOCTOR-STUDY"
+          </span>
         </h1>
         <div className="w-11/12 md:w-9/12 mx-auto mt-10 grid md:grid-cols-2 gap-10">
           <Card
