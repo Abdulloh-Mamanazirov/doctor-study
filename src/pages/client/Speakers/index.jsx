@@ -1,6 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { loadingIcon } from "../../../assets";
 import { image_url } from "../../../constants";

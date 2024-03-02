@@ -1,11 +1,8 @@
-import { Button, Input } from "@mantine/core";
-import { data } from "autoprefixer";
 import axios from "axios";
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
-import { useTranslation } from "react-i18next";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { Button, Input } from "@mantine/core";
+import { useTranslation } from "react-i18next";
 import { loadingIcon } from "../../../../assets";
 
 const VideoCard = (props) => {

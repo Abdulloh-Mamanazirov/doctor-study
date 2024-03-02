@@ -11,9 +11,11 @@ const data = [
 ];
 
 export function LanguagePicker() {
-  const [opened, setOpened] = useState(false);
-  const [selected, setSelected] = useState(data[0]);
   const { i18n } = useTranslation();
+  const [opened, setOpened] = useState(false);
+  const [selected, setSelected] = useState(
+    data.find((i) => i.key === i18n.language)
+  );
 
   const items = data.map((item) => (
     <Menu.Item
