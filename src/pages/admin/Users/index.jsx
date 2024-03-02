@@ -1,8 +1,7 @@
-import { Table } from "@mantine/core";
-import React, { useEffect, useState } from "react";
-import DeleteUser from "./DeleteUser";
 import axios from "axios";
-import { toast } from "react-toastify";
+import { useEffect, useState } from "react";
+import { Table } from "@mantine/core";
+import DeleteUser from "./DeleteUser";
 
 const index = () => {
   const [data, setData] = useState([]);
@@ -13,7 +12,7 @@ const index = () => {
         setData(response.data);
       })
       .catch((error) => {
-        toast.error("error during get data");
+        return;
       });
   }
   useEffect(() => {

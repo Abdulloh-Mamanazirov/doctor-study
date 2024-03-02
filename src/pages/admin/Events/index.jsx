@@ -1,7 +1,6 @@
 import { Table } from "@mantine/core";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { toast } from "react-toastify";
 import { image_url } from "../../../constants/url";
 import DeleteEvents from "./DeleteEvents";
 import EditEvents from "./EditEvents";
@@ -18,7 +17,7 @@ const index = () => {
         setData(response.data);
       })
       .catch((error) => {
-        toast.error("Error geting data");
+        return;
       });
   }
   useEffect(() => {

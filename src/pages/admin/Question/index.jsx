@@ -5,31 +5,33 @@ import { toast } from "react-toastify";
 import DeleteQuestion from "./DeleteQuestion";
 import EditQuestion from "./EditQuestion";
 import PostQuestion from "./PostQuestion";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const index = () => {
   const [data, setData] = useState([]);
+  const { material_id } = useParams();
+
   async function getData() {
     await axios
-      .get(`test${id}`)
+      .get(`tests/${material_id}`)
       .then((response) => {
         setData(response.data);
       })
       .catch((error) => {
-        toast.error("error during get data");
+        return;
       });
   }
+
   useEffect(() => {
     getData();
   }, []);
-
+  console.log(data);
   return (
     <div>
       <PostQuestion getData={getData} />
       <div className="md:mt-10 grid lg:grid-cols-3 w-full md:grid-cols-2 gap-3">
-        {/* {data?.length > 0 ? ( */}
         {
-          data.map((item) => {
+          data?.map?.((item) => {
             return (
               <Link to={`${item.id}`}>
                 <Card withBorder shadow="sm" radius="md" key={item.id}>

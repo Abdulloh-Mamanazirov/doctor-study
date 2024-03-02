@@ -1,6 +1,5 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { toast } from "react-toastify";
 import PostPartners from "./PostPartners";
 import { Table } from "@mantine/core";
 import EditPartners from "./EditPartners";
@@ -17,13 +16,13 @@ const index = () => {
         setData(response.data);
       })
       .catch(() => {
-        toast.error("erro during get data");
+        return;
       });
   }
   useEffect(() => {
     getData();
   }, []);
-  
+
   return (
     <div className=" md:mt-10">
       <PostPartners getData={getData} />

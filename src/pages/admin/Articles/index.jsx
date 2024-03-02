@@ -1,7 +1,6 @@
 import { Button, Card, Group, Image, Text } from "@mantine/core";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
 import { image_url } from "../../../constants";
 import DeleteArticles from "./DeleteArticles";
 import PostArticles from "./PostArticles";
@@ -30,7 +29,7 @@ function Index() {
         setData(response.data);
       })
       .catch(() => {
-        toast.error("error during get data");
+        return;
       });
   }
   useEffect(() => {

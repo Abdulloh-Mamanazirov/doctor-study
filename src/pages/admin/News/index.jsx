@@ -1,21 +1,10 @@
-import {
-  ActionIcon,
-  Button,
-  Card,
-  Group,
-  Image,
-  Menu,
-  Text,
-  Title,
-  rem,
-} from "@mantine/core";
+import { Button, Card, Group, Image, Text } from "@mantine/core";
 import { useEffect, useState } from "react";
 import PostNews from "./PostNews";
 import SeeAll from "./SeeAll";
 import EditNews from "./EditNews";
 import DeleteNews from "./DeleteNews";
 import axios from "axios";
-import { toast } from "react-toastify";
 import { image_url } from "../../../constants";
 
 function Index() {
@@ -39,7 +28,7 @@ function Index() {
         setData(response.data);
       })
       .catch((error) => {
-        toast.error("error during get data");
+        return;
       });
   }
   useEffect(() => {
