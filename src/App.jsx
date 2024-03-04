@@ -13,7 +13,6 @@ function App() {
   const [routes, setRoutes] = useState();
   const [isLoggedIn, setIsLoggedIn] = useState(true);
 
-
   useEffect(() => {
     if (pathname.startsWith("/admin") && admin_token) {
       setRoutes(<Admin />);
@@ -22,6 +21,7 @@ function App() {
       return setIsLoggedIn(false);
     } else {
       setRoutes(<Client />);
+      sessionStorage.removeItem("doctors-admin-token");
     }
   }, [pathname, admin_token]);
 
@@ -30,7 +30,7 @@ function App() {
   }, [pathname]);
 
   if (!isLoggedIn) {
-      return <AdminLogin />;
+    return <AdminLogin />;
   }
   return (
     <>
