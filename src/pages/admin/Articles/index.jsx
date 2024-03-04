@@ -7,6 +7,7 @@ import PostArticles from "./PostArticles";
 import EditArticles from "./EditArticles";
 import SeeAll from "./SeeAll";
 import { File } from "../../../assets";
+import { Link } from "react-router-dom";
 
 function Index() {
   const [open, setOpen] = useState(false);
@@ -49,6 +50,12 @@ function Index() {
                     <Text fw={500} className="line-clamp-1">
                       {item?.title_en}
                     </Text>
+                    <Link
+                      to={`/admin/test-article/${item?.id}`}
+                      className="bg-blue-500 text-white rounded-md shadow-lg px-3 py-1"
+                    >
+                      Test
+                    </Link>
                   </Group>
                 </Card.Section>
                 <Text mt="sm" c="dimmed" size="sm" h={70} lineClamp={3}>

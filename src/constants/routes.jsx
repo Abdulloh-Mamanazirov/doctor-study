@@ -17,6 +17,7 @@ import {
   // admin pages
   AdminDashboard,
   AdminQuestion,
+  AdminArticleQuestion,
   AdminNews,
   AdminEvents,
   AdminUsers,
@@ -108,6 +109,11 @@ export const ADMIN = [
   {
     path: "/admin/test/:id",
     element: admin_token ? <IdPageQuestion /> : <AdminLogin />,
+    show: false,
+  },
+  {
+    path: "/admin/test-article/:article_id",
+    element: admin_token ? <AdminArticleQuestion /> : <AdminLogin />,
     show: false,
   },
   {

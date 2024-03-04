@@ -45,7 +45,7 @@ const PostQuestion = ({ getData }) => {
     postData.correct = postData.options[+trueVariant];
 
     try {
-      await axios.post("/tests", postData);
+      await axios.post("/api/quizzes", postData);
 
       setFormData({
         question: "",
