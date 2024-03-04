@@ -1,11 +1,8 @@
-import { Card, Group, Table } from "@mantine/core";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { toast } from "react-toastify";
-import DeleteQuestion from "./DeleteQuestion";
-import EditQuestion from "./EditQuestion";
+import { Table } from "@mantine/core";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import PostQuestion from "./PostQuestion";
-import { Link, useParams } from "react-router-dom";
 
 const index = () => {
   const [data, setData] = useState([]);
@@ -13,11 +10,11 @@ const index = () => {
 
   async function getData() {
     await axios
-      .get(`tests/${material_id}`)
+      .get(`tests/material/${material_id}`)
       .then((response) => {
         setData(response.data);
       })
-      .catch((error) => {
+      .catch(() => {
         return;
       });
   }
@@ -25,51 +22,58 @@ const index = () => {
   useEffect(() => {
     getData();
   }, []);
-  console.log(data);
+
   return (
     <div>
       <PostQuestion getData={getData} />
-      <div className="md:mt-10 grid lg:grid-cols-3 w-full md:grid-cols-2 gap-3">
-        {
-          data?.map?.((item) => {
-            return (
-              <Link to={`${item.id}`}>
-                <Card withBorder shadow="sm" radius="md" key={item.id}>
-                  <Card.Section withBorder inheritPadding py="xs">
-                    <Group justify="space-between">
-                      <Text fw={500} className="line-clamp-1">
-                        {item.title_en}
-                      </Text>
-                    </Group>
-                  </Card.Section>
-                  <Text mt="sm" c="dimmed" size="sm">
-                    {item.description_en}
-                  </Text>
-                  <Card.Section mt="sm">
-                    <Image src={image_url + item.link} />
-                  </Card.Section>
-                  <div className="flex gap-1">
-                    <Button fullWidth>
-                      <EditQuestion getData={getData} item={item} />
-                    </Button>
-                    <Button color="red" className="flex" fullWidth>
-                      <DeleteQuestion getData={getData} item={item} />
-                    </Button>
-                  </div>
-                </Card>
-              </Link>
-            );
-          })
-          // ) : (
-          //   <div className="grid place-content-center col-span-3">
-          //     <div className=" items-center gap-3">
-          //       <img src="/empty.png" alt="no data" width={100} />
-          //       <p className="text-gray-500">No data available.</p>
-          //     </div>
-          //   </div>
-          // )}
-        }
-      </div>
+      <Table striped highlightOnHover withTableBorder withColumnBorders mt={15}>
+        <Table.Thead>
+          <Table.Tr>
+            <Table.Th>#</Table.Th>
+            <Table.Th>Question</Table.Th>
+            {new Array(4).fill(null).map((_, ind) => (
+              <Table.Th key={ind}>Variant {ind + 1}</Table.Th>
+            ))}
+            <Table.Th>Action</Table.Th>
+          </Table.Tr>
+        </Table.Thead>
+        <Table.Tbody>
+          {data?.length > 0 ? (
+            data?.map((item, index) => {
+              return (
+                <Table.Tr key={item?.id}>
+                  <Table.Td className="outline outline-1 outline-slate-400">
+                    {index + 1}
+                  </Table.Td>
+                  <Table.Th className="outline outline-1 outline-slate-400">
+                    {item?.question}
+                  </Table.Th>
+                  {item?.options?.map((option, ind) => (
+                    <Table.Td
+                      bg={option === item?.correct ? "#b1ffb1" : "#ffcdcd"}
+                      key={ind}
+                      className="outline outline-1 outline-slate-400"
+                    >
+                      {option}
+                    </Table.Td>
+                  ))}
+                  <Table.Td className="flex justify-normal">
+                    {/* <DeletePatners getData={getData} item={item} />
+                    <EditPartners getData={getData} item={item} /> */}
+                  </Table.Td>
+                </Table.Tr>
+              );
+            })
+          ) : (
+            <Table.Td colSpan={11}>
+              <div className="flex flex-col items-center gap-3">
+                <img src="/empty.png" alt="no data" width={100} />
+                <p className="text-gray-500">No data available.</p>
+              </div>
+            </Table.Td>
+          )}
+        </Table.Tbody>
+      </Table>
     </div>
   );
 };

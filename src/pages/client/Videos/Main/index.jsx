@@ -8,28 +8,31 @@ import { loadingIcon } from "../../../../assets";
 const VideoCard = (props) => {
   let img = props?.video?.split("?")[0].split("/")[3];
   return (
-    <Link
-      to={`/video-materials/${props?.id}`}
-      state={props?.data}
-      className="border border-gray-300 rounded-md"
-    >
-      <div className="w-full">
-        <img
-          src={`https://i.ytimg.com/vi/${img}/maxresdefault.jpg`}
-          alt="video image"
-          className="w-full h-full"
-        />
-      </div>
+    <div className="border border-gray-300 rounded-md">
+      <Link to={`/video-materials/${props?.id}`} state={props?.data}>
+        <div className="w-full">
+          <img
+            src={`https://i.ytimg.com/vi/${img}/maxresdefault.jpg`}
+            alt="video image"
+            className="w-full h-full"
+          />
+        </div>
+        <div className="p-1">
+          <h3 className="text-xl font-bold text-primary-tite mt-3 line-clamp-2">
+            {props?.title}
+          </h3>
+          <p className="text-sm line-clamp-3">{props?.desc}</p>
+          <p className="text-sm font-extrabold text-gray-500 mt-5">
+            {props?.date}
+          </p>
+        </div>
+      </Link>
       <div className="p-1">
-        <h3 className="text-xl font-bold text-primary-tite mt-3 line-clamp-2">
-          {props?.title}
-        </h3>
-        <p className="text-sm line-clamp-3">{props?.desc}</p>
-        <p className="text-sm font-extrabold text-gray-500 mt-5">
-          {props?.date}
-        </p>
+        <Button fullWidth component={Link} to={`/test/${props?.id}`}>
+          Test
+        </Button>
       </div>
-    </Link>
+    </div>
   );
 };
 
