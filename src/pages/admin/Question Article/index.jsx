@@ -8,11 +8,11 @@ import EditQuestion from "./EditQuestion";
 
 const index = () => {
   const [data, setData] = useState([]);
-  const { material_id } = useParams();
+  const { article_id } = useParams();
 
   async function getData() {
     await axios
-      .get(`tests/material/${material_id}`)
+      .get(`quizzes/article/${article_id}`)
       .then((response) => {
         setData(response.data);
       })
