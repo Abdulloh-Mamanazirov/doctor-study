@@ -6,7 +6,7 @@ import { Button, Group, Modal, Radio, TextInput } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 
 const PostQuestion = ({ getData }) => {
-  const { material_id } = useParams();
+  const { article_id } = useParams();
   const [opened, { open, close }] = useDisclosure(false);
   const [trueVariant, setTrueVariant] = useState("");
   const [formData, setFormData] = useState({
@@ -39,13 +39,13 @@ const PostQuestion = ({ getData }) => {
         formData.option3,
         formData.option4,
       ],
-      material: material_id,
+      article: article_id,
     };
 
     postData.correct = postData.options[+trueVariant];
 
     try {
-      await axios.post("/api/quizzes", postData);
+      await axios.post("/quizzes", postData);
 
       setFormData({
         question: "",
