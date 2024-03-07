@@ -7,9 +7,8 @@ import DeleteQuestion from "./DeleteQuestion";
 import EditQuestion from "./EditQuestion";
 
 const index = () => {
-  const [data, setData] = useState([]);
   const { material_id } = useParams();
-  const [item, setItem] = useState([]);
+  const [data, setData] = useState([]);
 
   async function getData() {
     await axios
@@ -62,11 +61,7 @@ const index = () => {
                   ))}
                   <Table.Td className="flex justify-normal">
                     <DeleteQuestion getData={getData} item={item} />
-                    <EditQuestion
-                      getData={getData}
-                      item={item}
-                      setItem={setItem}
-                    />
+                    <EditQuestion getData={getData} item={item} />
                   </Table.Td>
                 </Table.Tr>
               );

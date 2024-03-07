@@ -1,12 +1,31 @@
-import { Button, Group, Modal, Radio, TextInput } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
 import axios from "axios";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { useParams } from "react-router-dom";
+import { Button, Group, Modal, Radio, TextInput } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
 
-const EditQuestion = ({ getData, item }) => {
+const PostQuestion = ({ getData, item }) => {
+  const { material_id } = useParams();
   const [opened, { open, close }] = useDisclosure(false);
-  const [trueVariant, setTrueVariant] = useState("");
+  const [trueVariant, setTrueVariant] = useState(
+    item?.options?.findIndex?.((option) => option === item?.correct)
+  );
+  const [formData, setFormData] = useState({
+    question: item?.question,
+    option1: item?.options[0],
+    option2: item?.options[1],
+    option3: item?.options[2],
+    option4: item?.options[3],
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
 
   const handleSubmit = async () => {
     if (trueVariant === "") {
@@ -15,33 +34,24 @@ const EditQuestion = ({ getData, item }) => {
     }
 
     const postData = {
-      question: item.question,
+      question: formData.question,
       options: [
-        item.option1 ? item.option1[0] : "",
-        item.option2 ? item.option2[1] : "",
-        item.option3 ? item.option3[2] : "",
-        item.option4 ? item.option4[3] : "",
+        formData.option1,
+        formData.option2,
+        formData.option3,
+        formData.option4,
       ],
+      material: material_id,
     };
 
     postData.correct = postData.options[+trueVariant];
 
     try {
-      await axios.put(`/tests/${item.id}`, postData);
-
-      item({
-        question: "",
-        option1: "",
-        option2: "",
-        option3: "",
-        option4: "",
-      });
-
-      setTrueVariant("");
+      await axios.put(`tests/${item.id}`, postData);
       close();
       getData();
     } catch (error) {
-      toast.error("Error");
+      return;
     }
   };
 
@@ -50,7 +60,7 @@ const EditQuestion = ({ getData, item }) => {
       <Modal
         opened={opened}
         onClose={close}
-        title="Edit Test"
+        title="Create Test"
         size="calc(60vw - 3rem)"
       >
         <TextInput
@@ -59,73 +69,66 @@ const EditQuestion = ({ getData, item }) => {
           placeholder="Test title English"
           name="question"
           className="w-full"
-          value={item.question}
-          defaultValue={item.question}
-          required
-        />
-        <TextInput
-          mt="sm"
-          name="option1"
-          label="Test Variant 1"
-          placeholder="Test Variant 1"
-          defaultValue={item.options[0]}
-          required
-        />
-        <TextInput
-          mt="sm"
-          name="option2"
-          label="Test Variant 2"
-          placeholder="Test Variant 2"
-          defaultValue={item.options[1]}
-          required
-        />
-        <TextInput
-          mt="sm"
-          name="option3"
-          label="Test Variant 3"
-          placeholder="Test Variant 3"
-          defaultValue={item.options[2]}
-          required
-        />
-        <TextInput
-          mt="sm"
-          name="option4"
-          label="Test Variant 4"
-          placeholder="Test Variant 4"
-          defaultValue={item.options[3]}
+          value={formData.question}
+          onChange={handleInputChange}
+          // defaultValue={item.question}
           required
         />
 
-        <Group mt="xs">
-          <Radio
-            name="trueVariant"
-            value="0"
-            label="Variant 1"
-            checked={trueVariant === "0"}
-            onChange={() => setTrueVariant("0")}
-          />
-          <Radio
-            name="trueVariant"
-            value="1"
-            label="Variant 2"
-            checked={trueVariant === "1"}
-            onChange={() => setTrueVariant("1")}
-          />
-          <Radio
-            name="trueVariant"
-            value="2"
-            label="Variant 3"
-            checked={trueVariant === "2"}
-            onChange={() => setTrueVariant("2")}
-          />
-          <Radio
-            name="trueVariant"
-            value="3"
-            label="Variant 4"
-            checked={trueVariant === "3"}
-            onChange={() => setTrueVariant("3")}
-          />
-        </Group>
+        <TextInput
+          mt="sm"
+          label="Test Variant 1"
+          placeholder="Test Variant 1"
+          name="option1"
+          value={formData.option1}
+          onChange={handleInputChange}
+          // defaultValue={item.options[0]}
+          required
+        />
+        <TextInput
+          mt="sm"
+          label="Test Variant 2"
+          placeholder="Test Variant 2"
+          name="option2"
+          value={formData.option2}
+          onChange={handleInputChange}
+          // defaultValue={item.options[1]}
+          required
+        />
+        <TextInput
+          mt="sm"
+          label="Test Variant 3"
+          placeholder="Test Variant 3"
+          name="option3"
+          value={formData.option3}
+          onChange={handleInputChange}
+          // defaultValue={item.options[2]}
+          required
+        />
+        <TextInput
+          mt="sm"
+          label="Test Variant 4"
+          placeholder="Test Variant 4"
+          name="option4"
+          value={formData.option4}
+          onChange={handleInputChange}
+          // defaultValue={item.options[3]}
+          required
+        />
+
+        <Radio.Group
+          name="trueVariant"
+          value={String(trueVariant)}
+          onChange={setTrueVariant}
+          // defaultChecked={trueVariant}
+        >
+          <Group mt="xs">
+            <Radio value="0" label="Variant 1" />
+            <Radio value="1" label="Variant 2" />
+            <Radio value="2" label="Variant 3" />
+            <Radio value="3" label="Variant 4" />
+          </Group>
+        </Radio.Group>
 
         <Button
           color="cyan"
@@ -146,4 +149,4 @@ const EditQuestion = ({ getData, item }) => {
   );
 };
 
-export default EditQuestion;
+export default PostQuestion;
