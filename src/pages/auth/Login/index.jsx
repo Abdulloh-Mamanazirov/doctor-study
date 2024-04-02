@@ -24,7 +24,7 @@ export default function Index() {
       if (response.data.access_token) {
         toast.success("Authentication successful");
         sessionStorage.setItem("doctors-token", response.data.access_token);
-        sessionStorage.setItem("doctors-user-id", response.data.id);
+        sessionStorage.setItem("doctors-user-id", response.data?.id);
         if (window.location.pathname === "/login") {
           window.location.replace("/");
         } else {
