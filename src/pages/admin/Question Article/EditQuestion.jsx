@@ -1,7 +1,7 @@
-import { Button, Group, Modal, Radio, TextInput } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
 import axios from "axios";
 import { useState } from "react";
+import { Button, Group, Modal, Radio, TextInput } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
 import { toast } from "react-toastify";
 
 const EditQuestion = ({ getData, item }) => {
@@ -22,15 +22,15 @@ const EditQuestion = ({ getData, item }) => {
       return;
     }
 
-    const postData = {
+    const Editdata = {
       question: item.question,
       options: [item.option1, item.option2, item.option3, item.option4],
     };
 
-    postData.correct = postData.options[+trueVariant];
+    Editdata.correct = Editdata.options[+trueVariant];
 
     try {
-      await axios.patch(`/tests/${item.id}`, postData);
+      await axios.patch(`quizzes/${item.id}`, Editdata);
 
       setItem({
         question: "",
@@ -43,7 +43,7 @@ const EditQuestion = ({ getData, item }) => {
       close();
       getData();
     } catch (error) {
-      toast.error("Error:");
+      return;
     }
   };
   return (

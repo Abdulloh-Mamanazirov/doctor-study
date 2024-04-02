@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 const DeleteArticles = ({ getData, item }) => {
   async function handleDelete() {
     try {
-      const res = await axios.delete(`tests/${item.id}`);
+      const res = await axios.delete(`/quizzes/${item.id}`);
       if (res.status === 204) {
         getData();
         toast.info("O'chirildi!");
@@ -28,7 +28,7 @@ const DeleteArticles = ({ getData, item }) => {
         </Popover.Target>
         <Popover.Dropdown className="flex items-center">
           <Box mx="lg">
-            <Text>Do this test</Text>
+            <Text>Delete this test?</Text>
             <Button
               fullWidth
               variant="outline"
@@ -36,7 +36,7 @@ const DeleteArticles = ({ getData, item }) => {
               size="xs"
               onClick={confirm}
             >
-              yes
+              Yes
             </Button>
           </Box>
         </Popover.Dropdown>

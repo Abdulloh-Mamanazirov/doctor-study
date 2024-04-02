@@ -8,14 +8,6 @@ const EditQuestion = ({ getData, item }) => {
   const [opened, { open, close }] = useDisclosure(false);
   const [trueVariant, setTrueVariant] = useState("");
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    (prevItem) => ({
-      ...prevItem,
-      [name]: value,
-    });
-  };
-
   const handleSubmit = async () => {
     if (trueVariant === "") {
       toast.info("Please select a true variant");
@@ -24,28 +16,35 @@ const EditQuestion = ({ getData, item }) => {
 
     const postData = {
       question: item.question,
-      options: [item.option1, item.option2, item.option3, item.option4],
+      options: [
+        item.option1 ? item.option1[0] : "",
+        item.option2 ? item.option2[1] : "",
+        item.option3 ? item.option3[2] : "",
+        item.option4 ? item.option4[3] : "",
+      ],
     };
 
     postData.correct = postData.options[+trueVariant];
 
     try {
-      await axios.patch(`/tests/${item.id}`, postData);
+      await axios.put(`/tests/${item.id}`, postData);
 
-      setItem({
+      item({
         question: "",
         option1: "",
         option2: "",
         option3: "",
         option4: "",
       });
+
       setTrueVariant("");
       close();
       getData();
     } catch (error) {
-      toast.error("Error:");
+      return;
     }
   };
+
   return (
     <div>
       <Modal
@@ -61,63 +60,72 @@ const EditQuestion = ({ getData, item }) => {
           name="question"
           className="w-full"
           value={item.question}
-          onChange={handleInputChange}
           defaultValue={item.question}
           required
         />
         <TextInput
           mt="sm"
+          name="option1"
           label="Test Variant 1"
           placeholder="Test Variant 1"
-          name="option1"
-          value={item.option1}
-          onChange={handleInputChange}
           defaultValue={item.options[0]}
           required
         />
         <TextInput
           mt="sm"
+          name="option2"
           label="Test Variant 2"
           placeholder="Test Variant 2"
-          name="option2"
-          value={item.option2}
-          onChange={handleInputChange}
           defaultValue={item.options[1]}
           required
         />
         <TextInput
           mt="sm"
+          name="option3"
           label="Test Variant 3"
           placeholder="Test Variant 3"
-          name="option3"
-          value={item.option3}
-          onChange={handleInputChange}
           defaultValue={item.options[2]}
           required
         />
         <TextInput
           mt="sm"
+          name="option4"
           label="Test Variant 4"
           placeholder="Test Variant 4"
-          name="option4"
-          value={item.option4}
-          onChange={handleInputChange}
           defaultValue={item.options[3]}
           required
         />
 
-        <Radio.Group
-          name="trueVariant"
-          value={trueVariant}
-          onChange={setTrueVariant}
-        >
-          <Group mt="xs">
-            <Radio value="0" label="Variant 1" />
-            <Radio value="1" label="Variant 2" />
-            <Radio value="2" label="Variant 3" />
-            <Radio value="3" label="Variant 4" />
-          </Group>
-        </Radio.Group>
+        <Group mt="xs">
+          <Radio
+            name="trueVariant"
+            value="0"
+            label="Variant 1"
+            checked={trueVariant === "0"}
+            onChange={() => setTrueVariant("0")}
+          />
+          <Radio
+            name="trueVariant"
+            value="1"
+            label="Variant 2"
+            checked={trueVariant === "1"}
+            onChange={() => setTrueVariant("1")}
+          />
+          <Radio
+            name="trueVariant"
+            value="2"
+            label="Variant 3"
+            checked={trueVariant === "2"}
+            onChange={() => setTrueVariant("2")}
+          />
+          <Radio
+            name="trueVariant"
+            value="3"
+            label="Variant 4"
+            checked={trueVariant === "3"}
+            onChange={() => setTrueVariant("3")}
+          />
+        </Group>
 
         <Button
           color="cyan"
