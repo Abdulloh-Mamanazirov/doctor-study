@@ -27,11 +27,11 @@ const VideoCard = (props) => {
           </p>
         </div>
       </Link>
-      <div className="p-1">
+      {/* <div className="p-1">
         <Button fullWidth component={Link} to={`/test/${props?.id}`}>
           Test
         </Button>
-      </div>
+      </div> */}
     </div>
   );
 };
