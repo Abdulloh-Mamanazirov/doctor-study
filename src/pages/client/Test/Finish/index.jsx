@@ -1,3 +1,4 @@
+import axios from "axios";
 import { Button } from "@mantine/core";
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
@@ -26,6 +27,27 @@ const index = () => {
   const { t } = useTranslation();
   const { test } = useSelector((state) => state);
   const [result, setResult] = useState({ percentage: 0, number: 0 });
+  const user_id = sessionStorage.getItem("doctors-user-id");
+
+  async function postQuestions() {
+    const data = {
+      useId: user_id,
+      answers: test.answers,
+    };
+
+    if (test.test.type === "material") {
+      data.materialId = test.test.id;
+      data.testId = test.test.id;
+    }
+
+    if (test.test.type === "article") {
+      data.articleId = test.test.id;
+      data.quizId = test.test.id;
+    }
+
+    console.log(data);
+    // await axios.post("");
+  }
 
   function calculateCorrectAnswers(data) {
     let correctCount = 0;
@@ -46,6 +68,10 @@ const index = () => {
   }
 
   useEffect(() => {
+    if (!test.test.type || test.answers === 0)
+      navigate("/", { preventScrollReset: false });
+
+    postQuestions();
     calculateCorrectAnswers(test?.answers);
   }, []);
 

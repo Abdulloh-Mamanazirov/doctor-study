@@ -1,9 +1,11 @@
+import { useNavigate } from "react-router-dom";
 import { useTimer } from "react-timer-hook";
 
 function MyTimer({ expiryTimestamp }) {
+  const navigate = useNavigate();
   const { seconds, minutes, hours } = useTimer({
     expiryTimestamp,
-    onExpire: () => alert("onExpire called"),
+    onExpire: () => navigate("/finish"),
   });
 
   return (
