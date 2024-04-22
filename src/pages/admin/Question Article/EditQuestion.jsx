@@ -4,8 +4,6 @@ import { Button, Group, Modal, Radio, TextInput } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
-import { Button, Group, Modal, Radio, TextInput } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
 
 const PostQuestion = ({ getData, item }) => {
   const { article_id } = useParams();
