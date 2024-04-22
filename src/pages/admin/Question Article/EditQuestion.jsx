@@ -3,15 +3,28 @@ import { useState } from "react";
 import { Button, Group, Modal, Radio, TextInput } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { toast } from "react-toastify";
+import { useParams } from "react-router-dom";
+import { Button, Group, Modal, Radio, TextInput } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
 
-const EditQuestion = ({ getData, item }) => {
+const PostQuestion = ({ getData, item }) => {
+  const { article_id } = useParams();
   const [opened, { open, close }] = useDisclosure(false);
-  const [trueVariant, setTrueVariant] = useState("");
+  const [trueVariant, setTrueVariant] = useState(
+    item?.options?.findIndex?.((option) => option === item?.correct)
+  );
+  const [formData, setFormData] = useState({
+    question: item?.question,
+    option1: item?.options[0],
+    option2: item?.options[1],
+    option3: item?.options[2],
+    option4: item?.options[3],
+  });
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    (prevItem) => ({
-      ...prevItem,
+    setFormData({
+      ...formData,
       [name]: value,
     });
   };
@@ -22,36 +35,34 @@ const EditQuestion = ({ getData, item }) => {
       return;
     }
 
-    const Editdata = {
-      question: item.question,
-      options: [item.option1, item.option2, item.option3, item.option4],
+    const postData = {
+      question: formData.question,
+      options: [
+        formData.option1,
+        formData.option2,
+        formData.option3,
+        formData.option4,
+      ],
+      article: article_id,
     };
 
-    Editdata.correct = Editdata.options[+trueVariant];
-
+    postData.correct = postData.options[+trueVariant];
     try {
-      await axios.patch(`quizzes/${item.id}`, Editdata);
-
-      setItem({
-        question: "",
-        option1: "",
-        option2: "",
-        option3: "",
-        option4: "",
-      });
-      setTrueVariant("");
+      await axios.put(`quizzes/${item.id}`, postData);
       close();
       getData();
     } catch (error) {
       return;
     }
   };
+  console.log(article_id, "article");
+
   return (
     <div>
       <Modal
         opened={opened}
         onClose={close}
-        title="Edit Test"
+        title="Create Test"
         size="calc(60vw - 3rem)"
       >
         <TextInput
@@ -60,19 +71,20 @@ const EditQuestion = ({ getData, item }) => {
           placeholder="Test title English"
           name="question"
           className="w-full"
-          value={item.question}
+          value={formData.question}
           onChange={handleInputChange}
-          defaultValue={item.question}
+          // defaultValue={item.question}
           required
         />
+
         <TextInput
           mt="sm"
           label="Test Variant 1"
           placeholder="Test Variant 1"
           name="option1"
-          value={item.option1}
+          value={formData.option1}
           onChange={handleInputChange}
-          defaultValue={item.options[0]}
+          // defaultValue={item.options[0]}
           required
         />
         <TextInput
@@ -80,9 +92,9 @@ const EditQuestion = ({ getData, item }) => {
           label="Test Variant 2"
           placeholder="Test Variant 2"
           name="option2"
-          value={item.option2}
+          value={formData.option2}
           onChange={handleInputChange}
-          defaultValue={item.options[1]}
+          // defaultValue={item.options[1]}
           required
         />
         <TextInput
@@ -90,9 +102,9 @@ const EditQuestion = ({ getData, item }) => {
           label="Test Variant 3"
           placeholder="Test Variant 3"
           name="option3"
-          value={item.option3}
+          value={formData.option3}
           onChange={handleInputChange}
-          defaultValue={item.options[2]}
+          // defaultValue={item.options[2]}
           required
         />
         <TextInput
@@ -100,16 +112,17 @@ const EditQuestion = ({ getData, item }) => {
           label="Test Variant 4"
           placeholder="Test Variant 4"
           name="option4"
-          value={item.option4}
+          value={formData.option4}
           onChange={handleInputChange}
-          defaultValue={item.options[3]}
+          // defaultValue={item.options[3]}
           required
         />
 
         <Radio.Group
           name="trueVariant"
-          value={trueVariant}
+          value={String(trueVariant)}
           onChange={setTrueVariant}
+          // defaultChecked={trueVariant}
         >
           <Group mt="xs">
             <Radio value="0" label="Variant 1" />
@@ -138,4 +151,4 @@ const EditQuestion = ({ getData, item }) => {
   );
 };
 
-export default EditQuestion;
+export default PostQuestion;
