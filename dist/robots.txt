@@ -7,5 +7,7 @@ Sitemap: https://doctor-study.uz/sitemap_index.xml
 # Be careful blocking pages for adsbot as doing so incorrectly can
 # mess up your Adwords Campaigns.
 User-Agent: AdsBot-Google
-Disallow: /login
-Disallow: /register
+Disallow: /search
+Disallow: /search?*
+Disallow: /admin
+Disallow: /admin?*
